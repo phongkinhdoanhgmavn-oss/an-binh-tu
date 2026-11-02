@@ -2,9 +2,9 @@
   "name": "dichua-online",
   "version": "1.0.0",
   "description": "An Binh Tu - Chua online 3D WebGL",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server/server.js"
   },
   "engines": {
     "node": ">=18.0.0"
