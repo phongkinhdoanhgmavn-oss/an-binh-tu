@@ -20,10 +20,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Lora:wght@500;600&display=swap" rel="stylesheet" />
-    <script>window.AN_BINH_TU_WS = window.AN_BINH_TU_WS || "";</script>
-    <script type="module" crossorigin src="/assets/main-CQ_rl8lU.js?v=8"></script>
+    <script>
+      window.AN_BINH_TU_WS = window.AN_BINH_TU_WS || (location.hostname.includes('vercel.app') ? 'wss://an-binh-tu.onrender.com/ws' : '');
+      setTimeout(function() {
+        var l = document.getElementById('loading');
+        if (l && !l.classList.contains('done')) {
+          l.classList.add('done');
+        }
+      }, 3500);
+    </script>
+    <script type="module" crossorigin src="/assets/main-CQ_rl8lU.js?v=9"></script>
     <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="stylesheet" crossorigin href="/assets/main-qo3Sxe6b.css?v=8">
+    <link rel="stylesheet" crossorigin href="/assets/main-qo3Sxe6b.css?v=9">
   </head>
   <body>
     <canvas id="scene"></canvas>

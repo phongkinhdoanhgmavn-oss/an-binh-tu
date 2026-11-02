@@ -2,4 +2,10 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.log
-.vercel
+.vercel/
+edge_debug_profile/
+capture_*.cjs
+inspect_*.cjs
+check_*.cjs
+debug_*.cjs
+test_*.cjs

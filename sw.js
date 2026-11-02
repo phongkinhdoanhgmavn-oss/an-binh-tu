@@ -2,7 +2,7 @@
 // while statues, the Draco decoder, icons and the hashed code files are kept on the phone after the
 // first visit, so coming back is fast and costs no data. Code files carry a hash in their name and never
 // change; statues and icons keep their names, so a kept copy is refreshed quietly for the next visit.
-const CACHE = 'anbinhtu-v8';
+const CACHE = 'anbinhtu-v9';
 const KEEP = /^\/(models|draco|icons|assets)\//;
 
 self.addEventListener('install', () => self.skipWaiting());
