@@ -9,3 +9,7 @@ inspect_*.cjs
 check_*.cjs
 debug_*.cjs
 test_*.cjs
+
+take_screenshot.cjs
+*.png
+

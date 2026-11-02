@@ -1,0 +1,8 @@
+package.json
+package-lock.json
+server/
+render.yaml
+node_modules/
+*.cjs
+*.log
+edge_debug_profile/
