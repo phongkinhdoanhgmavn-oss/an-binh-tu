@@ -26,8 +26,9 @@
         var l = document.getElementById('loading');
         if (l && !l.classList.contains('done')) {
           l.classList.add('done');
+          setTimeout(function() { if (l) l.style.display = 'none'; }, 1000);
         }
-      }, 3500);
+      }, 2500);
     </script>
     <script type="module" crossorigin src="/assets/main-CQ_rl8lU.js?v=9"></script>
     <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
