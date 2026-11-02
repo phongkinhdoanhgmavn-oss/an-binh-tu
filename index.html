@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#1d1610" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="/icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="An Bình Tự" />
+    <meta property="og:title" content="An Bình Tự · Chùa online" />
+    <meta property="og:description" content="Lên chùa cầu an, thân tâm thanh tịnh. Vào ngay trên điện thoại, không cần đăng nhập." />
+    <meta property="og:image" content="/icons/icon-512.png" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta name="description" content="An Bình Tự — lên chùa cầu an, gặp người có duyên. Ngôi chùa 3D trên trình duyệt, vào ngay không cần đăng nhập." />
+    <title>An Bình Tự · Chùa online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Lora:wght@500;600&display=swap" rel="stylesheet" />
+    <script>window.AN_BINH_TU_WS = window.AN_BINH_TU_WS || "";</script>
+    <script type="module" crossorigin src="/assets/main-CQ_rl8lU.js?v=8"></script>
+    <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+    <link rel="stylesheet" crossorigin href="/assets/main-qo3Sxe6b.css?v=8">
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+    <div id="hud"></div>
+    <div id="loading">
+      <div class="loading-temple-wrap">
+        <svg class="temple-silhouette" viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="templeGold" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fff0c2"/>
+              <stop offset="45%" stop-color="#ffd98a"/>
+              <stop offset="80%" stop-color="#e8c06a"/>
+              <stop offset="100%" stop-color="#b38734"/>
+            </linearGradient>
+            <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffe8a3" stop-opacity="0.9"/>
+              <stop offset="35%" stop-color="#e8c06a" stop-opacity="0.45"/>
+              <stop offset="70%" stop-color="#d49b38" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#d49b38" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="doorLight" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="50%" stop-color="#ffd98a"/>
+              <stop offset="100%" stop-color="#e8c06a" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <!-- Vầng trăng tròn hào quang đại bi soi chiếu sau chùa -->
+          <circle cx="120" cy="95" r="75" fill="url(#moonGlow)"/>
+          <circle cx="120" cy="92" r="48" fill="#ffeec2" opacity="0.12"/>
+          <circle cx="120" cy="92" r="47" stroke="#ffd98a" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.6"/>
+
+          <!-- Đỉnh bảo tháp ngời sáng -->
+          <path d="M120 18 L120 40 M117 26 L123 26 M118 34 L122 34" stroke="url(#templeGold)" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="120" cy="18" r="3.5" fill="#ffffff" filter="drop-shadow(0 0 6px #ffd98a)"/>
+
+          <!-- Tầng mái đao thứ 3 (trên cùng) cong vút -->
+          <path d="M120 38 L104 48 C96 53 84 52 78 49 C83 55 96 56 108 53 L114 55 L126 55 L132 53 C144 56 157 55 162 49 C156 52 144 53 136 48 Z" fill="url(#templeGold)"/>
+          <rect x="110" y="54" width="20" height="12" fill="#241710" stroke="url(#templeGold)" stroke-width="1.2"/>
+          <path d="M116 58 A4 4 0 0 1 124 58 L124 66 L116 66 Z" fill="url(#templeGold)" opacity="0.75"/>
+
+          <!-- Tầng mái đao thứ 2 (ở giữa) -->
+          <path d="M120 64 L96 76 C84 82 68 81 58 76 C65 85 82 86 100 82 L110 85 L130 85 L140 82 C158 86 175 85 182 76 C172 81 156 82 144 76 Z" fill="url(#templeGold)"/>
+          <circle cx="60" cy="80" r="1.8" fill="#ffd98a"/>
+          <circle cx="180" cy="80" r="1.8" fill="#ffd98a"/>
+          <rect x="102" y="84" width="36" height="18" fill="#241710" stroke="url(#templeGold)" stroke-width="1.2"/>
+          <line x1="112" y1="86" x2="112" y2="102" stroke="url(#templeGold)" stroke-width="1.2"/>
+          <line x1="128" y1="86" x2="128" y2="102" stroke="url(#templeGold)" stroke-width="1.2"/>
+          <circle cx="120" cy="93" r="3" fill="url(#templeGold)" opacity="0.85"/>
+
+          <!-- Mái đại Chánh Điện uy nghiêm cổ kính -->
+          <path d="M120 98 L80 115 C62 123 42 121 28 114 C38 126 62 128 88 123 L104 127 L136 127 L152 123 C178 128 202 126 212 114 C198 121 178 123 160 115 Z" fill="url(#templeGold)"/>
+          <circle cx="30" cy="120" r="2.2" fill="#ffd98a"/>
+          <circle cx="210" cy="120" r="2.2" fill="#ffd98a"/>
+
+          <!-- Thân chùa, cột gỗ lim và cửa Chánh Điện tỏa từ quang -->
+          <rect x="86" y="126" width="68" height="32" fill="#241710" stroke="url(#templeGold)" stroke-width="1.5"/>
+          <circle cx="120" cy="146" r="22" fill="url(#doorLight)" opacity="0.65"/>
+          <path d="M110 138 C110 133 114 130 120 130 C126 130 130 133 130 138 L130 158 L110 158 Z" fill="#ffd98a" opacity="0.95" filter="drop-shadow(0 0 10px #ffd98a)"/>
+          <line x1="93" y1="128" x2="93" y2="158" stroke="url(#templeGold)" stroke-width="1.8"/>
+          <line x1="147" y1="128" x2="147" y2="158" stroke="url(#templeGold)" stroke-width="1.8"/>
+
+          <!-- Thềm đá tam cấp và hoa sen tỏa sáng -->
+          <path d="M68 158 L172 158 L168 164 L72 164 Z" fill="url(#templeGold)"/>
+          <path d="M54 164 L186 164 L180 170 L60 170 Z" fill="url(#templeGold)" opacity="0.85"/>
+
+          <!-- Đóa sen vàng bồ đề ngát hương trước thềm chùa -->
+          <path d="M120 167 C113 164 105 167 103 175 C108 177 114 176 120 170 Z" fill="#ffd98a" opacity="0.95"/>
+          <path d="M120 167 C127 164 135 167 137 175 C132 177 126 176 120 170 Z" fill="#ffd98a" opacity="0.95"/>
+          <path d="M120 165 C117 160 120 156 120 156 C120 156 123 160 120 165 Z" fill="#ffffff"/>
+          <ellipse cx="120" cy="174" rx="34" ry="5" fill="#ffd98a" opacity="0.35" filter="blur(4px)"/>
+        </svg>
+      </div>
+      <div class="loading-mark">An Bình Tự</div>
+      <div class="loading-text">Đang mở cổng chùa…</div>
+      <div class="loading-bar"><span></span></div>
+      <div class="loading-quote"></div>
+    </div>
+    <script>
+      // a quiet line to read while the temple opens (our own words)
+      var q = [
+        'Đi chậm một chút, thở sâu một chút.',
+        'Lòng lặng rồi, ở đâu cũng là chùa.',
+        'Gieo một hạt lành, đợi một mùa an.',
+        'Buông bớt một điều, nhẹ thêm một bước.',
+        'Nụ cười hiền là nén hương thơm nhất.',
+        'Lên chùa hôm nay, mang bình an về nhà.',
+        'Mỗi tiếng chuông là một lần trở về.',
+      ];
+      document.querySelector('.loading-quote').textContent = '“' + q[Math.floor(Math.random() * q.length)] + '”';
+    </script>
+  </body>
+</html>

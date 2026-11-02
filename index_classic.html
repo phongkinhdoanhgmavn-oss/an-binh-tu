@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>An Bình Tự - Đi Chùa Online · Không Gian Tịnh Tâm</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Traditional & Elegant Vietnamese typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 Pro Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        temple: {
+                            bg: '#120804',
+                            bgDark: '#0a0402',
+                            wood: '#241008',
+                            woodLight: '#3a1a0e',
+                            crimson: '#7b1818',
+                            crimsonLight: '#992222',
+                            gold: '#eab308',
+                            goldLight: '#fde047',
+                            goldDark: '#ca8a04',
+                            amber: '#d97706',
+                            jade: '#059669',
+                            parchment: '#fcf6e8'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', '"Cormorant Garamond"', 'Georgia', 'serif'],
+                        cinzel: ['"Cinzel"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #120804;
+            background-image: 
+                radial-gradient(circle at 50% 10%, rgba(217, 119, 6, 0.25) 0%, rgba(36, 16, 8, 0.92) 50%, #0a0402 100%),
+                radial-gradient(circle at 10% 80%, rgba(123, 24, 24, 0.2) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(234, 179, 8, 0.15) 0%, transparent 45%);
+            color: #fef3c7;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* 3D Gilded Card & Box System (Chữ & Đồ Cúng Luôn Nằm Trong Ô Sang Trọng) */
+        .sacred-box {
+            background: linear-gradient(180deg, rgba(46, 20, 11, 0.94) 0%, rgba(22, 9, 4, 0.98) 100%);
+            border: 1px solid rgba(234, 179, 8, 0.45);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(254, 240, 138, 0.35);
+        }
+        .sacred-box-gold {
+            background: linear-gradient(180deg, rgba(58, 26, 14, 0.95) 0%, rgba(28, 11, 5, 0.99) 100%);
+            border: 2px solid rgba(234, 179, 8, 0.65);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(234, 179, 8, 0.15);
+        }
+        .altar-item-box {
+            background: linear-gradient(180deg, rgba(38, 16, 8, 0.92) 0%, rgba(18, 7, 3, 0.98) 100%);
+            border: 1.5px solid rgba(234, 179, 8, 0.45);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.9), inset 0 1px 2px rgba(254, 240, 138, 0.25);
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.25, 1);
+        }
+        .altar-item-box:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: rgba(253, 224, 71, 0.9);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.95), 0 0 25px rgba(234, 179, 8, 0.35);
+        }
+
+        /* Halo Aura Animations */
+        @keyframes haloRotate {
+            0% { transform: scale(1) rotate(0deg); opacity: 0.85; filter: drop-shadow(0 0 30px rgba(234, 179, 8, 0.65)); }
+            50% { transform: scale(1.06) rotate(180deg); opacity: 1; filter: drop-shadow(0 0 50px rgba(245, 158, 11, 0.95)); }
+            100% { transform: scale(1) rotate(360deg); opacity: 0.85; filter: drop-shadow(0 0 30px rgba(234, 179, 8, 0.65)); }
+        }
+        .sacred-halo-aura {
+            animation: haloRotate 24s linear infinite;
+        }
+
+        /* Volumetric Temple Rays */
+        .volumetric-rays {
+            background: conic-gradient(from 165deg at 50% -10%, transparent 0deg, rgba(251, 191, 36, 0.14) 15deg, transparent 30deg, rgba(251, 191, 36, 0.10) 45deg, transparent 60deg);
+            filter: blur(12px);
+            pointer-events: none;
+        }
+
+        /* 3D Candle Light Glow */
+        @keyframes candlePulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.7)); }
+            50% { filter: drop-shadow(0 0 28px rgba(251, 191, 36, 0.95)); }
+        }
+        .candle-glow-pulse {
+            animation: candlePulseGlow 2.2s infinite ease-in-out;
+        }
+
+        /* Wooden Fish Strike Bounce & Ripple */
+        @keyframes fishStrikeAction {
+            0% { transform: scale(1); }
+            30% { transform: scale(0.94) translateY(3px); }
+            65% { transform: scale(1.04) translateY(-2px); }
+            100% { transform: scale(1); }
+        }
+        .fish-strike {
+            animation: fishStrikeAction 0.22s ease-out;
+        }
+
+        /* Sound Ripple Expansion */
+        @keyframes rippleExpand {
+            0% { width: 40px; height: 40px; opacity: 0.9; border-width: 3px; }
+            100% { width: 340px; height: 340px; opacity: 0; border-width: 1px; }
+        }
+        .ripple-circle {
+            position: absolute;
+            border-radius: 9999px;
+            border-color: #fde047;
+            border-style: solid;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            animation: rippleExpand 1.3s ease-out forwards;
+        }
+
+        /* Floating Wish Bubble */
+        @keyframes wishAscend {
+            0% { opacity: 0; transform: translateY(20px) scale(0.85); }
+            15% { opacity: 1; transform: translateY(0px) scale(1); }
+            75% { opacity: 0.95; transform: translateY(-70px) scale(1.05); }
+            100% { opacity: 0; transform: translateY(-130px) scale(0.95); }
+        }
+        .floating-wish-bubble {
+            position: absolute;
+            pointer-events: none;
+            animation: wishAscend 3.2s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+            z-index: 60;
+        }
+
+        /* Fortune Cylinder Shake */
+        @keyframes shakeCylinderMove {
+            0%, 100% { transform: rotate(0deg) translateY(0); }
+            15% { transform: rotate(-12deg) translateY(-8px); }
+            30% { transform: rotate(11deg) translateY(6px); }
+            45% { transform: rotate(-9deg) translateY(-5px); }
+            60% { transform: rotate(8deg) translateY(4px); }
+            75% { transform: rotate(-5deg) translateY(-3px); }
+        }
+        .shake-animation {
+            animation: shakeCylinderMove 0.45s infinite ease-in-out;
+        }
+
+        /* Wishing Ribbon Sway */
+        @keyframes ribbonSwaying {
+            0%, 100% { transform: rotate(-3.5deg); }
+            50% { transform: rotate(4.5deg); }
+        }
+        .ribbon-sway {
+            transform-origin: top center;
+            animation: ribbonSwaying 3.8s ease-in-out infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #120804;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #7b1818;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #eab308;
+        }
+
+        .deity-image-display {
+            transition: opacity 0.4s ease-in-out, transform 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="selection:bg-amber-600 selection:text-white flex flex-col justify-between pb-24 sm:pb-6">
+
+    <!-- Ambient Glowing Lanterns Background -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-40">
+        <div class="absolute top-10 left-10 w-48 h-48 rounded-full bg-amber-500/15 blur-3xl"></div>
+        <div class="absolute top-24 right-10 w-60 h-60 rounded-full bg-red-600/15 blur-3xl"></div>
+        <div class="absolute bottom-20 left-1/3 w-80 h-80 rounded-full bg-amber-400/10 blur-3xl"></div>
+    </div>
+
+    <!-- ========================================================
+         STICKY TOP HEADER: Logo, Merit Counter, Audio Controls
+         ======================================================== -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-[#160905]/95 border-b border-amber-500/35 px-3 sm:px-6 py-2.5 shadow-2xl">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
+            
+            <!-- Left: Temple Brand in Box -->
+            <div class="flex items-center gap-2.5 sm:gap-3.5">
+                <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-amber-600 via-amber-400 to-yellow-200 p-0.5 shadow-lg border border-amber-300 flex items-center justify-center">
+                    <div class="w-full h-full rounded-xl bg-[#200e08] flex items-center justify-center">
+                        <i class="fa-solid fa-dharmachakra text-amber-300 text-lg sm:text-xl animate-spin" style="animation-duration: 28s;"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5 sm:gap-2">
+                        <h1 class="font-serif text-base sm:text-xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-400">
+                            CHÙA AN BÌNH TỰ
+                        </h1>
+                        <span class="hidden md:inline-block text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-lg bg-red-900/80 border border-amber-400/40 text-amber-200">
+                            Đi Chùa Online 3D
+                        </span>
+                    </div>
+                    <p class="text-[11px] text-amber-200/70 truncate max-w-[200px] sm:max-w-none">
+                        Tâm thành lễ Phật • Gõ mỏ tiêu tai • Tích phước cầu an
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right: Merit Counter & Master Sound / Fullscreen -->
+            <div class="flex items-center gap-1.5 sm:gap-3">
+                
+                <!-- Merit Points Box -->
+                <div class="flex items-center gap-2 bg-gradient-to-r from-[#2c0e07] to-[#1d0803] border border-amber-400/60 px-3 py-1.5 rounded-xl shadow-inner">
+                    <i class="fa-solid fa-hands-praying text-amber-400 text-xs sm:text-sm"></i>
+                    <div>
+                        <span class="text-[9px] uppercase tracking-wider text-amber-200/70 block leading-tight font-semibold">Công Đức</span>
+                        <span id="merit-counter-display" class="font-serif font-bold text-sm sm:text-base text-amber-300 leading-none">0</span>
+                    </div>
+                </div>
+
+                <!-- Chanting Player Button Box -->
+                <button id="btn-chant-audio" onclick="toggleChantAudio()" title="Bật/Tắt Nhạc Tụng Kinh" class="px-2.5 py-1.5 rounded-xl bg-temple-woodLight hover:bg-amber-900/60 border border-amber-500/40 text-amber-300 transition flex items-center gap-1.5 text-xs font-semibold shadow">
+                    <i id="chant-icon" class="fa-solid fa-music text-xs"></i>
+                    <span class="hidden lg:inline" id="chant-label">Kinh Phật</span>
+                </button>
+
+                <!-- Ambient Stream Sound Button Box -->
+                <button id="btn-ambient-audio" onclick="toggleAmbientNature()" title="Bật/Tắt Âm Thanh Suối Reo Thiền Viện" class="px-2.5 py-1.5 rounded-xl bg-temple-woodLight hover:bg-amber-900/60 border border-amber-500/40 text-amber-300 transition flex items-center gap-1.5 text-xs font-semibold shadow">
+                    <i id="ambient-icon" class="fa-solid fa-water text-xs"></i>
+                    <span class="hidden lg:inline" id="ambient-label">Tiếng Suối</span>
+                </button>
+
+                <!-- Mobile / Desktop Fullscreen Toggle Box -->
+                <button onclick="toggleFullscreen()" title="Toàn Màn Hình Trang Nghiêm" class="p-2 sm:px-2.5 sm:py-1.5 rounded-xl bg-temple-woodLight hover:bg-amber-900/60 border border-amber-500/40 text-amber-300 transition text-xs shadow">
+                    <i class="fa-solid fa-expand"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================================
+         MAIN NAVIGATION BAR (Desktop Top Tabs in Box)
+         ======================================================== -->
+    <nav class="relative z-30 max-w-5xl w-full mx-auto px-3 pt-3 sm:pt-4">
+        <div class="grid grid-cols-5 gap-1 sm:gap-2 bg-temple-wood/95 p-1.5 rounded-2xl border-2 border-amber-500/40 shadow-xl">
+            <button onclick="switchTab('chanh-dien')" id="tab-chanh-dien" class="tab-btn flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2 rounded-xl font-bold text-xs sm:text-sm transition-all bg-gradient-to-r from-red-800 to-amber-700 text-amber-100 shadow-lg border border-amber-300/50">
+                <i class="fa-solid fa-place-of-worship"></i>
+                <span class="truncate">Chánh Điện</span>
+            </button>
+            <button onclick="switchTab('go-mo')" id="tab-go-mo" class="tab-btn flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2 rounded-xl font-semibold text-xs sm:text-sm transition-all text-amber-200/80 hover:text-amber-200 hover:bg-white/5 border border-transparent">
+                <i class="fa-solid fa-bell"></i>
+                <span class="truncate">Gõ Mỏ & Chuông</span>
+            </button>
+            <button onclick="switchTab('xin-xam')" id="tab-xin-xam" class="tab-btn flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2 rounded-xl font-semibold text-xs sm:text-sm transition-all text-amber-200/80 hover:text-amber-200 hover:bg-white/5 border border-transparent">
+                <i class="fa-solid fa-scroll"></i>
+                <span class="truncate">Gieo Quẻ Xăm</span>
+            </button>
+            <button onclick="switchTab('phong-sinh')" id="tab-phong-sinh" class="tab-btn flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2 rounded-xl font-semibold text-xs sm:text-sm transition-all text-amber-200/80 hover:text-amber-200 hover:bg-white/5 border border-transparent">
+                <i class="fa-solid fa-fish"></i>
+                <span class="truncate">Hồ Phóng Sinh</span>
+            </button>
+            <button onclick="switchTab('kinh-phat')" id="tab-kinh-phat" class="tab-btn flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2 rounded-xl font-semibold text-xs sm:text-sm transition-all text-amber-200/80 hover:text-amber-200 hover:bg-white/5 border border-transparent">
+                <i class="fa-solid fa-book-open"></i>
+                <span class="truncate">Kinh & Văn Khấn</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========================================================
+         MAIN APP CONTENT (All Tabs)
+         ======================================================== -->
+    <main class="relative z-20 flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-4">
+
+        <!-- ====================================================
+             TAB 1: KHU VỰC CHÁNH ĐIỆN & ĐIỆN THỜ THẦN PHẬT 3D
+             ==================================================== -->
+        <section id="section-chanh-dien" class="tab-section space-y-4">
+            
+            <!-- Quick Deity Switcher Box Ribbon -->
+            <div class="sacred-box rounded-2xl p-2.5 sm:p-3 shadow-xl">
+                <div class="flex items-center justify-between mb-2 px-1">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-amber-950/80 border border-amber-500/40 text-amber-300 text-xs font-bold uppercase tracking-wider">
+                        <i class="fa-solid fa-crown text-amber-400"></i>
+                        <span>Chọn Ban Thờ Thần Phật Để Lễ Bái:</span>
+                    </div>
+                    <span class="text-[11px] text-amber-200/60 hidden sm:inline px-2 py-0.5 rounded-lg bg-black/30 border border-amber-500/20">
+                        Tâm thành tắc linh • Hướng thiện tích phước
+                    </span>
+                </div>
+                <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none" id="deity-select-ribbon">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+
+            <!-- Main Shrine Altar Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
+                
+                <!-- Left: Photorealistic Altar Stage (8 cols) -->
+                <div class="lg:col-span-8 sacred-box-gold rounded-3xl p-3 sm:p-6 relative overflow-hidden flex flex-col justify-between min-h-[580px] sm:min-h-[660px]">
+                    
+                    <!-- Atmospheric Volumetric God-Rays -->
+                    <div class="absolute inset-0 volumetric-rays z-0"></div>
+                    
+                    <!-- Architectural Teakwood Pillars (Cột Gỗ Chùa Cổ) -->
+                    <div class="absolute inset-y-0 left-0 w-4 sm:w-8 bg-gradient-to-r from-[#2c0b07] via-[#4a120b] to-[#1a0604] border-r border-amber-500/30 opacity-70 pointer-events-none z-10"></div>
+                    <div class="absolute inset-y-0 right-0 w-4 sm:w-8 bg-gradient-to-l from-[#2c0b07] via-[#4a120b] to-[#1a0604] border-l border-amber-500/30 opacity-70 pointer-events-none z-10"></div>
+
+                    <!-- Hanging Couplets (Câu Đối Thiếp Vàng Hai Bên Cột) -->
+                    <div class="hidden md:flex justify-between items-start pointer-events-none absolute inset-x-8 top-16 z-20">
+                        <div class="bg-gradient-to-b from-[#6e0d0d] via-[#4c0505] to-[#2e0202] border-2 border-amber-400/80 rounded-xl px-2.5 py-4 text-center shadow-[0_15px_30px_rgba(0,0,0,0.9)] max-w-[48px]">
+                            <div class="w-3 h-1 bg-amber-400 mx-auto mb-2 rounded-full"></div>
+                            <p id="couplet-left" class="font-serif text-amber-300 font-bold text-xs leading-5 tracking-widest">
+                                TỪ<br>BI<br>HỶ<br>XẢ<br>TÂM<br>AN<br>LẠC
+                            </p>
+                            <div class="w-3 h-1 bg-amber-400 mx-auto mt-2 rounded-full"></div>
+                        </div>
+                        <div class="bg-gradient-to-b from-[#6e0d0d] via-[#4c0505] to-[#2e0202] border-2 border-amber-400/80 rounded-xl px-2.5 py-4 text-center shadow-[0_15px_30px_rgba(0,0,0,0.9)] max-w-[48px]">
+                            <div class="w-3 h-1 bg-amber-400 mx-auto mb-2 rounded-full"></div>
+                            <p id="couplet-right" class="font-serif text-amber-300 font-bold text-xs leading-5 tracking-widest">
+                                PHƯỚC<br>HUỆ<br>SONG<br>TU<br>ĐẠO<br>VỮNG<br>BỀN
+                            </p>
+                            <div class="w-3 h-1 bg-amber-400 mx-auto mt-2 rounded-full"></div>
+                        </div>
+                    </div>
+
+                    <!-- Top Horizontal Plaque (Hoành Phi Sơn Thếp Vàng) -->
+                    <div class="mx-auto bg-gradient-to-b from-[#5c0b0b] via-[#3b0505] to-[#240202] border-2 border-amber-400 px-6 sm:px-10 py-1.5 sm:py-2 rounded-2xl shadow-[0_10px_25px_rgba(0,0,0,0.9)] z-20 text-center relative">
+                        <span id="altar-plaque-text" class="font-serif text-sm sm:text-lg font-bold tracking-[0.25em] text-transparent bg-clip-text bg-gradient-to-b from-yellow-200 via-amber-300 to-yellow-600 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                            PHẬT QUANG PHỔ CHIẾU
+                        </span>
+                    </div>
+
+                    <!-- Floating Prayers Container -->
+                    <div id="floating-prayers-container" class="absolute inset-0 pointer-events-none overflow-hidden z-30"></div>
+
+                    <!-- Central Photorealistic Deity Statue Niche -->
+                    <div class="relative my-2 sm:my-3 flex flex-col items-center justify-center">
+                        
+                        <!-- Glowing Rotating Sacred Halo -->
+                        <div id="deity-halo-effect" class="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-gradient-to-tr from-amber-500/35 via-yellow-300/40 to-transparent sacred-halo-aura pointer-events-none"></div>
+
+                        <!-- 3D Framed Statue Card Box -->
+                        <div class="relative z-10 w-64 sm:w-72 md:w-80 max-w-[85%] rounded-3xl overflow-hidden shadow-[0_25px_50px_rgba(0,0,0,0.95)] border-2 border-amber-400/80 group bg-black/50">
+                            <img id="deity-image" src="assets/images/phat_thich_ca.jpg" alt="Tượng Thần Phật 3D Giống Thật" class="deity-image-display w-full h-[300px] sm:h-[360px] object-cover object-center group-hover:scale-105 transition-transform duration-700">
+                            
+                            <!-- Bottom Name Banner inside neat Box -->
+                            <div class="absolute inset-x-2 bottom-2 bg-gradient-to-t from-black/95 via-black/85 to-black/60 p-2.5 rounded-2xl border border-amber-500/40 text-center backdrop-blur-sm shadow-xl">
+                                <h3 id="deity-name-display" class="font-serif font-bold text-sm sm:text-base text-amber-300 tracking-wide drop-shadow truncate">
+                                    Đức Bổn Sư Thích Ca Mâu Ni Phật
+                                </h3>
+                                <p id="deity-meaning-display" class="text-[10px] sm:text-[11px] text-amber-100/80 italic mt-0.5 truncate">
+                                    Cầu tâm trí sáng suốt, khai mở trí tuệ, bình an cho gia đạo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========================================================
+                         ALTAR OFFERINGS ROW (TOÀN BỘ ẢNH THẬT 3D TRONG Ô SANG TRỌNG)
+                         ======================================================== -->
+                    <div class="relative z-20 mt-auto pt-2">
+                        
+                        <!-- Incense Smoke Canvas directly above the Bronze Incense Burner -->
+                        <canvas id="incense-canvas" class="w-full h-36 pointer-events-none absolute -top-28 left-0 z-20"></canvas>
+
+                        <!-- 5 Altar Items in Distinct Gilded 3D Cards with Enclosed Text Boxes -->
+                        <div class="grid grid-cols-5 gap-1.5 sm:gap-3 px-1 pb-2 items-end">
+                            
+                            <!-- Item 1: Nến Đồng Trái (Real 3D Altar Candle Box) -->
+                            <div class="altar-item-box rounded-2xl p-1.5 sm:p-2 flex flex-col items-center justify-between cursor-pointer group" onclick="lightCandle('Nến Bên Trái')">
+                                <div class="w-full h-16 sm:h-24 rounded-xl overflow-hidden relative border border-amber-500/30 bg-black/40">
+                                    <img src="assets/images/chan_nen.jpg" alt="Nến Đồng Cổ" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                                    <div class="absolute top-1 right-1 w-2 h-2 rounded-full bg-amber-400 candle-glow-pulse"></div>
+                                </div>
+                                <div class="w-full mt-1.5 py-1 px-1 rounded-lg bg-amber-950/90 border border-amber-500/40 text-center">
+                                    <span class="text-[9px] sm:text-[11px] font-bold text-amber-300 block truncate">🕯️ Nến Tả</span>
+                                </div>
+                            </div>
+
+                            <!-- Item 2: Bình Hoa Sen Ngọc Thật (Real Lotus Offering Box) -->
+                            <div class="altar-item-box rounded-2xl p-1.5 sm:p-2 flex flex-col items-center justify-between cursor-pointer group" onclick="offerOfferingAction('Hoa Sen Thanh Khiết', '🪷')">
+                                <div class="w-full h-16 sm:h-24 rounded-xl overflow-hidden relative border border-emerald-500/30 bg-black/40">
+                                    <img src="assets/images/hoa_sen.jpg" alt="Hoa Sen Bát Tràng" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                                </div>
+                                <div class="w-full mt-1.5 py-1 px-1 rounded-lg bg-emerald-950/90 border border-emerald-500/40 text-center">
+                                    <span class="text-[9px] sm:text-[11px] font-bold text-emerald-200 block truncate">🪷 Dâng Sen</span>
+                                </div>
+                            </div>
+
+                            <!-- Item 3 (Centerpiece Hero): Đỉnh Đồng Lư Hương Thật (Real Bronze Incense Burner Box) -->
+                            <div class="altar-item-box rounded-2xl p-1.5 sm:p-2 flex flex-col items-center justify-between cursor-pointer group border-2 border-amber-400" onclick="lightIncenseAndPray()">
+                                
+                                <!-- Realistic Glowing Incense Tips Overlay -->
+                                <div class="w-full h-20 sm:h-28 rounded-xl overflow-hidden relative border border-amber-400/50 bg-black/40 shadow-inner">
+                                    <!-- 3 glowing incense embers on top -->
+                                    <div id="incense-embers-container" class="absolute top-1 inset-x-0 flex justify-center gap-2 z-10 transition-opacity duration-500 opacity-30">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-orange-400 shadow-[0_0_8px_#f97316] animate-ping"></div>
+                                        <div class="w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_10px_#ef4444] animate-pulse"></div>
+                                        <div class="w-1.5 h-1.5 rounded-full bg-orange-400 shadow-[0_0_8px_#f97316] animate-ping"></div>
+                                    </div>
+                                    <img src="assets/images/lu_huong.jpg" alt="Lư Hương Đỉnh Đồng Cổ" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                </div>
+
+                                <div class="w-full mt-1.5 py-1 px-1 rounded-lg bg-gradient-to-r from-red-950 via-amber-950 to-red-950 border border-amber-400 text-center shadow">
+                                    <span id="incense-status-label" class="text-[9px] sm:text-[11px] font-bold text-amber-200 block truncate">
+                                        🌿 Thắp Hương
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Item 4: Mâm Bồng Ngũ Quả Thật (Real Fruit Offering Box) -->
+                            <div class="altar-item-box rounded-2xl p-1.5 sm:p-2 flex flex-col items-center justify-between cursor-pointer group" onclick="offerOfferingAction('Mâm Ngũ Quả Sung Túc', '🍇')">
+                                <div class="w-full h-16 sm:h-24 rounded-xl overflow-hidden relative border border-amber-500/30 bg-black/40">
+                                    <img src="assets/images/mam_ngu_qua.jpg" alt="Mâm Ngũ Quả Cúng Phật" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                                </div>
+                                <div class="w-full mt-1.5 py-1 px-1 rounded-lg bg-amber-950/90 border border-amber-500/40 text-center">
+                                    <span class="text-[9px] sm:text-[11px] font-bold text-amber-300 block truncate">🍇 Dâng Quả</span>
+                                </div>
+                            </div>
+
+                            <!-- Item 5: Nến Đồng Phải (Real 3D Altar Candle Box) -->
+                            <div class="altar-item-box rounded-2xl p-1.5 sm:p-2 flex flex-col items-center justify-between cursor-pointer group" onclick="lightCandle('Nến Bên Phải')">
+                                <div class="w-full h-16 sm:h-24 rounded-xl overflow-hidden relative border border-amber-500/30 bg-black/40">
+                                    <img src="assets/images/chan_nen.jpg" alt="Nến Đồng Cổ" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                                    <div class="absolute top-1 left-1 w-2 h-2 rounded-full bg-amber-400 candle-glow-pulse"></div>
+                                </div>
+                                <div class="w-full mt-1.5 py-1 px-1 rounded-lg bg-amber-950/90 border border-amber-500/40 text-center">
+                                    <span class="text-[9px] sm:text-[11px] font-bold text-amber-300 block truncate">🕯️ Nến Hữu</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Solid Carved Rosewood Altar Edge Box with Gold Engravings -->
+                        <div class="w-full py-2 px-3 bg-gradient-to-b from-[#451a03] via-[#290f03] to-[#160601] rounded-2xl border-2 border-amber-500/60 flex items-center justify-center relative overflow-hidden shadow-2xl">
+                            <span id="altar-mantra-banner" class="text-amber-300 text-xs sm:text-sm tracking-widest font-serif font-bold drop-shadow truncate px-2 text-center">
+                                ❖ NAM MÔ BỔN SƯ THÍCH CA MÂU NI PHẬT ❖
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Prayers & Sớ Cầu An (4 cols) -->
+                <div class="lg:col-span-4 flex flex-col gap-4">
+                    
+                    <!-- Dâng Sớ Cầu Nguyện Panel Box -->
+                    <div class="sacred-box rounded-3xl p-4 sm:p-5 flex flex-col justify-between shadow-2xl">
+                        <div>
+                            <!-- Header Box -->
+                            <div class="flex items-center justify-between mb-3 bg-black/35 p-2 rounded-xl border border-amber-500/30">
+                                <div class="flex items-center gap-2 text-amber-300 font-serif text-sm sm:text-base font-bold">
+                                    <i class="fa-solid fa-fire text-amber-400"></i>
+                                    <h2>Dâng Hương & Viết Sớ</h2>
+                                </div>
+                                <span class="text-[10px] text-amber-300 font-bold bg-amber-950 px-2.5 py-1 rounded-lg border border-amber-400/50">
+                                    +10 Công Đức
+                                </span>
+                            </div>
+                            
+                            <p class="text-xs text-amber-100/75 mb-3 px-1">
+                                Thành tâm chắp tay, chọn hoặc viết tâm nguyện dâng lên Đức Phật:
+                            </p>
+
+                            <!-- Quick Preset Wish Buttons inside Boxes -->
+                            <div class="grid grid-cols-2 gap-1.5 mb-3">
+                                <button onclick="setQuickWishText('Cầu gia đạo bình an, cha mẹ mạnh khỏe, vạn sự hanh thông.')" class="text-[11px] font-medium bg-temple-woodLight hover:bg-amber-900/60 text-amber-200 border border-amber-500/30 p-2 rounded-xl transition text-left truncate">
+                                    🏮 Gia đạo bình an
+                                </button>
+                                <button onclick="setQuickWishText('Cầu công việc hanh thông, sự nghiệp tấn tới, quý nhân nâng đỡ.')" class="text-[11px] font-medium bg-temple-woodLight hover:bg-amber-900/60 text-amber-200 border border-amber-500/30 p-2 rounded-xl transition text-left truncate">
+                                    ✨ Sự nghiệp hanh thông
+                                </button>
+                                <button onclick="setQuickWishText('Cầu thân tâm an lạc, tai qua nạn khỏi, sức khỏe dồi dào.')" class="text-[11px] font-medium bg-temple-woodLight hover:bg-amber-900/60 text-amber-200 border border-amber-500/30 p-2 rounded-xl transition text-left truncate">
+                                    🪷 Thân tâm an lạc
+                                </button>
+                                <button onclick="setQuickWishText('Cầu buôn may bán đắt, tài lộc dồi dào, kinh doanh phát đạt.')" class="text-[11px] font-medium bg-temple-woodLight hover:bg-amber-900/60 text-amber-200 border border-amber-500/30 p-2 rounded-xl transition text-left truncate">
+                                    💰 Chiêu tài tiến bảo
+                                </button>
+                            </div>
+
+                            <!-- Custom Prayer Input Box -->
+                            <div class="mb-3">
+                                <label class="text-[10px] text-amber-300 font-bold uppercase tracking-wider block mb-1 px-1">Lời Sớ Cầu Nguyện:</label>
+                                <textarea id="prayer-text-input" rows="3" maxlength="180" placeholder="Viết họ tên & lời nguyện ước chí thành của bạn tại đây..." class="w-full rounded-2xl bg-[#100704] border border-amber-500/40 text-amber-100 placeholder-amber-200/30 p-3 text-xs sm:text-sm focus:outline-none focus:border-amber-400 transition resize-none shadow-inner"></textarea>
+                            </div>
+
+                            <!-- Offerings Selection Box -->
+                            <div class="bg-black/35 rounded-2xl p-2.5 border border-amber-500/30 mb-3">
+                                <span class="text-xs font-bold text-amber-300 block mb-2 px-1">Dâng thêm phẩm vật cúng dường (+5):</span>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button onclick="offerOfferingAction('Trà Sen Thanh Tịnh', '🍵')" class="flex items-center gap-1.5 text-xs bg-temple-woodLight hover:bg-amber-900/50 p-2 rounded-xl border border-amber-500/30 text-amber-200 transition font-medium justify-center">
+                                        <span>🍵</span> <span>Dâng Trà Sen</span>
+                                    </button>
+                                    <button onclick="offerOfferingAction('Chén Nước Cam Lộ', '💧')" class="flex items-center gap-1.5 text-xs bg-temple-woodLight hover:bg-amber-900/50 p-2 rounded-xl border border-amber-500/30 text-amber-200 transition font-medium justify-center">
+                                        <span>💧</span> <span>Nước Cam Lộ</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons inside Boxes -->
+                        <div class="space-y-2">
+                            <button onclick="lightIncenseAndPray()" class="w-full py-3 sm:py-3.5 px-4 rounded-2xl bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 hover:from-amber-500 hover:to-yellow-400 text-temple-bg font-bold text-xs sm:text-sm shadow-[0_0_25px_rgba(234,179,8,0.45)] transition transform active:scale-95 flex items-center justify-center gap-2 border border-yellow-200">
+                                <i class="fa-solid fa-hands-praying text-sm sm:text-base"></i>
+                                <span>THẮP HƯƠNG & DÂNG LỜI KHẤN</span>
+                            </button>
+                            <button onclick="bowToDeity()" class="w-full py-2.5 px-4 rounded-2xl bg-red-950/90 hover:bg-red-900 border border-amber-400/50 text-amber-200 font-bold text-xs transition flex items-center justify-center gap-2 shadow">
+                                <i class="fa-solid fa-person-praying"></i>
+                                <span>Lễ Phật Tam Bái (3 Lạy Thành Tâm +5)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Sổ Vàng Cầu An Log Box -->
+                    <div class="sacred-box rounded-3xl p-3 sm:p-4">
+                        <div class="flex items-center justify-between mb-2 bg-black/35 p-2 rounded-xl border border-amber-500/25">
+                            <span class="text-xs font-bold text-amber-300 uppercase tracking-wider">Sổ Vàng Cầu An</span>
+                            <span id="prayer-count-badge" class="text-[11px] text-amber-400 font-bold px-2 py-0.5 rounded-lg bg-amber-950 border border-amber-500/40">0 lời nguyện</span>
+                        </div>
+                        <div id="prayer-history-list" class="space-y-2 max-h-32 overflow-y-auto pr-1 text-xs text-amber-100/80">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ====================================================
+             TAB 2: GÕ MỎ TỤNG KINH 3D THẬT & ĐẠI HỒNG CHUNG
+             ==================================================== -->
+        <section id="section-go-mo" class="tab-section hidden space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6">
+                
+                <!-- Left: Real Photorealistic Wooden Fish 3D Card (7 cols) -->
+                <div class="md:col-span-7 sacred-box-gold rounded-3xl p-5 sm:p-7 flex flex-col items-center justify-between relative overflow-hidden min-h-[480px]">
+                    
+                    <div class="text-center z-10 w-full">
+                        <div class="inline-block px-4 py-1 rounded-xl bg-amber-950/80 border border-amber-400/50 text-amber-300 text-xs font-bold uppercase tracking-widest mb-1.5 shadow">
+                            Thanh Tịnh Tâm Hồn • Tiêu Tan Vọng Tưởng
+                        </div>
+                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-amber-300">Gõ Mỏ Tụng Kinh 3D</h2>
+                        <div class="mt-1 px-3 py-1 rounded-lg bg-black/40 border border-amber-500/30 inline-block text-xs text-amber-100/80">
+                            Chạm vào Cái Mỏ hoặc nhấn phím <kbd class="px-2 py-0.5 bg-amber-950 border border-amber-500/40 rounded text-amber-300 font-mono font-bold">Space</kbd> để gõ
+                        </div>
+                    </div>
+
+                    <!-- Interactive Real 3D Wooden Fish Photo Card -->
+                    <div class="relative my-4 flex items-center justify-center w-72 sm:w-88 h-64 sm:h-72" id="wooden-fish-container">
+                        
+                        <!-- Sound Ripple Ring Container -->
+                        <div id="mo-ripple-container" class="absolute inset-0 flex items-center justify-center pointer-events-none"></div>
+
+                        <!-- Real 3D Wooden Fish Button Box -->
+                        <button id="btn-wooden-fish" onclick="handleWoodenFishClick(event)" class="relative z-20 focus:outline-none cursor-pointer p-2 transition-transform transform active:scale-95 group" title="Chạm để gõ mỏ">
+                            <div class="w-64 sm:w-80 h-48 sm:h-60 rounded-3xl overflow-hidden border-2 border-amber-400 shadow-[0_25px_45px_rgba(0,0,0,0.95)] relative bg-black/60 group-hover:border-yellow-300 transition-all">
+                                <img src="assets/images/mo_go.jpg" alt="Mỏ Gỗ Lim Chùa Cổ Thật" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+                                
+                                <div class="absolute bottom-2 inset-x-3 text-center py-1 rounded-xl bg-amber-950/90 border border-amber-400/50">
+                                    <span class="text-xs font-bold text-amber-300 tracking-wider">🪷 MỎ GỖ LIM CHÙA CỔ</span>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Auto Knock & Chant Options in Distinct Boxes -->
+                    <div class="w-full flex flex-wrap items-center justify-between gap-2 sm:gap-3 bg-black/45 p-3 rounded-2xl border border-amber-500/35 z-10 shadow-lg">
+                        <div class="flex items-center gap-2">
+                            <button id="btn-auto-knock" onclick="toggleAutoKnock()" class="px-4 py-2 rounded-xl bg-amber-600/30 hover:bg-amber-600/50 border border-amber-400 text-amber-200 text-xs font-bold transition flex items-center gap-2 shadow">
+                                <i id="auto-knock-icon" class="fa-solid fa-play"></i>
+                                <span id="auto-knock-text">Tự Động Gõ Mỏ</span>
+                            </button>
+                            <div class="px-3 py-1.5 rounded-xl bg-amber-950/80 border border-amber-500/30 text-xs font-bold text-amber-300">
+                                <span id="session-tap-counter">Đã gõ: 0</span>
+                            </div>
+                        </div>
+
+                        <!-- Chanting Mantra Selection Box -->
+                        <div class="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-temple-wood border border-amber-500/30">
+                            <label class="text-xs text-amber-200 font-semibold">Câu niệm:</label>
+                            <select id="mo-mantra-select" class="bg-[#140804] border border-amber-500/50 rounded-lg px-2.5 py-1 text-xs text-amber-200 focus:outline-none font-medium">
+                                <option value="Công Đức +1">Công Đức +1</option>
+                                <option value="Nam Mô A Di Đà Phật">Nam Mô A Di Đà Phật</option>
+                                <option value="Nam Mô Quán Thế Âm Bồ Tát">Nam Mô Quán Thế Âm Bồ Tát</option>
+                                <option value="Tâm An Thân Lạc">Tâm An Thân Lạc</option>
+                                <option value="Buông Bỏ Vọng Tưởng">Buông Bỏ Vọng Tưởng</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right: Real Great Temple Bell & Singing Bowl (5 cols) -->
+                <div class="md:col-span-5 flex flex-col gap-4">
+                    
+                    <!-- Great Bell Panel Box -->
+                    <div class="sacred-box-gold rounded-3xl p-5 flex flex-col items-center justify-between text-center relative overflow-hidden">
+                        <div class="w-full">
+                            <div class="inline-block px-3 py-1 rounded-xl bg-amber-950/80 border border-amber-400/50 text-amber-300 text-xs font-bold uppercase tracking-widest mb-1 shadow">
+                                Chuông Ngân Vang Vạn Dặm
+                            </div>
+                            <h3 class="font-serif text-xl sm:text-2xl font-bold text-amber-300">Thỉnh Đại Hồng Chung</h3>
+                            <p class="text-xs text-amber-100/75 mt-0.5">
+                                Tiếng chuông U Minh thức tỉnh tâm mê, giải trừ ưu phiền
+                            </p>
+                        </div>
+
+                        <!-- Real 3D Bronze Bell Photo Box -->
+                        <div class="relative my-3 flex items-center justify-center w-full" id="bell-interactive-area">
+                            <div id="bell-ripple-container" class="absolute inset-0 flex items-center justify-center pointer-events-none"></div>
+                            
+                            <button id="btn-great-bell" onclick="handleGreatBellClick(event)" class="relative z-10 focus:outline-none group cursor-pointer transition-transform transform active:scale-95" title="Thỉnh Đại Hồng Chung">
+                                <div class="w-52 sm:w-60 h-44 sm:h-52 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-[0_20px_40px_rgba(0,0,0,0.95)] relative bg-black/60">
+                                    <img src="assets/images/chuong_chua.jpg" alt="Đại Hồng Chung Đồng Cổ Thật" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                    <div class="absolute bottom-2 inset-x-2 py-1 rounded-lg bg-black/70 border border-amber-400/40 text-center">
+                                        <span class="text-[11px] font-bold text-amber-300">🔔 ĐẠI HỒNG CHUNG ĐỒNG CỔ</span>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+
+                        <!-- Chime Actions in Boxes -->
+                        <div class="grid grid-cols-2 gap-2 w-full mt-1">
+                            <button onclick="handleGreatBellClick(event)" class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-700 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-amber-50 font-bold text-xs tracking-wider uppercase shadow-lg transition border border-yellow-300">
+                                🔔 Thỉnh Đại Chung
+                            </button>
+                            <button onclick="handleSingingBowlClick(event)" class="py-2.5 px-3 rounded-xl bg-red-950 hover:bg-red-900 border border-amber-500/50 text-amber-200 font-bold text-xs tracking-wider uppercase transition shadow">
+                                🥣 Chuông Bát
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dharma Quote Card Box -->
+                    <div class="sacred-box rounded-2xl p-4 border-l-4 border-l-amber-400">
+                        <div class="flex items-center justify-between mb-2 pb-1 border-b border-amber-500/20">
+                            <span class="text-[11px] uppercase tracking-wider text-amber-300 font-bold px-2 py-0.5 rounded bg-amber-950 border border-amber-500/30">
+                                Lời Phật Dạy Khai Tâm
+                            </span>
+                            <button onclick="refreshDharmaQuote()" class="text-xs text-amber-300 hover:text-white transition flex items-center gap-1 font-semibold">
+                                <i class="fa-solid fa-rotate"></i> <span>Đổi kệ</span>
+                            </button>
+                        </div>
+                        <p id="dharma-quote-display" class="font-serif italic text-xs sm:text-sm text-amber-100 leading-relaxed bg-black/30 p-2.5 rounded-xl border border-amber-500/20">
+                            "Tâm bình thế giới bình. Khi tâm không còn vọng động, vạn sự tự nhiên an nhiên."
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ====================================================
+             TAB 3: GIEO QUẺ XIN XĂM ĐẦU NĂM 3D
+             ==================================================== -->
+        <section id="section-xin-xam" class="tab-section hidden space-y-4">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+                
+                <!-- Left: Real Bamboo Divination Tube 3D Box (5 cols) -->
+                <div class="lg:col-span-5 sacred-box-gold rounded-3xl p-5 sm:p-7 flex flex-col items-center justify-between text-center min-h-[480px]">
+                    <div class="w-full">
+                        <div class="inline-block px-3 py-1 rounded-xl bg-amber-950/80 border border-amber-400/50 text-amber-300 text-xs font-bold uppercase tracking-widest mb-1 shadow">
+                            Thành Tâm Chiêm Bái
+                        </div>
+                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-amber-300">Gieo Quẻ Đầu Năm</h2>
+                        <p class="text-xs text-amber-100/75 mt-1 max-w-xs mx-auto">
+                            Nhắm mắt thành tâm nghĩ về việc bạn đang trăn trở (gia đạo, công danh, sức khỏe), rồi nhấn nút lắc ống xăm.
+                        </p>
+                    </div>
+
+                    <!-- Real 3D Divination Cylinder Photo Box -->
+                    <div class="my-4 relative flex flex-col items-center w-full">
+                        <div id="stick-drawn-alert" class="hidden mb-2 px-4 py-1.5 rounded-full bg-amber-300 text-red-950 font-serif font-bold text-xs shadow-xl border-2 border-red-900 animate-bounce">
+                            Quẻ Linh Ứng Đã Xuất Hiện!
+                        </div>
+
+                        <div id="fortune-cylinder-box" class="cursor-pointer select-none" onclick="shakeFortuneCylinder()">
+                            <div class="w-48 sm:w-56 h-56 sm:h-64 rounded-3xl overflow-hidden border-2 border-amber-400 shadow-[0_20px_45px_rgba(0,0,0,0.95)] relative bg-black/60 group">
+                                <img src="assets/images/ong_xam.jpg" alt="Ống Xăm Thẻ Tre Chùa Thật" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-2 inset-x-2 py-1 rounded-xl bg-red-950/90 border border-amber-400/50 text-center">
+                                    <span class="text-xs font-bold text-amber-300">📜 ỐNG XĂM LINH ỨNG</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="btn-shake-fortune" onclick="shakeFortuneCylinder()" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-red-700 via-amber-600 to-red-700 hover:from-red-600 hover:to-amber-500 text-amber-100 font-bold text-xs sm:text-sm border border-amber-300 shadow-2xl transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>LẮC ỐNG XĂM XIN QUẺ (+5 Công Đức)</span>
+                    </button>
+                </div>
+
+                <!-- Right: Parchment Fortune Result Scroll in Box (7 cols) -->
+                <div class="lg:col-span-7">
+                    <div id="fortune-scroll-display" class="rounded-3xl p-5 sm:p-7 bg-[#fcf6e8] text-[#2c1810] border-4 border-amber-600 shadow-2xl relative min-h-[480px] flex flex-col justify-between">
+                        
+                        <!-- Header Box inside parchment -->
+                        <div class="flex items-center justify-between border-b-2 border-red-800/30 pb-3">
+                            <div>
+                                <span id="fortune-code" class="text-xs font-bold uppercase tracking-widest text-red-800 px-2 py-0.5 rounded bg-red-100 border border-red-800/30 inline-block">
+                                    QUẺ XĂM LINH ỨNG
+                                </span>
+                                <h3 id="fortune-title" class="font-serif text-lg sm:text-2xl font-bold text-red-900 mt-1">
+                                    Hãy Lắc Ống Xăm Để Nhận Quẻ Đầu Năm
+                                </h3>
+                            </div>
+                            <span id="fortune-badge" class="px-3 py-1 rounded-full bg-red-800 text-amber-200 font-serif font-bold text-xs sm:text-sm shadow">
+                                Tâm Thành Tắc Linh
+                            </span>
+                        </div>
+
+                        <!-- 4-Line Poem Box -->
+                        <div class="my-3 bg-amber-100 border-2 border-amber-700/40 rounded-2xl p-4 text-center shadow-inner">
+                            <span class="text-[10px] uppercase font-bold text-red-900 tracking-widest block mb-1">📜 Thi Kệ Cổ Truyền:</span>
+                            <p id="fortune-poem" class="font-serif italic text-sm sm:text-base text-red-950 leading-relaxed whitespace-pre-line font-semibold">
+                                "Xuân đến trăm hoa rộ cánh cành,
+                                Tâm thành khấn nguyện phước duyên sanh.
+                                Cầu cho mưa thuận cùng gió hòa,
+                                Bình an tài lộc trọn niềm vui."
+                            </p>
+                        </div>
+
+                        <!-- Detailed Interpretation Boxes ("chữ nằm trong ô") -->
+                        <div class="space-y-2.5 text-xs sm:text-sm">
+                            <div class="bg-amber-50 p-3 rounded-2xl border border-amber-700/30 shadow-sm">
+                                <h4 class="font-bold text-red-900 uppercase text-xs tracking-wider mb-1">📜 Lời Giải Tổng Quan:</h4>
+                                <p id="fortune-general" class="text-stone-800 leading-relaxed">
+                                    Nhấn nút "Lắc Ống Xăm Xin Quẻ" ở bên trái để rút một quẻ thẻ. Mỗi lời quẻ đều mang ý nghĩa hướng thiện, chỉ đường dẫn lối và gieo duyên lành phước báo.
+                                </p>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-700/30 shadow-sm">
+                                    <span class="text-xs font-bold text-red-800 block">💼 Công Danh</span>
+                                    <p id="fortune-career" class="text-xs text-stone-700 mt-1">Đang chờ gieo quẻ...</p>
+                                </div>
+                                <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-700/30 shadow-sm">
+                                    <span class="text-xs font-bold text-red-800 block">❤️ Gia Đạo</span>
+                                    <p id="fortune-love" class="text-xs text-stone-700 mt-1">Đang chờ gieo quẻ...</p>
+                                </div>
+                                <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-700/30 shadow-sm">
+                                    <span class="text-xs font-bold text-red-800 block">🌿 Hướng Thiện</span>
+                                    <p id="fortune-advice" class="text-xs text-stone-700 mt-1">Giữ tâm từ bi, làm việc lành.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Save Action Box -->
+                        <div class="pt-3 border-t border-amber-700/20 flex justify-end">
+                            <button onclick="saveCurrentFortune()" class="px-4 py-2 rounded-xl bg-red-800 hover:bg-red-700 text-amber-100 text-xs font-bold transition flex items-center gap-1.5 shadow">
+                                <i class="fa-solid fa-bookmark"></i>
+                                <span>Lưu Lại Quẻ Này</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ====================================================
+             TAB 4: HỒ SEN PHÓNG SINH & CÂY BỒ ĐỀ ƯỚC NGUYỆN
+             ==================================================== -->
+        <section id="section-phong-sinh" class="tab-section hidden space-y-4">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+                
+                <!-- Left: Interactive Koi & Turtle Lotus Pond (7 cols) -->
+                <div class="lg:col-span-7 sacred-box-gold rounded-3xl p-5 flex flex-col justify-between min-h-[480px]">
+                    <div class="flex items-center justify-between mb-2 bg-black/40 p-2.5 rounded-2xl border border-emerald-500/40">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-widest text-emerald-300 font-bold block">Từ Bi Phóng Sinh Tích Phước</span>
+                            <h3 class="font-serif text-lg sm:text-xl font-bold text-amber-300">Hồ Sen Phóng Sinh 3D</h3>
+                        </div>
+                        <span class="text-xs text-amber-300 bg-emerald-950 border border-emerald-500/50 px-3 py-1 rounded-xl font-bold">
+                            Sinh linh trong hồ: <b id="pond-creature-count">6</b>
+                        </span>
+                    </div>
+
+                    <!-- Canvas Interactive Pond Box -->
+                    <div class="relative w-full h-72 sm:h-80 rounded-2xl overflow-hidden border-2 border-emerald-500/40 shadow-2xl bg-[#041518] my-2">
+                        <canvas id="lotus-pond-canvas" class="w-full h-full cursor-pointer"></canvas>
+                        <div class="absolute bottom-2 left-3 text-[11px] text-emerald-200 bg-black/60 px-2.5 py-1 rounded-lg border border-emerald-500/30 pointer-events-none font-medium">
+                            Chạm vào mặt nước để rải mồi cho cá bơi lại
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons for Release in Boxes -->
+                    <div class="grid grid-cols-2 gap-3 mt-1">
+                        <button onclick="releaseCreatureToPond('koi')" class="py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-800 to-teal-700 hover:from-emerald-700 hover:to-teal-600 text-amber-100 font-bold text-xs transition flex items-center justify-center gap-2 shadow-lg border border-emerald-400">
+                            <span>🐟</span> <span>Phóng Sinh Cá Chép (+8)</span>
+                        </button>
+                        <button onclick="releaseCreatureToPond('turtle')" class="py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-800 to-yellow-700 hover:from-amber-700 hover:to-yellow-600 text-amber-100 font-bold text-xs transition flex items-center justify-center gap-2 shadow-lg border border-yellow-400">
+                            <span>🐢</span> <span>Phóng Sinh Rùa Vàng (+10)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Bodhi Wishing Tree (5 cols) -->
+                <div class="lg:col-span-5 sacred-box-gold rounded-3xl p-5 flex flex-col justify-between min-h-[480px]">
+                    <div class="bg-black/40 p-2.5 rounded-2xl border border-amber-500/40">
+                        <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold block">Cội Bồ Đề Linh Thiêng</span>
+                        <h3 class="font-serif text-lg sm:text-xl font-bold text-amber-300">Cây Bồ Đề Ước Nguyện</h3>
+                        <p class="text-xs text-amber-100/70 mt-0.5">
+                            Viết một tâm nguyện ngắn và treo dải lụa đỏ lên cành Bồ Đề chùa:
+                        </p>
+                    </div>
+
+                    <!-- Bodhi Tree Graphic & Hanging Ribbons Box -->
+                    <div class="relative w-full h-52 sm:h-60 rounded-2xl bg-gradient-to-b from-[#1b0a05] via-[#2d1108] to-[#120502] border-2 border-amber-500/40 overflow-hidden my-3 shadow-inner flex items-center justify-center">
+                        <svg class="w-full h-full opacity-65" viewBox="0 0 300 240" fill="none">
+                            <path d="M150 240 L150 140 C140 100, 70 80, 50 40 M150 140 C160 90, 230 70, 250 40 M150 140 C145 90, 155 50, 150 20" stroke="#78350f" stroke-width="12" stroke-linecap="round"/>
+                            <circle cx="80" cy="50" r="38" fill="#14532d" opacity="0.45"/>
+                            <circle cx="220" cy="50" r="38" fill="#14532d" opacity="0.45"/>
+                            <circle cx="150" cy="35" r="45" fill="#15803d" opacity="0.5"/>
+                        </svg>
+
+                        <!-- Hanging Ribbons Layer -->
+                        <div id="wishing-ribbons-layer" class="absolute inset-0 pointer-events-auto">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Selected Ribbon Text Preview Box -->
+                    <div class="bg-black/45 p-3 rounded-2xl border border-amber-500/30 text-xs mb-3 text-center shadow">
+                        <span class="text-amber-400 font-bold block text-[10px] uppercase">Lời ước nguyện đã chọn:</span>
+                        <p id="selected-ribbon-preview" class="text-amber-100 italic mt-0.5 font-medium">
+                            "Cầu gia đình vạn sự bình an, vạn dặm bình yên."
+                        </p>
+                    </div>
+
+                    <!-- New Wish Ribbon Form in Box -->
+                    <div class="flex gap-2">
+                        <input id="ribbon-input-text" type="text" maxlength="60" placeholder="Nhập điều ước ngắn..." class="flex-1 rounded-xl bg-[#140b07] border border-amber-500/50 text-amber-100 placeholder-amber-200/30 px-3 py-2 text-xs focus:outline-none focus:border-amber-400">
+                        <button onclick="hangNewWishRibbon()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-red-700 to-amber-700 hover:from-red-600 hover:to-amber-600 text-amber-100 font-bold text-xs transition flex items-center gap-1.5 shadow border border-amber-300">
+                            <i class="fa-solid fa-ribbon"></i>
+                            <span>Treo Thẻ</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ====================================================
+             TAB 5: KINH PHẬT & VĂN KHẤN CỔ TRUYỀN
+             ==================================================== -->
+        <section id="section-kinh-phat" class="tab-section hidden space-y-4">
+            <div class="sacred-box-gold rounded-3xl p-5 sm:p-7">
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-amber-500/35 pb-4 mb-4">
+                    <div class="bg-black/35 px-4 py-2 rounded-2xl border border-amber-500/30">
+                        <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold block">Kinh Điển & Nghi Thức Lễ Bái</span>
+                        <h2 class="font-serif text-xl sm:text-2xl font-bold text-amber-300">Kinh Phật & Văn Khấn Cổ Truyền</h2>
+                    </div>
+
+                    <!-- Sutra Selector Tabs in Boxes -->
+                    <div class="flex flex-wrap gap-1.5">
+                        <button onclick="selectSutra('chu-dai-bi')" id="sutra-btn-chu-dai-bi" class="sutra-tab-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-600 text-white shadow">
+                            Chú Đại Bi
+                        </button>
+                        <button onclick="selectSutra('bat-nha')" id="sutra-btn-bat-nha" class="sutra-tab-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-temple-woodLight text-amber-200 hover:bg-amber-900/50 border border-amber-500/30">
+                            Bát Nhã Tâm Kinh
+                        </button>
+                        <button onclick="selectSutra('van-khan-chua')" id="sutra-btn-van-khan-chua" class="sutra-tab-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-temple-woodLight text-amber-200 hover:bg-amber-900/50 border border-amber-500/30">
+                            Văn Khấn Cầu An
+                        </button>
+                        <button onclick="selectSutra('than-tai')" id="sutra-btn-than-tai" class="sutra-tab-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-temple-woodLight text-amber-200 hover:bg-amber-900/50 border border-amber-500/30">
+                            Khấn Thần Tài
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sutra Content Reader Box -->
+                <div class="bg-[#0e0502] border-2 border-amber-500/35 rounded-2xl p-4 sm:p-8 max-h-[500px] overflow-y-auto font-serif leading-relaxed text-amber-100/90 text-sm sm:text-base space-y-4 shadow-inner" id="sutra-content-area">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================================
+         BOTTOM AUDIO PLAYER DOCK BOX
+         ======================================================== -->
+    <div id="audio-dock" class="fixed bottom-16 sm:bottom-4 inset-x-3 sm:inset-x-auto sm:right-6 sm:w-96 z-40 bg-[#1e0d07]/95 backdrop-blur-md border-2 border-amber-500/50 rounded-2xl p-3 shadow-2xl transition-all">
+        <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2.5 overflow-hidden">
+                <div class="w-9 h-9 rounded-xl bg-amber-600/30 border border-amber-400/50 flex items-center justify-center flex-shrink-0">
+                    <i id="dock-status-icon" class="fa-solid fa-volume-high text-amber-300 text-xs"></i>
+                </div>
+                <div class="overflow-hidden">
+                    <span id="dock-track-title" class="text-xs font-bold text-amber-300 block truncate">
+                        Bát Nhã Tâm Kinh (Chanting)
+                    </span>
+                    <span id="dock-track-sub" class="text-[10px] text-amber-200/70 block truncate">
+                        Âm thanh chùa cổ thanh tịnh
+                    </span>
+                </div>
+            </div>
+            <div class="flex items-center gap-1.5 flex-shrink-0">
+                <button onclick="toggleChantAudio()" class="p-2 rounded-xl bg-amber-600/30 hover:bg-amber-600/50 text-amber-300 transition text-xs border border-amber-400/40" title="Phát/Tạm dừng">
+                    <i id="dock-play-icon" class="fa-solid fa-play"></i>
+                </button>
+                <button onclick="switchChantTrack()" class="p-2 rounded-xl bg-amber-600/30 hover:bg-amber-600/50 text-amber-300 transition text-xs border border-amber-400/40" title="Đổi bài kinh">
+                    <i class="fa-solid fa-forward-step"></i>
+                </button>
+            </div>
+        </div>
+        <div class="flex items-center gap-2 mt-2 pt-2 border-t border-amber-500/20 text-[10px] text-amber-200/60 font-semibold">
+            <span>Âm lượng:</span>
+            <input type="range" id="master-volume-slider" min="0" max="100" value="80" oninput="changeMasterVolume(this.value)" class="flex-1 accent-amber-500 h-1 bg-amber-950 rounded cursor-pointer">
+            <span id="volume-label">80%</span>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         MOBILE BOTTOM NAVIGATION BAR BOXES (Thumb Zone)
+         ======================================================== -->
+    <div class="sm:hidden fixed bottom-0 inset-x-0 z-50 bg-[#160a05]/98 backdrop-blur-md border-t-2 border-amber-500/40 px-2 py-1.5 flex items-center justify-around shadow-2xl">
+        <button onclick="switchTab('chanh-dien')" id="m-tab-chanh-dien" class="m-nav-btn flex flex-col items-center text-amber-300 text-[10px] font-bold py-1 px-2 rounded-xl bg-amber-950/60 border border-amber-400/40">
+            <i class="fa-solid fa-place-of-worship text-sm mb-0.5"></i>
+            <span>Chánh Điện</span>
+        </button>
+        <button onclick="switchTab('go-mo')" id="m-tab-go-mo" class="m-nav-btn flex flex-col items-center text-amber-200/70 text-[10px] font-medium py-1 px-2 rounded-xl">
+            <i class="fa-solid fa-bell text-sm mb-0.5"></i>
+            <span>Gõ Mỏ</span>
+        </button>
+        <button onclick="switchTab('xin-xam')" id="m-tab-xin-xam" class="m-nav-btn flex flex-col items-center text-amber-200/70 text-[10px] font-medium py-1 px-2 rounded-xl">
+            <i class="fa-solid fa-scroll text-sm mb-0.5"></i>
+            <span>Xin Xăm</span>
+        </button>
+        <button onclick="switchTab('phong-sinh')" id="m-tab-phong-sinh" class="m-nav-btn flex flex-col items-center text-amber-200/70 text-[10px] font-medium py-1 px-2 rounded-xl">
+            <i class="fa-solid fa-fish text-sm mb-0.5"></i>
+            <span>Phóng Sinh</span>
+        </button>
+        <button onclick="switchTab('kinh-phat')" id="m-tab-kinh-phat" class="m-nav-btn flex flex-col items-center text-amber-200/70 text-[10px] font-medium py-1 px-2 rounded-xl">
+            <i class="fa-solid fa-book-open text-sm mb-0.5"></i>
+            <span>Kinh Phật</span>
+        </button>
+    </div>
+
+    <!-- ========================================================
+         TOAST NOTIFICATION MODAL
+         ======================================================== -->
+    <div id="toast-notification" class="fixed top-20 right-4 sm:right-8 z-50 max-w-sm w-full bg-gradient-to-r from-[#3b1206] to-[#250903] border-2 border-amber-400 rounded-2xl p-4 shadow-2xl transition-all duration-300 transform translate-x-96 opacity-0 pointer-events-none flex items-start gap-3">
+        <div class="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400 flex items-center justify-center flex-shrink-0 text-amber-300 text-sm">
+            <i class="fa-solid fa-bell"></i>
+        </div>
+        <div class="flex-1">
+            <h4 id="toast-title" class="font-serif font-bold text-amber-300 text-xs sm:text-sm">Thông Báo</h4>
+            <p id="toast-message" class="text-xs text-amber-100/80 mt-0.5 leading-snug">Nội dung thông báo</p>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         JAVASCRIPT APPLICATION ENGINE
+         ======================================================== -->
+    <script>
+        // ----------------------------------------------------
+        // 1. DATA STATE: DEITIES, FORTUNES, PRAYERS & SUTRAS
+        // ----------------------------------------------------
+        const deities = [
+            {
+                id: 'thich-ca',
+                name: 'Đức Bổn Sư Thích Ca Mâu Ni Phật',
+                title: 'Chánh Điện Trang Nghiêm',
+                image: 'assets/images/phat_thich_ca.jpg',
+                mantra: '❖ NAM MÔ BỔN SƯ THÍCH CA MÂU NI PHẬT ❖',
+                meaning: 'Cầu tâm trí sáng suốt, khai mở trí tuệ, tĩnh tâm buông bỏ muộn phiền, gia đạo an vui.',
+                coupletLeft: 'TỪ<br>BI<br>HỶ<br>XẢ<br>TÂM<br>AN<br>LẠC',
+                coupletRight: 'PHƯỚC<br>HUỆ<br>SONG<br>TU<br>ĐẠO<br>VỮNG<br>BỀN',
+                plaque: 'PHẬT QUANG PHỔ CHIẾU',
+                haloGlow: 'rgba(245, 158, 11, 0.7)'
+            },
+            {
+                id: 'quan-am',
+                name: 'Đức Quán Thế Âm Bồ Tát (Mẹ Quan Âm)',
+                title: 'Đài Quan Âm Cứu Khổ Cứu Nạn',
+                image: 'assets/images/quan_am_bo_tat.jpg',
+                mantra: '❖ NAM MÔ ĐẠI TỪ ĐẠI BI QUÁN THẾ ÂM BỒ TÁT ❖',
+                meaning: 'Cầu tai qua nạn khỏi, từ bi che chở cho mẹ và gia đình, thân tâm hòa ái, vạn sự bình yên.',
+                coupletLeft: 'CÀNH<br>DƯƠNG<br>RƯỚI<br>KHẮP<br>NƯỚC<br>CAM<br>LỘ',
+                coupletRight: 'SEN<br>BÁU<br>TỎA<br>HƯƠNG<br>ĐỘ<br>CHÚNG<br>SINH',
+                plaque: 'TỪ BI PHỔ ĐỘ',
+                haloGlow: 'rgba(52, 211, 153, 0.75)'
+            },
+            {
+                id: 'a-di-da',
+                name: 'Đức Phật A Di Đà',
+                title: 'Tây Phương Cực Lạc Giáo Chủ',
+                image: 'assets/images/phat_a_di_da.jpg',
+                mantra: '❖ NAM MÔ A DI ĐÀ PHẬT ❖',
+                meaning: 'Cầu phước thọ vô lượng, hướng về cõi Tịnh Độ Tây Phương, thân tâm thanh tịnh trường tồn.',
+                coupletLeft: 'TÂY<br>PHƯƠNG<br>CỰC<br>LẠC<br>CHỐN<br>AN<br>LÀNH',
+                coupletRight: 'ÁNH<br>SÁNG<br>VÔ<br>LƯỢNG<br>CHIẾU<br>MƯỜI<br>PHƯƠNG',
+                plaque: 'QUANG MINH VÔ LƯỢNG',
+                haloGlow: 'rgba(251, 191, 36, 0.8)'
+            },
+            {
+                id: 'duoc-su',
+                name: 'Đức Phật Dược Sư Lưu Ly Quang Vương',
+                title: 'Tiêu Tai Diên Thọ Dược Sư Phật',
+                image: 'assets/images/phat_duoc_su.jpg',
+                mantra: '❖ NAM MÔ DƯỢC SƯ LƯU LY QUANG VƯƠNG PHẬT ❖',
+                meaning: 'Cầu sức khỏe bình an, tiêu trừ tật bệnh, thân thể tráng kiện, tai ách hóa cát tường.',
+                coupletLeft: 'LƯU<br>LY<br>QUANG<br>TỎA<br>TRỪ<br>TẬT<br>BỆNH',
+                coupletRight: 'BẢO<br>THÁP<br>THẦN<br>DƯỢC<br>ĐỘ<br>NHÂN<br>GIAN',
+                plaque: 'TIÊU TAI DIÊN THỌ',
+                haloGlow: 'rgba(56, 189, 248, 0.75)'
+            },
+            {
+                id: 'dia-tang',
+                name: 'Đức Địa Tạng Vương Bồ Tát',
+                title: 'Đại Nguyện Địa Tạng Vương Bồ Tát',
+                image: 'assets/images/dia_tang_vuong.jpg',
+                mantra: '❖ NAM MÔ ĐẠI NGUYỆN ĐỊA TẠNG VƯƠNG BỒ TÁT ❖',
+                meaning: 'Cầu siêu độ tổ tiên, ông bà cửu huyền thất tổ, hóa giải oan khiên, độ trì con cháu hiếu thuận.',
+                coupletLeft: 'ĐỊA<br>NGỤC<br>CHƯA<br>KHÔNG<br>THỀ<br>CHẲNG<br>NGHỈ',
+                coupletRight: 'CHÚNG<br>SINH<br>ĐỘ<br>HẾT<br>MỚI<br>BỒ<br>ĐỀ',
+                plaque: 'ĐẠI NGUYỆN VÔ TẬN',
+                haloGlow: 'rgba(217, 119, 6, 0.8)'
+            },
+            {
+                id: 'than-tai',
+                name: 'Ban Thờ Thần Tài & Thổ Địa',
+                title: 'Chiêu Tài Tiến Bảo - Gia Đạo Hưng Thịnh',
+                image: 'assets/images/than_tai_tho_dia.jpg',
+                mantra: '❖ NAM MÔ THẦN TÀI TRIỆU CÔNG MINH TINH QUÂN ❖',
+                meaning: 'Cầu buôn may bán đắt, tài lộc hanh thông, công danh thăng tiến, quý nhân dẫn đường chỉ lối.',
+                coupletLeft: 'THẦN<br>TÀI<br>GÕ<br>CỬA<br>TÀI<br>NHƯ<br>Ý',
+                coupletRight: 'THỔ<br>ĐỊA<br>GIỮ<br>NHÀ<br>PHÚC<br>ĐẦY<br>NHA',
+                plaque: 'CHIÊU TÀI TIẾN BẢO',
+                haloGlow: 'rgba(234, 179, 8, 0.85)'
+            }
+        ];
+
+        let currentDeityIndex = 0;
+        let meritScore = parseInt(localStorage.getItem('dichua_merit') || '0', 10);
+        let sessionWoodenFishTaps = 0;
+        let autoKnockTimer = null;
+        let incenseActive = false;
+
+        // Dharma Quotes
+        const dharmaQuotes = [
+            '"Tâm bình thế giới bình. Khi tâm không còn vọng động, vạn sự tự nhiên an nhiên."',
+            '"Một niệm từ bi có thể tiêu tan ngàn năm oán hận. Giữ tâm thiện lành là phước đức lớn nhất."',
+            '"Không có đường nào đi tới hạnh phúc, bởi vì an lạc trong từng hơi thở chính là hạnh phúc chân thật."',
+            '"Quá khứ đã qua, tương lai chưa tới. Chỉ có giây phút hiện tại là nơi tâm ta an trú."',
+            '"Cho đi một lời ái ngữ, gieo xuống một hạt giống từ bi, cây phước đức sẽ đâm chồi nở hoa."'
+        ];
+        let currentQuoteIndex = 0;
+
+        // Fortunes Oracle (20 Linh Quẻ)
+        const fortuneDeck = [
+            {
+                code: "Quẻ Số 01 - Thượng Thượng Cát",
+                title: "Nhật Xuất Đông Phương (Mặt Trời Mọc Phương Đông)",
+                badge: "ĐẠI CÁT",
+                poem: "Mặt trời rực rỡ mọc phương Đông,\nXua tan mây xám tỏa sắc hồng.\nCông danh sự nghiệp đều tỏ rạng,\nGia đạo sum vầy dạ ước mong.",
+                general: "Vận hội đại cát đang mở ra rực rỡ. Khó khăn trước mắt đều tan biến như sương mai gặp nắng ấm. Hãy tự tin tiến bước.",
+                career: "Có quý nhân đề bạt, đầu tư hay học tập đều gặt hái thành quả cao.",
+                love: "Gia đình đầm ấm, hòa khí sinh tài, tình duyên gắn kết bền chặt.",
+                advice: "Giữ tâm khiêm tốn, biết chia sẻ may mắn cho người khó khăn."
+            },
+            {
+                code: "Quẻ Số 08 - Kim Liên Khai Hoa",
+                title: "Kim Liên Khai Hoa (Hoa Sen Vàng Nở Rộ)",
+                badge: "THƯỢNG CÁT",
+                poem: "Hoa sen vàng nở giữa hồ trong,\nHương tỏa thanh cao ngát cõi lòng.\nNhân lành đã gieo nay kết trái,\nAn nhiên hưởng trọn đức thành công.",
+                general: "Nhờ tích đức hành thiện bấy lâu, nay quả ngọt đã chín. Tâm càng tịnh thì tài lộc và phước báu càng bền vững.",
+                career: "Công việc hanh thông, danh tiếng được củng cố, tài lộc dồi dào.",
+                love: "Tìm được người tri kỷ, bạn đời thấu hiểu và sẻ chia sâu sắc.",
+                advice: "Luôn giữ chữ Tín và lấy lòng từ bi làm kim chỉ nam."
+            },
+            {
+                code: "Quẻ Số 15 - Thuận Phong Dương Phàm",
+                title: "Thuận Phong Dương Phàm (Căng Buồm Xuôi Gió)",
+                badge: "THƯỢNG CÁT",
+                poem: "Thuyền lớn ra khơi gió thuận lành,\nBốn phương sóng êm lướt thật nhanh.\nÝ chí bền gan toại nguyện ước,\nBến bờ cập bến rạng thanh danh.",
+                general: "Thiên thời - địa lợi - nhân hòa hội tụ. Đây là thời cơ vàng để bắt đầu dự định lớn bạn đã ấp ủ từ lâu.",
+                career: "Khởi nghiệp hoặc chuyển đổi vị trí rất thuận buồm xuôi gió.",
+                love: "Có tin mừng từ phương xa, gia đạo đón thêm niềm vui bất ngờ.",
+                advice: "Quyết đoán nhưng không được chủ quan hay kiêu ngạo."
+            },
+            {
+                code: "Quẻ Số 22 - Vũ Hậu Thiên Thanh",
+                title: "Vũ Hậu Thiên Thanh (Sau Cơn Mưa Trời Lại Sáng)",
+                badge: "TRUNG CÁT",
+                poem: "Mưa tan mây tạnh trời xanh biếc,\nCây cỏ đâm chồi ngát sắc hương.\nKiên nhẫn vượt qua cơn thử thách,\nCuối đường hoa thắm rải muôn phương.",
+                general: "Những âu lo thử thách hiện tại chỉ là bước đệm tôi luyện bản lĩnh. Mọi trở ngại sắp sửa được tháo gỡ êm đẹp.",
+                career: "Ban đầu có chút chậm trễ, nhưng kiên trì sẽ về đích an toàn.",
+                love: "Tháo gỡ được những hiểu lầm cũ, tình cảm thêm trân quý.",
+                advice: "Lấy tĩnh chế động, nhẫn nhịn và bao dung là chìa khóa mở đường."
+            },
+            {
+                code: "Quẻ Số 36 - Phúc Lộc Viên Mãn",
+                title: "Phúc Lộc Viên Mãn (Trăng Tròn Rằm Thu)",
+                badge: "ĐẠI CÁT",
+                poem: "Trăng tròn vằng vặc giữa trời thu,\nSoi tỏ nhân gian sáng bốn mùa.\nPhước lộc song toàn tâm tự tại,\nMuôn điều như ý phước nghìn xưa.",
+                general: "Quẻ đại cát đại lợi! Thân tâm và tài vận đều đạt tới sự viên mãn, hài hòa trọn vẹn.",
+                career: "Đạt thành tựu vượt kỳ vọng, tài lộc dồi dào sung túc.",
+                love: "Viên mãn, hạnh phúc tròn đầy, con cái ngoan hiền hiếu thảo.",
+                advice: "Thường xuyên phóng sinh, làm việc thiện để duy trì phúc ấm bền lâu."
+            }
+        ];
+
+        // Sutras text database
+        const sutrasDatabase = {
+            'chu-dai-bi': `
+                <div class="text-center font-bold text-amber-300 text-lg mb-4 bg-black/40 p-2.5 rounded-2xl border border-amber-500/30">
+                    THIÊN THỦ THIÊN NHÃN VÔ NGẠI ĐẠI BI TÂM ĐÀ LA NI
+                </div>
+                <p class="text-xs text-amber-200/70 text-center mb-6 italic bg-amber-950/40 p-2 rounded-xl border border-amber-500/20">
+                    (Mỗi ngày trì tụng Chú Đại Bi tiêu trừ trăm ngàn nghiệp chướng, tâm hồn thanh tịnh sáng suốt)
+                </p>
+                <div class="space-y-3 leading-relaxed text-center sm:text-left bg-black/30 p-4 rounded-2xl border border-amber-500/20">
+                    <p>Nam mô Hắc ra đát na, đa ra dạ da.</p>
+                    <p>Nam mô a rị da, bà lô kiết đế, thước bát ra da, Bồ đề tát đỏa bà da, Ma ha tát đỏa bà da, ma ha ca lô ni ca da.</p>
+                    <p>Án, tát bàn ra phạt duệ, số đát na đát tỏa.</p>
+                    <p>Nam mô tất kiết lật đỏa y mông a rị da, bà lô kiết đế thất Phật ra lăng đà bà.</p>
+                    <p>Nam mô na ra cẩn trì, hê rị ma ha bàn đà sa mế, tát bà a tha đậu du bằng, a thệ dựng, tát bà tát đa, na ma bà tát đa, na ma bà già, ma phạt đạt đậu, đát điệt tha.</p>
+                    <p>Án, a bà lô hê, lô ca đế, ca ra đế, di hê rị, ma ha bồ đề tát đỏa, tát bà tát bà, ma ra ma ra, ma hê ma hê, rị đà dựng, cu lô cu lô kiết mông, độ lô độ lô phạt xà da đế, ma ha phạt xà da đế, đà ra đà ra, địa rị ni, thất Phật ra da, giá ra giá ra, mạ mạ phạt ma ra, mục đế lệ...</p>
+                    <p>Y hê y hê, thất na thất na, a ra sâm Phật ra xá lợi, phạt sa phạt sâm, Phật ra xá da, hô lô hô lô ma ra, hô lô hô lô hê rị, ta ra ta ra, tất rị tất rị, tô rô tô rô, bồ đề dạ bồ đề dạ, bồ đà dạ bồ đà dạ, di đế rị dạ, na ra cẩn trì, địa rị sắc ni na, ba dạ ma na ta bà ha.</p>
+                    <p class="font-bold text-amber-300">Tất đà dạ ta bà ha. Ma ha tất đà dạ ta bà ha. Tất đà dũ nghệ thất bàn ra dạ ta bà ha. Na ra cẩn trì ta bà ha.</p>
+                </div>
+            `,
+            'bat-nha': `
+                <div class="text-center font-bold text-amber-300 text-lg mb-4 bg-black/40 p-2.5 rounded-2xl border border-amber-500/30">
+                    BÁT NHÃ BA LA MẬT ĐA TÂM KINH
+                </div>
+                <p class="text-xs text-amber-200/70 text-center mb-6 italic bg-amber-950/40 p-2 rounded-xl border border-amber-500/20">
+                    (Kinh Bát Nhã soi tỏ Tánh Không, dứt trừ phiền não khổ đau)
+                </p>
+                <div class="space-y-3 leading-relaxed bg-black/30 p-4 rounded-2xl border border-amber-500/20">
+                    <p>Khi Quán Tự Tại Bồ Tát hành sâu Bát Nhã Ba La Mật Đa thời soi thấy năm uẩn đều không, qua hết thảy khổ ách.</p>
+                    <p>Xá Lợi Tử! Sắc bất dị không, không bất dị sắc; sắc tức thị không, không tức thị sắc; thọ, tưởng, hành, thức cũng lại như thế.</p>
+                    <p>Xá Lợi Tử! Tướng không của các pháp không sinh không diệt, không nhơ không sạch, không thêm không bớt. Cho nên trong không không có sắc, không có thọ, tưởng, hành, thức; không có mắt, tai, mũi, lưỡi, thân, ý; không có sắc, thanh, hương, vị, xúc, pháp...</p>
+                    <p>Bồ Đề Tát Đỏa vì y theo Bát Nhã Ba La Mật Đa nên tâm không ngăn ngại, vì không ngăn ngại nên không sợ hãi, xa lìa điên đảo mộng tưởng, đạt cứu cánh Niết Bàn.</p>
+                    <p>Chư Phật ba đời cũng y theo Bát Nhã Ba La Mật Đa mà đắc Vô Thượng Chánh Đẳng Chánh Giác.</p>
+                    <p>Nên biết Bát Nhã Ba La Mật Đa là đại thần chú, là đại minh chú, là vô thượng chú, là vô đẳng đẳng chú, trừ được hết thảy khổ, chân thật không hư.</p>
+                    <p class="font-bold text-amber-300 pt-2">Liền thuyết chú rằng: Yết đế, yết đế, ba la yết đế, ba la tăng yết đế, bồ đề tát bà ha! (3 lần)</p>
+                </div>
+            `,
+            'van-khan-chua': `
+                <div class="text-center font-bold text-amber-300 text-lg mb-4 bg-black/40 p-2.5 rounded-2xl border border-amber-500/30">
+                    BÀI VĂN KHẤN CẦU AN TẠI CHÙA
+                </div>
+                <p class="text-xs text-amber-200/70 text-center mb-6 italic bg-amber-950/40 p-2 rounded-xl border border-amber-500/20">
+                    (Văn khấn truyền thống dâng lên Đức Tam Bảo cầu quốc thái dân an, gia quyến bình an)
+                </p>
+                <div class="space-y-3 leading-relaxed bg-black/30 p-4 rounded-2xl border border-amber-500/20">
+                    <p>Nam mô A Di Đà Phật! (3 lần, 3 lạy)</p>
+                    <p>Con lạy chín phương Trời, mười phương Chư Phật, Chư Phật mười phương.</p>
+                    <p>Hôm nay là ngày lành tháng tốt, tín chủ con thành tâm dâng hương hoa lễ vật, quỳ trước bảo điện chùa Tịnh Tâm.</p>
+                    <p>Tín chủ con lòng thành kính cẩn tâu lạy Đức Bổn Sư Thích Ca Mâu Ni Phật, Đức Quán Thế Âm Bồ Tát, cùng Chư Phật, Chư Đại Bồ Tát, Hộ Pháp Thiện Thần đồng giáng lâm chứng giám.</p>
+                    <p>Cúi xin Chư Phật từ bi gia hộ cho gia đình chúng con già trẻ gái trai, thân tâm an lạc, tai qua nạn khỏi, bệnh tật tiêu trừ, vạn sự hanh thông, phước đức trường lưu.</p>
+                    <p>Chúng con nguyện giữ tâm trong sạch, nói lời ái ngữ, làm nhiều việc thiện giúp đỡ muôn loài.</p>
+                    <p>Nam mô A Di Đà Phật! (3 lần, 3 lạy)</p>
+                </div>
+            `,
+            'than-tai': `
+                <div class="text-center font-bold text-amber-300 text-lg mb-4 bg-black/40 p-2.5 rounded-2xl border border-amber-500/30">
+                    VĂN KHẤN BAN THẦN TÀI & THỔ ĐỊA
+                </div>
+                <p class="text-xs text-amber-200/70 text-center mb-6 italic bg-amber-950/40 p-2 rounded-xl border border-amber-500/20">
+                    (Cầu tài lộc vượng phát, buôn may bán đắt, công việc kinh doanh suôn sẻ)
+                </p>
+                <div class="space-y-3 leading-relaxed bg-black/30 p-4 rounded-2xl border border-amber-500/20">
+                    <p>Nam mô A Di Đà Phật! (3 lần, 3 lạy)</p>
+                    <p>Con kính lạy Hoàng Thiên Hậu Thổ Chư Vị Tôn Thần.</p>
+                    <p>Con kính lạy ngài Đông Trù Tư Mệnh Táo Phủ Thần Quân.</p>
+                    <p>Con kính lạy ngài Thần Tài Triệu Công Minh Tinh Quân cùng ngài Thổ Địa Phúc Đức Chính Thần cai quản xứ này.</p>
+                    <p>Hôm nay ngày lành tháng tốt, tín chủ con lòng thành kính cẩn sửa soạn hương hoa trà quả, thắp nén tâm hương dâng lên trước án.</p>
+                    <p>Cúi xin các ngài thương xót tín chủ, giáng lâm trước án, chứng giám lòng thành, thụ hưởng lễ vật.</p>
+                    <p>Cầu xin phù hộ độ trì cho tín chủ con công việc kinh doanh buôn bán thuận buồm xuôi gió, tài lộc dồi dào, khách hàng tin yêu, quý nhân tương trợ, tài lộc như ý, gia đạo hưng thịnh ấm no.</p>
+                    <p>Nam mô A Di Đà Phật! (3 lần, 3 lạy)</p>
+                </div>
+            `
+        };
+
+        // ----------------------------------------------------
+        // 2. AUDIO ENGINE (Real Audio Files + Physical Synthesizers)
+        // ----------------------------------------------------
+        let webAudioCtx = null;
+        let masterGainNode = null;
+        let masterVolume = 0.8;
+
+        function initWebAudio() {
+            if (!webAudioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                webAudioCtx = new AudioContextClass();
+                masterGainNode = webAudioCtx.createGain();
+                masterGainNode.gain.setValueAtTime(masterVolume, webAudioCtx.currentTime);
+                masterGainNode.connect(webAudioCtx.destination);
+            }
+            if (webAudioCtx.state === 'suspended') {
+                webAudioCtx.resume();
+            }
+            return webAudioCtx;
+        }
+
+        // Real audio recordings
+        const audioBellBonsho = new Audio('assets/audio/bell_bonsho.ogg');
+        const audioSingingBowl = new Audio('assets/audio/chuong_bat.ogg');
+        const audioBowlMeditation = new Audio('assets/audio/chuong_gia_tri.ogg');
+        const audioStreamWater = new Audio('assets/audio/suoi_chay.ogg');
+        audioStreamWater.loop = true;
+
+        const chantTracks = [
+            {
+                name: "Bát Nhã Ba La Mật Đa Tâm Kinh",
+                sub: "Đại Thần Chú Bát Nhã (224s)",
+                audio: new Audio('assets/audio/chant_bat_nha_tam_kinh.ogg')
+            },
+            {
+                name: "Tam Quy Y (Buddham Saranam Gacchami)",
+                sub: "Quy Y Phật, Quy Y Pháp, Quy Y Tăng",
+                audio: new Audio('assets/audio/chant_tam_quy.ogg')
+            }
+        ];
+        let currentChantIdx = 0;
+        let isChantingPlaying = false;
+        let isAmbientNaturePlaying = false;
+
+        function setAudioVolumes() {
+            audioBellBonsho.volume = masterVolume;
+            audioSingingBowl.volume = masterVolume;
+            audioBowlMeditation.volume = masterVolume;
+            audioStreamWater.volume = masterVolume * 0.6;
+            chantTracks.forEach(t => t.audio.volume = masterVolume * 0.9);
+        }
+        setAudioVolumes();
+
+        // Physically Modeled Acoustic Wooden Fish (Tiếng Mỏ Gỗ Tự Nhiên)
+        function playAuthenticWoodenFishAcoustic() {
+            try {
+                const ctx = initWebAudio();
+                const now = ctx.currentTime;
+
+                // 1. Strike mallet transient click
+                const bufferSize = ctx.sampleRate * 0.015;
+                const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                const output = noiseBuffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.25));
+                }
+                const noiseSource = ctx.createBufferSource();
+                noiseSource.buffer = noiseBuffer;
+
+                const noiseFilter = ctx.createBiquadFilter();
+                noiseFilter.type = 'bandpass';
+                noiseFilter.frequency.setValueAtTime(1450, now);
+                noiseFilter.Q.setValueAtTime(4.0, now);
+
+                const noiseGain = ctx.createGain();
+                noiseGain.gain.setValueAtTime(0.35, now);
+                noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.02);
+
+                noiseSource.connect(noiseFilter);
+                noiseFilter.connect(noiseGain);
+                noiseGain.connect(masterGainNode);
+
+                // 2. Hollow wood body primary resonance (530Hz)
+                const freqJitter = (Math.random() - 0.5) * 16;
+                const baseFreq = 530 + freqJitter;
+
+                const osc1 = ctx.createOscillator();
+                const gain1 = ctx.createGain();
+                osc1.type = 'triangle';
+                osc1.frequency.setValueAtTime(baseFreq * 1.15, now);
+                osc1.frequency.exponentialRampToValueAtTime(baseFreq, now + 0.045);
+
+                gain1.gain.setValueAtTime(0.85, now);
+                gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+
+                osc1.connect(gain1);
+                gain1.connect(masterGainNode);
+
+                // 3. Rosewood cavity secondary formant (1060Hz)
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(baseFreq * 2.05, now);
+                osc2.frequency.exponentialRampToValueAtTime(baseFreq * 1.95, now + 0.035);
+
+                gain2.gain.setValueAtTime(0.32, now);
+                gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+
+                osc2.connect(gain2);
+                gain2.connect(masterGainNode);
+
+                // 4. Low wooden shell warmth (265Hz)
+                const osc3 = ctx.createOscillator();
+                const gain3 = ctx.createGain();
+                osc3.type = 'sine';
+                osc3.frequency.setValueAtTime(baseFreq * 0.5, now);
+                gain3.gain.setValueAtTime(0.2, now);
+                gain3.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+
+                osc3.connect(gain3);
+                gain3.connect(masterGainNode);
+
+                noiseSource.start(now);
+                osc1.start(now);
+                osc2.start(now);
+                osc3.start(now);
+
+                noiseSource.stop(now + 0.03);
+                osc1.stop(now + 0.16);
+                osc2.stop(now + 0.08);
+                osc3.stop(now + 0.06);
+
+            } catch (err) {
+                console.warn('Audio error:', err);
+            }
+        }
+
+        function playGreatBellSound() {
+            try {
+                audioBellBonsho.currentTime = 0;
+                audioBellBonsho.play().catch(() => {});
+            } catch (e) {}
+
+            try {
+                const ctx = initWebAudio();
+                const now = ctx.currentTime;
+                const modes = [108, 216, 324, 432];
+                modes.forEach((f, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(f, now);
+                    gain.gain.setValueAtTime(0.001, now);
+                    gain.gain.linearRampToValueAtTime(0.3 / (idx + 1), now + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.0005, now + 5.5);
+                    osc.connect(gain);
+                    gain.connect(masterGainNode);
+                    osc.start(now);
+                    osc.stop(now + 5.6);
+                });
+            } catch (e) {}
+        }
+
+        function playSingingBowlSound() {
+            try {
+                audioSingingBowl.currentTime = 0;
+                audioSingingBowl.play().catch(() => {});
+            } catch (e) {}
+        }
+
+        function playBambooShakeSound() {
+            try {
+                const ctx = initWebAudio();
+                for (let i = 0; i < 7; i++) {
+                    setTimeout(() => {
+                        const now = ctx.currentTime;
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(800 + Math.random() * 600, now);
+                        gain.gain.setValueAtTime(0.24, now);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+                        osc.connect(gain);
+                        gain.connect(masterGainNode);
+                        osc.start(now);
+                        osc.stop(now + 0.05);
+                    }, i * 105);
+                }
+            } catch (e) {}
+        }
+
+        function toggleChantAudio() {
+            const currentTrack = chantTracks[currentChantIdx];
+            const icon = document.getElementById('chant-icon');
+            const label = document.getElementById('chant-label');
+            const dockPlayIcon = document.getElementById('dock-play-icon');
+            const dockTitle = document.getElementById('dock-track-title');
+
+            if (!isChantingPlaying) {
+                currentTrack.audio.play().then(() => {
+                    isChantingPlaying = true;
+                    icon.className = 'fa-solid fa-volume-high text-amber-300';
+                    if (label) label.textContent = 'Đang Tụng';
+                    dockPlayIcon.className = 'fa-solid fa-pause';
+                    dockTitle.textContent = currentTrack.name;
+                    showToast('Đang Phát Kinh Phật', `Đang trì tụng: ${currentTrack.name}`);
+                }).catch(err => {
+                    console.warn('Playback error:', err);
+                });
+            } else {
+                currentTrack.audio.pause();
+                isChantingPlaying = false;
+                icon.className = 'fa-solid fa-music';
+                if (label) label.textContent = 'Kinh Phật';
+                dockPlayIcon.className = 'fa-solid fa-play';
+                showToast('Tạm Dừng', 'Đã tạm dừng bài kinh.');
+            }
+        }
+
+        function switchChantTrack() {
+            const wasPlaying = isChantingPlaying;
+            chantTracks[currentChantIdx].audio.pause();
+            chantTracks[currentChantIdx].audio.currentTime = 0;
+            currentChantIdx = (currentChantIdx + 1) % chantTracks.length;
+            isChantingPlaying = false;
+
+            const nextTrack = chantTracks[currentChantIdx];
+            document.getElementById('dock-track-title').textContent = nextTrack.name;
+            document.getElementById('dock-track-sub').textContent = nextTrack.sub;
+
+            if (wasPlaying) {
+                toggleChantAudio();
+            } else {
+                showToast('Đổi Bài Tụng', `Đã chuyển sang: ${nextTrack.name}`);
+            }
+        }
+
+        function toggleAmbientNature() {
+            const icon = document.getElementById('ambient-icon');
+            const label = document.getElementById('ambient-label');
+            const btn = document.getElementById('btn-ambient-audio');
+
+            if (!isAmbientNaturePlaying) {
+                audioStreamWater.play().then(() => {
+                    isAmbientNaturePlaying = true;
+                    icon.className = 'fa-solid fa-volume-high text-emerald-300';
+                    if (label) label.textContent = 'Đang Phát Suối';
+                    btn.classList.add('border-emerald-400', 'bg-emerald-950/60');
+                    showToast('Âm Thanh Thiền Viện', 'Tiếng suối reo thanh tịnh đã được bật.');
+                }).catch(() => {});
+            } else {
+                audioStreamWater.pause();
+                isAmbientNaturePlaying = false;
+                icon.className = 'fa-solid fa-water';
+                if (label) label.textContent = 'Tiếng Suối';
+                btn.classList.remove('border-emerald-400', 'bg-emerald-950/60');
+            }
+        }
+
+        function changeMasterVolume(val) {
+            masterVolume = val / 100;
+            document.getElementById('volume-label').textContent = `${val}%`;
+            setAudioVolumes();
+            if (masterGainNode) {
+                masterGainNode.gain.setValueAtTime(masterVolume, webAudioCtx ? webAudioCtx.currentTime : 0);
+            }
+        }
+
+        // ----------------------------------------------------
+        // 3. TAB NAVIGATION & MOBILE CONTROLS
+        // ----------------------------------------------------
+        function switchTab(tabId) {
+            triggerHaptic([15]);
+            document.querySelectorAll('.tab-section').forEach(sec => sec.classList.add('hidden'));
+            const targetSection = document.getElementById(`section-${tabId}`);
+            if (targetSection) targetSection.classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = 'tab-btn flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2 rounded-xl font-semibold text-xs sm:text-sm transition-all text-amber-200/80 hover:text-amber-200 hover:bg-white/5 border border-transparent';
+            });
+            const activeDesktopBtn = document.getElementById(`tab-${tabId}`);
+            if (activeDesktopBtn) {
+                activeDesktopBtn.className = 'tab-btn flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2 rounded-xl font-bold text-xs sm:text-sm transition-all bg-gradient-to-r from-red-800 to-amber-700 text-amber-100 shadow-lg border border-amber-300/50';
+            }
+
+            document.querySelectorAll('.m-nav-btn').forEach(btn => {
+                btn.className = 'm-nav-btn flex flex-col items-center text-amber-200/70 text-[10px] font-medium py-1 px-2 rounded-xl';
+            });
+            const activeMobileBtn = document.getElementById(`m-tab-${tabId}`);
+            if (activeMobileBtn) {
+                activeMobileBtn.className = 'm-nav-btn flex flex-col items-center text-amber-300 text-[10px] font-bold py-1 px-2 rounded-xl bg-amber-950/60 border border-amber-400/40';
+            }
+
+            if (tabId === 'phong-sinh') {
+                resizePondCanvas();
+            }
+            if (tabId === 'kinh-phat') {
+                renderCurrentSutra();
+            }
+        }
+
+        function triggerHaptic(pattern = [20]) {
+            if (navigator.vibrate) {
+                try { navigator.vibrate(pattern); } catch (e) {}
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+                showToast('Toàn Màn Hình', 'Đã mở chế độ toàn màn hình tôn nghiêm.');
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        let toastTimer = null;
+        function showToast(title, msg) {
+            const toast = document.getElementById('toast-notification');
+            document.getElementById('toast-title').textContent = title;
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('translate-x-96', 'opacity-0');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('translate-x-96', 'opacity-0');
+            }, 3200);
+        }
+
+        function addMerit(points, floatingText = null, eventObj = null) {
+            meritScore += points;
+            localStorage.setItem('dichua_merit', meritScore.toString());
+            document.getElementById('merit-counter-display').textContent = meritScore.toLocaleString('vi-VN');
+
+            if (floatingText) {
+                spawnFloatingMeritText(floatingText, eventObj);
+            }
+        }
+
+        function spawnFloatingMeritText(text, eventObj) {
+            const bubble = document.createElement('div');
+            bubble.className = 'floating-wish-bubble font-serif font-bold text-xs sm:text-sm text-amber-300 bg-red-950/95 border-2 border-amber-400/80 px-3.5 py-1.5 rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.95)]';
+            bubble.textContent = text;
+
+            let x = window.innerWidth / 2 - 50;
+            let y = window.innerHeight / 2 - 40;
+            if (eventObj && eventObj.clientX) {
+                x = eventObj.clientX - 45;
+                y = eventObj.clientY - 25;
+            }
+            bubble.style.left = `${Math.max(10, x)}px`;
+            bubble.style.top = `${Math.max(10, y)}px`;
+
+            document.body.appendChild(bubble);
+            setTimeout(() => bubble.remove(), 3200);
+        }
+
+        // ----------------------------------------------------
+        // 4. DEITY SHRINE SELECTOR & ALTAR INTERACTIONS
+        // ----------------------------------------------------
+        function renderDeityRibbon() {
+            const container = document.getElementById('deity-select-ribbon');
+            container.innerHTML = deities.map((d, idx) => `
+                <button onclick="selectDeity(${idx})" class="deity-pill-btn px-3 py-1.5 rounded-xl border text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 shadow-md ${idx === currentDeityIndex ? 'bg-amber-600 border-amber-300 text-white shadow-lg' : 'bg-temple-woodLight/80 border-amber-500/30 text-amber-200/80 hover:bg-amber-900/40'}">
+                    <span class="w-2 h-2 rounded-full ${idx === currentDeityIndex ? 'bg-amber-200 animate-ping' : 'bg-amber-500/50'}"></span>
+                    <span>${d.name}</span>
+                </button>
+            `).join('');
+        }
+
+        function selectDeity(index) {
+            triggerHaptic([20]);
+            currentDeityIndex = index;
+            const d = deities[index];
+
+            const img = document.getElementById('deity-image');
+            img.style.opacity = '0';
+            img.style.transform = 'scale(0.96)';
+
+            setTimeout(() => {
+                img.src = d.image;
+                document.getElementById('deity-name-display').textContent = d.name;
+                document.getElementById('deity-meaning-display').textContent = d.meaning;
+                document.getElementById('altar-mantra-banner').textContent = d.mantra;
+                document.getElementById('altar-plaque-text').textContent = d.plaque;
+                document.getElementById('couplet-left').innerHTML = d.coupletLeft;
+                document.getElementById('couplet-right').innerHTML = d.coupletRight;
+                document.getElementById('deity-halo-effect').style.filter = `drop-shadow(0 0 40px ${d.haloGlow})`;
+
+                img.style.opacity = '1';
+                img.style.transform = 'scale(1)';
+            }, 250);
+
+            renderDeityRibbon();
+            playAuthenticWoodenFishAcoustic();
+            showToast('Chuyển Ban Thờ', `Bạn đang chiêm bái: ${d.name}`);
+        }
+
+        function setQuickWishText(text) {
+            document.getElementById('prayer-text-input').value = text;
+            triggerHaptic([15]);
+        }
+
+        let prayerHistory = JSON.parse(localStorage.getItem('dichua_prayers') || '[]');
+        function renderPrayerHistory() {
+            const container = document.getElementById('prayer-history-list');
+            document.getElementById('prayer-count-badge').textContent = `${prayerHistory.length} lời nguyện`;
+            if (prayerHistory.length === 0) {
+                container.innerHTML = '<div class="bg-black/30 p-2 rounded-xl text-center"><p class="text-[11px] text-amber-200/50 italic">Chưa có lời khấn nào. Hãy thắp nén hương đầu tiên!</p></div>';
+                return;
+            }
+            container.innerHTML = prayerHistory.slice(0, 8).map(p => `
+                <div class="bg-black/40 border border-amber-500/30 rounded-xl p-2 text-xs shadow">
+                    <span class="text-amber-300 font-bold block">${p.time} • ${p.deity}:</span>
+                    <span class="text-amber-100/90 italic">"${p.text}"</span>
+                </div>
+            `).join('');
+        }
+
+        function lightIncenseAndPray() {
+            triggerHaptic([30, 40]);
+            playGreatBellSound();
+
+            const input = document.getElementById('prayer-text-input');
+            const wish = input.value.trim() || 'Con xin thành tâm cầu nguyện cho bản thân và gia đạo luôn bình an, mạnh khỏe, vạn sự hanh thông.';
+
+            incenseActive = true;
+            const embers = document.getElementById('incense-embers-container');
+            if (embers) {
+                embers.classList.remove('opacity-30');
+                embers.classList.add('opacity-100');
+            }
+            document.getElementById('incense-status-label').textContent = '🌿 Đang Tỏa Hương Trầm...';
+
+            // Float prayer up on altar stage
+            const stage = document.getElementById('floating-prayers-container');
+            const bubble = document.createElement('div');
+            bubble.className = 'absolute left-1/2 -translate-x-1/2 bottom-16 bg-gradient-to-r from-red-950/95 via-amber-900/95 to-red-950/95 border-2 border-amber-300 text-amber-100 px-4 py-2.5 rounded-2xl shadow-2xl text-xs sm:text-sm font-serif italic text-center max-w-sm transition-all duration-[4500ms] ease-out z-40';
+            bubble.innerHTML = `✨ "${wish}"`;
+            stage.appendChild(bubble);
+
+            requestAnimationFrame(() => {
+                bubble.style.transform = 'translate(-50%, -240px) scale(0.9)';
+                bubble.style.opacity = '0';
+            });
+            setTimeout(() => bubble.remove(), 4600);
+
+            const now = new Date();
+            const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            prayerHistory.unshift({
+                time: timeStr,
+                deity: deities[currentDeityIndex].name,
+                text: wish
+            });
+            localStorage.setItem('dichua_prayers', JSON.stringify(prayerHistory));
+            renderPrayerHistory();
+
+            addMerit(10, '🙏 Thắp Hương Cầu Nguyện (+10)');
+            showToast('Đã Dâng Hương Thành Kính', 'Nén tâm hương đã thắp sáng, lời sớ đang thấu suốt cõi thiêng.');
+            input.value = '';
+        }
+
+        function bowToDeity() {
+            triggerHaptic([40, 60]);
+            playSingingBowlSound();
+            addMerit(5, '🙇 Lễ Phật Tam Bái (+5)');
+            showToast('Lễ Phật Tam Bái', 'Chắp tay cúi đầu, lòng hướng về Đức Phật thanh tịnh.');
+        }
+
+        function offerOfferingAction(itemName, emoji) {
+            triggerHaptic([20]);
+            playAuthenticWoodenFishAcoustic();
+            addMerit(5, `${emoji} Dâng ${itemName} (+5)`);
+            showToast('Dâng Phẩm Vật Thành Tâm', `Bạn vừa dâng ${itemName} lên trước bảo điện.`);
+        }
+
+        function lightCandle(sideName) {
+            triggerHaptic([15]);
+            playAuthenticWoodenFishAcoustic();
+            addMerit(2, `🕯️ Thắp ${sideName} (+2)`);
+            showToast('Thắp Sáng Ngọn Nến', 'Ánh sáng trí tuệ xua tan bóng tối vô minh.');
+        }
+
+        // Incense Smoke Particle Simulation
+        const incenseCanvas = document.getElementById('incense-canvas');
+        const incenseCtx = incenseCanvas.getContext('2d');
+        let smokeParticles = [];
+
+        function initIncenseCanvas() {
+            incenseCanvas.width = 400;
+            incenseCanvas.height = 140;
+        }
+        initIncenseCanvas();
+
+        function renderSmokeSystem() {
+            incenseCtx.clearRect(0, 0, incenseCanvas.width, incenseCanvas.height);
+
+            if (incenseActive && Math.random() < 0.5) {
+                const offsets = [-7, 0, 7];
+                const off = offsets[Math.floor(Math.random() * offsets.length)];
+                smokeParticles.push({
+                    x: incenseCanvas.width / 2 + off,
+                    y: incenseCanvas.height - 10,
+                    vx: (Math.random() - 0.5) * 0.35,
+                    vy: -0.7 - Math.random() * 0.5,
+                    size: 3.5 + Math.random() * 3.5,
+                    alpha: 0.45
+                });
+            }
+
+            for (let i = smokeParticles.length - 1; i >= 0; i--) {
+                const p = smokeParticles[i];
+                p.x += p.vx + Math.sin(p.y * 0.06) * 0.25;
+                p.y += p.vy;
+                p.size += 0.08;
+                p.alpha -= 0.0035;
+
+                if (p.alpha <= 0 || p.y < 0) {
+                    smokeParticles.splice(i, 1);
+                    continue;
+                }
+
+                incenseCtx.save();
+                incenseCtx.beginPath();
+                const grad = incenseCtx.createRadialGradient(p.x, p.y, 1, p.x, p.y, p.size);
+                grad.addColorStop(0, `rgba(254, 243, 199, ${p.alpha})`);
+                grad.addColorStop(1, 'rgba(254, 243, 199, 0)');
+                incenseCtx.fillStyle = grad;
+                incenseCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                incenseCtx.fill();
+                incenseCtx.restore();
+            }
+            requestAnimationFrame(renderSmokeSystem);
+        }
+        requestAnimationFrame(renderSmokeSystem);
+
+        // ----------------------------------------------------
+        // 5. WOODEN FISH & BELL LOGIC
+        // ----------------------------------------------------
+        function handleWoodenFishClick(event) {
+            triggerHaptic([25]);
+            playAuthenticWoodenFishAcoustic();
+            sessionWoodenFishTaps++;
+            document.getElementById('session-tap-counter').textContent = `Đã gõ: ${sessionWoodenFishTaps}`;
+
+            const btn = document.getElementById('btn-wooden-fish');
+            btn.classList.remove('fish-strike');
+            void btn.offsetWidth;
+            btn.classList.add('fish-strike');
+
+            const rippleContainer = document.getElementById('mo-ripple-container');
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple-circle';
+            rippleContainer.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 1300);
+
+            const mantra = document.getElementById('mo-mantra-select').value;
+            addMerit(1, `🪷 ${mantra}`, event);
+        }
+
+        function toggleAutoKnock() {
+            const icon = document.getElementById('auto-knock-icon');
+            const text = document.getElementById('auto-knock-text');
+
+            if (autoKnockTimer) {
+                clearInterval(autoKnockTimer);
+                autoKnockTimer = null;
+                icon.className = 'fa-solid fa-play';
+                text.textContent = 'Tự Động Gõ Mỏ';
+                showToast('Tạm Dừng Gõ Tự Động', 'Đã dừng nhịp gõ mỏ.');
+            } else {
+                handleWoodenFishClick(null);
+                autoKnockTimer = setInterval(() => {
+                    handleWoodenFishClick(null);
+                }, 1250);
+                icon.className = 'fa-solid fa-pause';
+                text.textContent = 'Đang Gõ Tự Động';
+                showToast('Bắt Đầu Gõ Tự Động', 'Nhịp mỏ đều đặn giúp bạn tập trung niệm Phật.');
+            }
+        }
+
+        function handleGreatBellClick(event) {
+            triggerHaptic([50]);
+            playGreatBellSound();
+
+            const btn = document.getElementById('btn-great-bell');
+            btn.classList.remove('fish-strike');
+            void btn.offsetWidth;
+            btn.classList.add('fish-strike');
+
+            const rippleContainer = document.getElementById('bell-ripple-container');
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple-circle';
+            rippleContainer.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 1300);
+
+            addMerit(3, '🔔 Tiếng Chuông Tỉnh Thức (+3)', event);
+        }
+
+        function handleSingingBowlClick(event) {
+            triggerHaptic([35]);
+            playSingingBowlSound();
+            addMerit(2, '🥣 Tiếng Chuông Bát Thiền Tịnh (+2)', event);
+        }
+
+        function refreshDharmaQuote() {
+            triggerHaptic([15]);
+            playAuthenticWoodenFishAcoustic();
+            currentQuoteIndex = (currentQuoteIndex + 1) % dharmaQuotes.length;
+            document.getElementById('dharma-quote-display').textContent = dharmaQuotes[currentQuoteIndex];
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'INPUT') {
+                e.preventDefault();
+                handleWoodenFishClick(null);
+            } else if (e.code === 'KeyB' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'INPUT') {
+                e.preventDefault();
+                handleGreatBellClick(null);
+            }
+        });
+
+        // ----------------------------------------------------
+        // 6. XIN XĂM ĐẦU NĂM (REAL DIVINATION TUBE)
+        // ----------------------------------------------------
+        let isShakingOracle = false;
+        function shakeFortuneCylinder() {
+            if (isShakingOracle) return;
+            isShakingOracle = true;
+            triggerHaptic([30, 20, 30, 20]);
+
+            const cylinderBox = document.getElementById('fortune-cylinder-box');
+            const alertBadge = document.getElementById('stick-drawn-alert');
+            alertBadge.classList.add('hidden');
+            cylinderBox.classList.add('shake-animation');
+
+            playBambooShakeSound();
+
+            setTimeout(() => {
+                cylinderBox.classList.remove('shake-animation');
+                playGreatBellSound();
+
+                const chosen = fortuneDeck[Math.floor(Math.random() * fortuneDeck.length)];
+                alertBadge.textContent = `✨ Rút được ${chosen.code}!`;
+                alertBadge.classList.remove('hidden');
+
+                document.getElementById('fortune-code').textContent = chosen.code;
+                document.getElementById('fortune-title').textContent = chosen.title;
+                document.getElementById('fortune-badge').textContent = chosen.badge;
+                document.getElementById('fortune-poem').textContent = chosen.poem;
+                document.getElementById('fortune-general').textContent = chosen.general;
+                document.getElementById('fortune-career').textContent = chosen.career;
+                document.getElementById('fortune-love').textContent = chosen.love;
+                document.getElementById('fortune-advice').textContent = chosen.advice;
+
+                addMerit(5, '📜 Gieo Quẻ Đầu Năm (+5)');
+                showToast(chosen.code, `Gieo được: ${chosen.title}`);
+                isShakingOracle = false;
+            }, 1000);
+        }
+
+        function saveCurrentFortune() {
+            triggerHaptic([20]);
+            playAuthenticWoodenFishAcoustic();
+            const code = document.getElementById('fortune-code').textContent;
+            const title = document.getElementById('fortune-title').textContent;
+            showToast('Đã Lưu Quẻ Xăm', `Quẻ [${title}] đã được ghi nhớ vào điện thoại.`);
+        }
+
+        // ----------------------------------------------------
+        // 7. HỒ SEN PHÓNG SINH (CANVAS KOI & TURTLE)
+        // ----------------------------------------------------
+        const pondCanvas = document.getElementById('lotus-pond-canvas');
+        const pondCtx = pondCanvas.getContext('2d');
+        let pondCreatures = [];
+        let pondRipples = [];
+        let lotusPads = [];
+
+        function resizePondCanvas() {
+            const rect = pondCanvas.parentElement.getBoundingClientRect();
+            pondCanvas.width = rect.width || 600;
+            pondCanvas.height = rect.height || 320;
+            if (lotusPads.length === 0) {
+                lotusPads = [
+                    { x: 90, y: 70, r: 35, flower: true },
+                    { x: pondCanvas.width - 100, y: 80, r: 40, flower: true },
+                    { x: 220, y: pondCanvas.height - 70, r: 34, flower: false },
+                    { x: pondCanvas.width - 160, y: pondCanvas.height - 65, r: 38, flower: true }
+                ];
+            }
+        }
+
+        function spawnCreature(type = 'koi') {
+            const koiPalettes = ['#ea580c', '#dc2626', '#f59e0b', '#fb923c', '#f43f5e'];
+            return {
+                type,
+                x: 60 + Math.random() * (pondCanvas.width - 120 || 300),
+                y: 60 + Math.random() * (pondCanvas.height - 120 || 200),
+                angle: Math.random() * Math.PI * 2,
+                speed: type === 'turtle' ? 0.6 : (1.1 + Math.random() * 0.5),
+                color: koiPalettes[Math.floor(Math.random() * koiPalettes.length)],
+                phase: Math.random() * Math.PI * 2
+            };
+        }
+
+        for (let i = 0; i < 5; i++) pondCreatures.push(spawnCreature('koi'));
+        pondCreatures.push(spawnCreature('turtle'));
+
+        function releaseCreatureToPond(type) {
+            triggerHaptic([30]);
+            resizePondCanvas();
+            const c = spawnCreature(type);
+            c.x = pondCanvas.width / 2;
+            c.y = pondCanvas.height - 35;
+            pondCreatures.push(c);
+            pondRipples.push({ x: c.x, y: c.y, r: 6, alpha: 0.9 });
+            document.getElementById('pond-creature-count').textContent = pondCreatures.length;
+
+            playAuthenticWoodenFishAcoustic();
+            if (type === 'koi') {
+                addMerit(8, '🐟 Phóng Sinh Cá Chép (+8)');
+                showToast('Phóng Sinh Cá Chép', 'Cầu chúc gia đạo vạn sự an lành, thăng hoa phát đạt.');
+            } else {
+                addMerit(10, '🐢 Phóng Sinh Rùa Vàng (+10)');
+                showToast('Phóng Sinh Rùa Vàng', 'Cầu chúc trường thọ, sức khỏe dồi dào, tai ách tiêu trừ.');
+            }
+        }
+
+        pondCanvas.addEventListener('click', (e) => {
+            triggerHaptic([15]);
+            const rect = pondCanvas.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+            pondRipples.push({ x: clickX, y: clickY, r: 5, alpha: 0.85 });
+
+            pondCreatures.forEach(c => {
+                c.angle = Math.atan2(clickY - c.y, clickX - c.x);
+            });
+            playAuthenticWoodenFishAcoustic();
+            addMerit(1, '🪷 Cho Cá Ăn (+1)', e);
+        });
+
+        function renderPondSimulation() {
+            if (pondCanvas.width > 0) {
+                const waterGrad = pondCtx.createRadialGradient(
+                    pondCanvas.width * 0.5, pondCanvas.height * 0.4, 20,
+                    pondCanvas.width * 0.5, pondCanvas.height * 0.5, pondCanvas.width * 0.75
+                );
+                waterGrad.addColorStop(0, '#0f3c42');
+                waterGrad.addColorStop(0.6, '#08262c');
+                waterGrad.addColorStop(1, '#041518');
+                pondCtx.fillStyle = waterGrad;
+                pondCtx.fillRect(0, 0, pondCanvas.width, pondCanvas.height);
+
+                pondCreatures.forEach(c => {
+                    c.phase += 0.15;
+                    c.x += Math.cos(c.angle) * c.speed;
+                    c.y += Math.sin(c.angle) * c.speed;
+                    c.angle += (Math.random() - 0.5) * 0.04;
+
+                    const pad = 35;
+                    if (c.x < pad || c.x > pondCanvas.width - pad || c.y < pad || c.y > pondCanvas.height - pad) {
+                        c.angle = Math.atan2(pondCanvas.height / 2 - c.y, pondCanvas.width / 2 - c.x);
+                    }
+
+                    pondCtx.save();
+                    pondCtx.translate(c.x, c.y);
+                    pondCtx.rotate(c.angle);
+
+                    if (c.type === 'koi') {
+                        const tailWag = Math.sin(c.phase) * 5;
+
+                        pondCtx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                        pondCtx.beginPath();
+                        pondCtx.ellipse(-2, 7, 16, 6, 0, 0, Math.PI * 2);
+                        pondCtx.fill();
+
+                        pondCtx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+                        pondCtx.beginPath();
+                        pondCtx.ellipse(2, -7, 6, 3, -0.5 + tailWag * 0.04, 0, Math.PI * 2);
+                        pondCtx.ellipse(2, 7, 6, 3, 0.5 - tailWag * 0.04, 0, Math.PI * 2);
+                        pondCtx.fill();
+
+                        pondCtx.fillStyle = c.color;
+                        pondCtx.beginPath();
+                        pondCtx.moveTo(-11, 0);
+                        pondCtx.quadraticCurveTo(-18, -8 + tailWag, -26, -9 + tailWag * 1.3);
+                        pondCtx.lineTo(-20, tailWag * 0.5);
+                        pondCtx.lineTo(-26, 9 + tailWag * 1.3);
+                        pondCtx.quadraticCurveTo(-18, 8 + tailWag, -11, 0);
+                        pondCtx.fill();
+
+                        const bodyGrad = pondCtx.createLinearGradient(-14, 0, 16, 0);
+                        bodyGrad.addColorStop(0, c.color);
+                        bodyGrad.addColorStop(0.5, '#ffffff');
+                        bodyGrad.addColorStop(1, c.color);
+                        pondCtx.fillStyle = bodyGrad;
+                        pondCtx.beginPath();
+                        pondCtx.ellipse(0, 0, 16, 6.5, 0, 0, Math.PI * 2);
+                        pondCtx.fill();
+
+                        pondCtx.fillStyle = c.color;
+                        pondCtx.beginPath();
+                        pondCtx.arc(6, -1, 4, 0, Math.PI * 2);
+                        pondCtx.arc(-4, 1.5, 3.5, 0, Math.PI * 2);
+                        pondCtx.fill();
+
+                        pondCtx.fillStyle = '#111827';
+                        pondCtx.beginPath();
+                        pondCtx.arc(12, -3, 1.2, 0, Math.PI * 2);
+                        pondCtx.arc(12, 3, 1.2, 0, Math.PI * 2);
+                        pondCtx.fill();
+
+                    } else {
+                        const legWag = Math.sin(c.phase) * 3;
+                        pondCtx.fillStyle = '#065f46';
+                        pondCtx.beginPath();
+                        pondCtx.ellipse(7, -10 + legWag * 0.4, 5, 2.5, -0.5, 0, Math.PI * 2);
+                        pondCtx.ellipse(7, 10 - legWag * 0.4, 5, 2.5, 0.5, 0, Math.PI * 2);
+                        pondCtx.ellipse(-8, -9, 4, 2, 0.5, 0, Math.PI * 2);
+                        pondCtx.ellipse(-8, 9, 4, 2, -0.5, 0, Math.PI * 2);
+                        pondCtx.fill();
+
+                        pondCtx.beginPath();
+                        pondCtx.ellipse(15, 0, 5, 3.8, 0, 0, Math.PI * 2);
+                        pondCtx.fill();
+
+                        const shellGrad = pondCtx.createRadialGradient(-2, -2, 2, 0, 0, 13);
+                        shellGrad.addColorStop(0, '#fef08a');
+                        shellGrad.addColorStop(0.55, '#d97706');
+                        shellGrad.addColorStop(1, '#451a03');
+                        pondCtx.fillStyle = shellGrad;
+                        pondCtx.strokeStyle = '#fde047';
+                        pondCtx.lineWidth = 1.2;
+                        pondCtx.beginPath();
+                        pondCtx.ellipse(0, 0, 13, 10.5, 0, 0, Math.PI * 2);
+                        pondCtx.fill();
+                        pondCtx.stroke();
+                    }
+                    pondCtx.restore();
+                });
+
+                for (let i = pondRipples.length - 1; i >= 0; i--) {
+                    const rp = pondRipples[i];
+                    rp.r += 1.1;
+                    rp.alpha -= 0.015;
+                    if (rp.alpha <= 0) {
+                        pondRipples.splice(i, 1);
+                        continue;
+                    }
+                    pondCtx.strokeStyle = `rgba(253, 224, 71, ${rp.alpha})`;
+                    pondCtx.lineWidth = 1.4;
+                    pondCtx.beginPath();
+                    pondCtx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
+                    pondCtx.stroke();
+                }
+
+                lotusPads.forEach(pad => {
+                    pondCtx.save();
+                    pondCtx.fillStyle = 'rgba(21, 128, 61, 0.85)';
+                    pondCtx.strokeStyle = '#4ade80';
+                    pondCtx.lineWidth = 1.2;
+                    pondCtx.beginPath();
+                    pondCtx.arc(pad.x, pad.y, pad.r, 0.2, Math.PI * 1.9);
+                    pondCtx.lineTo(pad.x, pad.y);
+                    pondCtx.closePath();
+                    pondCtx.fill();
+                    pondCtx.stroke();
+
+                    if (pad.flower) {
+                        pondCtx.fillStyle = '#f472b6';
+                        for (let a = 0; a < 6; a++) {
+                            pondCtx.beginPath();
+                            const ang = (a * Math.PI) / 3;
+                            pondCtx.ellipse(pad.x + Math.cos(ang) * 7, pad.y + Math.sin(ang) * 7, 8, 4, ang, 0, Math.PI * 2);
+                            pondCtx.fill();
+                        }
+                        pondCtx.fillStyle = '#facc15';
+                        pondCtx.beginPath();
+                        pondCtx.arc(pad.x, pad.y, 4.5, 0, Math.PI * 2);
+                        pondCtx.fill();
+                    }
+                    pondCtx.restore();
+                });
+            }
+            requestAnimationFrame(renderPondSimulation);
+        }
+
+        let wishingRibbons = [
+            { x: 22, y: 30, text: "Cầu cha mẹ mạnh khỏe, bình an sống lâu trăm tuổi." },
+            { x: 48, y: 22, text: "Cầu thi cử đỗ đạt, sự nghiệp rạng rỡ hanh thông." },
+            { x: 72, y: 32, text: "Mong tâm luôn an tịnh, buông bỏ muộn phiền âu lo." },
+            { x: 38, y: 50, text: "Cầu gia đạo ấm êm, tình duyên tốt lành viên mãn." }
+        ];
+
+        function renderWishingRibbons() {
+            const container = document.getElementById('wishing-ribbons-layer');
+            container.innerHTML = wishingRibbons.map((r, idx) => `
+                <button onclick="selectRibbon(${idx})" style="left: ${r.x}%; top: ${r.y}%;" class="ribbon-sway absolute bg-gradient-to-b from-red-600 to-red-800 border border-amber-300 text-amber-200 px-2 py-2 rounded-b-lg shadow-lg hover:scale-110 transition flex flex-col items-center">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-300 mb-0.5"></span>
+                    <span class="font-serif text-[10px] font-bold">PHÚC</span>
+                </button>
+            `).join('');
+        }
+
+        function selectRibbon(idx) {
+            triggerHaptic([15]);
+            playAuthenticWoodenFishAcoustic();
+            const r = wishingRibbons[idx];
+            document.getElementById('selected-ribbon-preview').textContent = `"${r.text}"`;
+        }
+
+        function hangNewWishRibbon() {
+            const input = document.getElementById('ribbon-input-text');
+            const text = input.value.trim();
+            if (!text) {
+                showToast('Chưa Nhập Lời Ước', 'Hãy viết một tâm nguyện ngắn trước khi treo lên cành Bồ Đề.');
+                return;
+            }
+            triggerHaptic([30]);
+            playGreatBellSound();
+
+            const x = 18 + Math.floor(Math.random() * 64);
+            const y = 20 + Math.floor(Math.random() * 45);
+            wishingRibbons.push({ x, y, text });
+            renderWishingRibbons();
+            document.getElementById('selected-ribbon-preview').textContent = `"${text}"`;
+            input.value = '';
+
+            addMerit(5, '🎐 Treo Thẻ Ước Nguyện (+5)');
+            showToast('Đã Treo Thẻ Ước Nguyện', 'Lời khấn của bạn đã được treo lên cành Bồ Đề linh thiêng.');
+        }
+
+        // ----------------------------------------------------
+        // 8. SUTRA READER
+        // ----------------------------------------------------
+        let currentSutraKey = 'chu-dai-bi';
+        function selectSutra(key) {
+            triggerHaptic([15]);
+            playAuthenticWoodenFishAcoustic();
+            currentSutraKey = key;
+
+            document.querySelectorAll('.sutra-tab-btn').forEach(btn => {
+                btn.className = 'sutra-tab-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-temple-woodLight text-amber-200 hover:bg-amber-900/50 border border-amber-500/30';
+            });
+            const active = document.getElementById(`sutra-btn-${key}`);
+            if (active) {
+                active.className = 'sutra-tab-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-600 text-white shadow';
+            }
+            renderCurrentSutra();
+        }
+
+        function renderCurrentSutra() {
+            const content = sutrasDatabase[currentSutraKey] || '';
+            document.getElementById('sutra-content-area').innerHTML = content;
+        }
+
+        // ----------------------------------------------------
+        // 9. APP INITIALIZATION ON LOAD
+        // ----------------------------------------------------
+        window.addEventListener('DOMContentLoaded', () => {
+            renderDeityRibbon();
+            renderPrayerHistory();
+            renderWishingRibbons();
+            renderCurrentSutra();
+            resizePondCanvas();
+            renderPondSimulation();
+
+            document.getElementById('merit-counter-display').textContent = meritScore.toLocaleString('vi-VN');
+            window.addEventListener('resize', resizePondCanvas);
+        });
+    </script>
+</body>
+</html>
