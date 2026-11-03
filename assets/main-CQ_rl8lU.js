@@ -5976,6 +5976,7 @@ class AdminPortalManager {
   }
 
   openConsole() {
+    document.querySelectorAll('.sheet.open:not(#admin-console-modal), #daily-lot-modal.open').forEach(m => m.classList.remove('open'));
     this.renderConsole();
     this.consoleModal.classList.add('open');
     const bd = document.getElementById('modal-backdrop');

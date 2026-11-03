@@ -86,9 +86,9 @@
         }
       });
     </script>
-    <script type="module" crossorigin src="/assets/main-CQ_rl8lU.js?v=24"></script>
+    <script type="module" crossorigin src="/assets/main-CQ_rl8lU.js?v=25"></script>
     <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="stylesheet" crossorigin href="/assets/main-qo3Sxe6b.css?v=24">
+    <link rel="stylesheet" crossorigin href="/assets/main-qo3Sxe6b.css?v=25">
             <style id="action-bar-glow-style">
 
 /* =========================================================
@@ -1169,6 +1169,8 @@ html:not(.touch) .chat-log {
   position: fixed !important;
   top: 50% !important;
   left: 50% !important;
+  bottom: auto !important;
+  right: auto !important;
   transform: translate(-50%, -50%) scale(0.95) !important;
   width: min(90vw, 380px) !important;
   background: radial-gradient(circle at 50% 0%, rgba(42, 28, 18, 0.98) 0%, rgba(18, 12, 8, 0.98) 100%) !important;
@@ -1223,18 +1225,23 @@ html:not(.touch) .chat-log {
 
 /* Admin Console Modal (Full Power) - LARGE LUXURIOUS DASHBOARD */
 .admin-console-modal {
+  display: block !important;
+  box-sizing: border-box !important;
   position: fixed !important;
   top: 50% !important;
   left: 50% !important;
+  bottom: auto !important;
+  right: auto !important;
   transform: translate(-50%, -50%) scale(0.95) !important;
-  width: min(96vw, 860px) !important;
+  width: min(94vw, 860px) !important;
   max-width: 860px !important;
-  max-height: min(90vh, 820px) !important;
+  height: min(88vh, 760px) !important;
+  max-height: min(88vh, 760px) !important;
   background: radial-gradient(circle at 50% 0%, rgba(42, 28, 18, 0.99) 0%, rgba(16, 11, 7, 0.99) 100%) !important;
   border: 2px solid #ffd54f !important;
   border-radius: 28px !important;
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95), 0 0 50px rgba(246, 185, 75, 0.4) !important;
-  z-index: 105 !important;
+  z-index: 125 !important;
   overflow-y: auto !important;
   padding: 24px 26px 22px !important;
   opacity: 0 !important;
@@ -1243,6 +1250,7 @@ html:not(.touch) .chat-log {
 }
 
 .admin-console-modal.open {
+  display: block !important;
   opacity: 1 !important;
   pointer-events: auto !important;
   transform: translate(-50%, -50%) scale(1) !important;
