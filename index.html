@@ -22,17 +22,73 @@
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Lora:wght@500;600&display=swap" rel="stylesheet" />
     <script>
       window.AN_BINH_TU_WS = window.AN_BINH_TU_WS || (location.hostname.includes('vercel.app') ? 'wss://an-binh-tu.onrender.com/ws' : '');
-      setTimeout(function() {
+
+      // 1. Kiểm tra hỗ trợ WebGL đồ họa 3D trước khi nạp cảnh
+      (function() {
+        var supported = false;
+        try {
+          var c = document.createElement('canvas');
+          supported = !!(window.WebGLRenderingContext && (c.getContext('webgl2') || c.getContext('webgl') || c.getContext('experimental-webgl')));
+        } catch(e) {
+          supported = false;
+        }
+        window.__hasWebGL = supported;
+      })();
+
+      // 2. Cập nhật tiến trình tải trang nhẹ nhàng, KHÔNG BAO GIỜ tự tắt màn hình loading khi cảnh chưa sẵn sàng
+      (function() {
+        setTimeout(function() {
+          var txt = document.querySelector('.loading-text');
+          var l = document.getElementById('loading');
+          if (txt && l && !l.classList.contains('done')) {
+            txt.textContent = 'Đang nạp cảnh quan và tượng Phật 3D…';
+          }
+        }, 3500);
+
+        setTimeout(function() {
+          var txt = document.querySelector('.loading-text');
+          var l = document.getElementById('loading');
+          var help = document.getElementById('loading-help');
+          if (l && !l.classList.contains('done')) {
+            if (txt) txt.textContent = 'Đang kết nối không gian thanh tịnh…';
+            if (help) help.style.display = 'flex';
+          }
+        }, 7000);
+
+        setTimeout(function() {
+          var txt = document.querySelector('.loading-text');
+          var l = document.getElementById('loading');
+          var help = document.getElementById('loading-help');
+          if (l && !l.classList.contains('done')) {
+            if (txt) txt.innerHTML = 'Mạng truyền tải dữ liệu 3D đang chậm.<br/><span style="font-size:12.5px; opacity:0.85;">Quý bạn có thể bấm nút dưới để thử tải lại hoặc đổi cổng:</span>';
+            if (help) help.style.display = 'flex';
+          }
+        }, 13000);
+      })();
+
+      // 3. Bắt lỗi không mong muốn để không bao giờ để màn hình trống rỗng màu nâu
+      window.addEventListener('error', function(e) {
         var l = document.getElementById('loading');
         if (l && !l.classList.contains('done')) {
-          l.classList.add('done');
-          setTimeout(function() { if (l) l.style.display = 'none'; }, 800);
+          var txt = document.querySelector('.loading-text');
+          var help = document.getElementById('loading-help');
+          if (txt) {
+            txt.innerHTML = '<span style="color:#ffd54f;">Đang thử nạp lại dữ liệu cảnh chùa…</span>';
+          }
+          if (help) help.style.display = 'flex';
         }
-      }, 7000);
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        var l = document.getElementById('loading');
+        if (l && !l.classList.contains('done')) {
+          var help = document.getElementById('loading-help');
+          if (help) help.style.display = 'flex';
+        }
+      });
     </script>
-    <script type="module" crossorigin src="/assets/main-CQ_rl8lU.js?v=21"></script>
+    <script type="module" crossorigin src="/assets/main-CQ_rl8lU.js?v=23"></script>
     <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="stylesheet" crossorigin href="/assets/main-qo3Sxe6b.css?v=21">
+    <link rel="stylesheet" crossorigin href="/assets/main-qo3Sxe6b.css?v=23">
             <style id="action-bar-glow-style">
 
 /* =========================================================
@@ -1348,6 +1404,58 @@ html:not(.touch) .chat-log {
   cursor: pointer !important;
 }
 
+    
+/* =========================================================
+   LOADING HELP & RETRY BUTTONS STYLES
+   ========================================================= */
+.loading-help {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  margin-top: 14px !important;
+  z-index: 25 !important;
+  pointer-events: auto !important;
+  max-width: 90vw !important;
+}
+
+.loading-action-btn {
+  padding: 8px 18px !important;
+  background: rgba(220, 168, 66, 0.25) !important;
+  border: 1.5px solid #ffd54f !important;
+  border-radius: 999px !important;
+  color: #fff8ec !important;
+  font-family: var(--font, system-ui, sans-serif) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 12px rgba(255, 215, 120, 0.3) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  transition: all 0.2s ease !important;
+  user-select: none !important;
+  pointer-events: auto !important;
+}
+
+.loading-action-btn:hover {
+  background: rgba(220, 168, 66, 0.45) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 18px rgba(255, 215, 120, 0.6) !important;
+}
+
+.loading-action-btn.alt {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 215, 120, 0.45) !important;
+}
+
+.loading-action-btn.alt:hover {
+  background: rgba(255, 215, 120, 0.28) !important;
+  border-color: #ffd54f !important;
+}
+
     </style>
   </head>
   <body>
@@ -1425,6 +1533,10 @@ html:not(.touch) .chat-log {
       <div class="loading-text">Đang mở cổng chùa…</div>
       <div class="loading-bar"><span></span></div>
       <div class="loading-quote"></div>
+      <div id="loading-help" class="loading-help" style="display:none;">
+        <button type="button" onclick="location.reload(true)" class="loading-action-btn">🔄 Thử tải lại cổng chùa</button>
+        <button type="button" onclick="window.location.href='https://an-binh-tu.vercel.app'" class="loading-action-btn alt">🚀 Mở qua cổng Vercel</button>
+      </div>
     </div>
     <script>
       // a quiet line to read while the temple opens (our own words)
@@ -1466,6 +1578,24 @@ html:not(.touch) .chat-log {
           pills[i].remove();
         }
       }, 500);
+
+      
+      // 5. Kiểm tra WebGL và hiển thị hướng dẫn nếu thiết bị/trình duyệt tắt WebGL
+      if (!window.__hasWebGL) {
+        var txt = document.querySelector('.loading-text');
+        var help = document.getElementById('loading-help');
+        var bar = document.querySelector('.loading-bar');
+        var quote = document.querySelector('.loading-quote');
+        if (quote) quote.style.display = 'none';
+        if (bar) bar.style.display = 'none';
+        if (txt) {
+          txt.innerHTML = '<div style="color:#ffd54f;font-weight:600;font-size:15px;margin-bottom:8px;">⚠️ Trình duyệt chưa bật đồ họa 3D (WebGL)</div>' +
+            '<div style="font-size:12.5px;line-height:1.55;max-width:340px;color:rgba(255,248,236,0.88);text-align:center;">' +
+            'Để chiêm bái cảnh chùa 3D, quý bạn vui lòng khởi động lại trình duyệt Chrome (nếu vừa có thông báo cập nhật Chrome), hoặc bật <i>"Sử dụng tính năng tăng tốc đồ họa"</i> trong Cài đặt hệ thống của Chrome, hoặc mở bằng Edge / Safari.' +
+            '</div>';
+        }
+        if (help) help.style.display = 'flex';
+      }
 
       // 4. Clicking the wooden cylinder immediately draws lot
       document.addEventListener('click', function(e) {

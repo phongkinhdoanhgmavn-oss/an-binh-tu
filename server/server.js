@@ -54,7 +54,13 @@ const server = http.createServer((req, res) => {
       const fallbackHtml = path.join(PUBLIC_DIR, 'index.html');
       fs.stat(fallbackHtml, (err2, stats2) => {
         if (!err2 && stats2.isFile()) {
-          res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+          res.writeHead(200, {
+            'Content-Length': stats2.size,
+            'Content-Type': 'text/html; charset=utf-8',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Connection': 'keep-alive',
+            'Access-Control-Allow-Origin': '*'
+          });
           fs.createReadStream(fallbackHtml).pipe(res);
         } else {
           res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
