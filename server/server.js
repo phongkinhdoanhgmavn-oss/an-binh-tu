@@ -440,6 +440,56 @@ function handleWsMessage(client, msg) {
       break;
     }
 
+    
+    case 'admin_action': {
+      if (msg.passcode !== '051193@') {
+        client.send({ t: 'admin_res', ok: false, err: 'Mật mã quản trị không đúng!' });
+        break;
+      }
+
+      if (msg.action === 'give') {
+        broadcast({
+          t: 'admin_gift',
+          targetPid: msg.targetPid,
+          targetName: msg.targetName,
+          merit: msg.merit,
+          pet: msg.pet,
+          item: msg.item,
+          title: msg.title
+        });
+        broadcast({
+          t: 'chat',
+          id: 999999,
+          name: 'Sư Quản Trị',
+          text: `🙏 Ban phước lành cho ${msg.targetName || 'đại chúng'}: ${msg.merit ? `+${msg.merit} tinh tấn` : ''} ${msg.pet ? `linh thú ${msg.pet}` : ''} ${msg.item ? `vật phẩm ${msg.item}` : ''} ✨`
+        });
+        client.send({ t: 'admin_res', ok: true, msg: 'Đã ban tặng thành công!' });
+      } else if (msg.action === 'rename') {
+        broadcast({
+          t: 'admin_rename',
+          features: msg.features,
+          templeName: msg.templeName
+        });
+        client.send({ t: 'admin_res', ok: true, msg: 'Đã cập nhật cấu hình toàn chùa!' });
+      } else if (msg.action === 'event') {
+        broadcast({
+          t: 'admin_event',
+          eventType: msg.eventType,
+          text: msg.text
+        });
+        if (msg.text) {
+          broadcast({
+            t: 'chat',
+            id: 999999,
+            name: 'Sư Quản Trị',
+            text: `📢 THÔNG BÁO TỪ SƯ QUẢN TRỊ: ${msg.text}`
+          });
+        }
+        client.send({ t: 'admin_res', ok: true, msg: 'Đã kích hoạt sự kiện toàn chùa!' });
+      }
+      break;
+    }
+
     case 'chat': {
       if (!msg.text) break;
       const cleanText = String(msg.text).trim().slice(0, 120);
