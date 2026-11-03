@@ -471,14 +471,25 @@ function handleWsMessage(client, msg) {
           targetName: msg.targetName,
           merit: msg.merit,
           pet: msg.pet,
+          petKey: msg.petKey,
           item: msg.item,
-          title: msg.title
+          title: msg.title,
+          robe: msg.robe,
+          beads: msg.beads,
+          cushion: msg.cushion
         });
+        const giftDesc = [
+          msg.merit ? `+${msg.merit.toLocaleString('vi-VN')} tinh tấn` : '',
+          msg.pet ? `linh thú ${msg.pet}` : '',
+          msg.item ? `vật phẩm ${msg.item}` : '',
+          msg.title ? `danh hiệu ${msg.title}` : '',
+          msg.robe ? `pháp phục mới` : ''
+        ].filter(Boolean).join(' · ');
         broadcast({
           t: 'chat',
           id: 999999,
           name: 'Sư Quản Trị',
-          text: `🙏 Ban phước lành cho ${msg.targetName || 'đại chúng'}: ${msg.merit ? `+${msg.merit} tinh tấn` : ''} ${msg.pet ? `linh thú ${msg.pet}` : ''} ${msg.item ? `vật phẩm ${msg.item}` : ''} ✨`
+          text: `🙏 Sư Quản Trị ban phước lành cho ${msg.targetName || 'đại chúng'}: ${giftDesc || 'cát tường an lạc'} ✨`
         });
         client.send({ t: 'admin_res', ok: true, msg: 'Đã ban tặng thành công!' });
       } else if (msg.action === 'rename') {

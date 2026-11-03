@@ -4878,7 +4878,7 @@ const dE=[{start:5,name:"Công phu sáng"},{start:19.5,name:"Tụng kinh tối"}
       <button class="sheet-close" aria-label="Đóng">×</button>
       <div class="sheet-title">Vườn hoa dâng Phật</div>
       ${r}
-      ${e?`<div class="in-hand">${o?`Hoa đã hái: <b>${Jh(o)}</b>. Vào Chánh điện bấm “Dâng hoa”. <button class="ghost" data-act="hall">Đến Chánh điện</button>`:"Chưa có hoa đã hái."}</div>`:""}`,this.el.querySelector(".sheet-close").addEventListener("click",()=>this.close()),this.el.querySelectorAll("[data-plant]").forEach(a=>a.addEventListener("click",()=>this.h.plant(a.dataset.plant))),this.el.querySelector("[data-act=water]")?.addEventListener("click",()=>{this.close(),this.h.water(this.bed,e?"":t.pid)}),this.el.querySelector("[data-act=pick]")?.addEventListener("click",()=>this.h.pick()),this.el.querySelector("[data-act=hall]")?.addEventListener("click",()=>{this.close(),this.h.toHall()})}}const Qh=20,oA=2.2,Km=["#d9a441","#c9782e","#e2c15a","#a8642a","#b98b3a"].map(i=>new Dt(i));class rA{mesh;leaves=[];m=new Vt;q=new mn;active=!1;constructor(){const t=new We(.34,.18);t.rotateX(-Math.PI/2),this.mesh=new ci(t,new mt({roughness:.9,side:Re}),Qh),this.mesh.frustumCulled=!1,this.mesh.visible=!1;for(let e=0;e<Qh;e++)this.mesh.setColorAt(e,Km[e%Km.length])}start(t){this.leaves=[];for(let s=0;this.leaves.length<Qh&&s<300;s++){const o=Math.random()*Math.PI*2,r=1.2+Math.random()*6.5,a=t.x+Math.cos(o)*r,c=t.z+Math.sin(o)*r,y=Math.max(oi(a,c),(t.y||0))+.03;this.leaves.push({p:new _(a,y,c),rot:Math.random()*6.28,gone:-1,dir:new _})}this.active=!0,this.mesh.visible=!0}stop(){this.active=!1,this.mesh.visible=!1}get swept(){return this.leaves.filter(t=>t.gone>=0).length}get total(){return this.leaves.length}update(t,e){this.active&&(this.leaves.forEach((n,s)=>{n.gone<0&&Math.hypot(n.p.x-e.x,n.p.z-e.z)<oA&&(n.gone=t,n.dir.set(n.p.x-e.x,0,n.p.z-e.z).normalize(),(()=>{try{zn&&zn.bell&&zn.bell(.08)}catch(err){}})());let o=1;const r=n.p.clone();if(n.gone>=0){const a=Math.min(1,(t-n.gone)/.8);r.addScaledVector(n.dir,a*1.6),r.y+=Math.sin(a*Math.PI)*.5,o=1-a}this.q.setFromEuler(new kn(n.gone>=0?(t-n.gone)*9:0,n.rot+(n.gone>=0?(t-n.gone)*6:0),0)),this.m.compose(r,this.q,new _(o,o,o)),this.mesh.setMatrixAt(s,this.m)}),this.mesh.count=this.leaves.length,this.mesh.instanceMatrix.needsUpdate=!0)}}const Zc=[new _(-7.4,rt.hall.y,-21.8),new _(7.4,rt.hall.y,-21.8)],Jr=8,tu=3;function aA(i){const t=Zc[i.x<0?0:1];return new _(t.x,t.y,t.z+1.1)}class cA{group=new it;flames;spots=[];lit=0;m=new Vt;haloGeo=new me;constructor(){const t=k.gold(),e=new ft(.05,.035,.05,8),n=new ci(e,t,Jr*tu*Zc.length);let s=0;for(const h of Zc){for(let d=0;d<tu;d++){const f=.55+d*.22,p=h.z+.3-d*.24,v=new z(new Wt(1.7,.04,.2),t);v.position.set(h.x,h.y+f,p),this.group.add(v);for(let m=0;m<Jr;m++){const g=h.x-.72+m*1.44/(Jr-1);this.m.makeTranslation(g,h.y+f+.045,p),n.setMatrixAt(s++,this.m)}}for(const d of[-.8,.8]){const f=new z(new ft(.025,.035,1,6),t);f.position.set(h.x+d,h.y+.5,h.z),this.group.add(f)}const u=new z(new Wt(1.9,.08,.9),k.lacquer());u.position.set(h.x,h.y+.04,h.z),this.group.add(u),Ee(h.x,h.z,2,1)}this.group.add(n);for(let h=0;h<tu;h++)for(let u=0;u<Jr;u++)for(const d of Zc){const f=[3,4,2,5,1,6,0,7][u],p=d.x-.72+f*1.44/(Jr-1);this.spots.push(new _(p,d.y+.55+h*.22+.1,d.z+.3-h*.24))}const o=new rn(.022,.08,6);o.translate(0,.04,0),this.flames=new ci(o,new xe({color:"#ffa63a",toneMapped:!1}),this.spots.length),this.flames.count=0,this.flames.frustumCulled=!1,this.group.add(this.flames);const r=document.createElement("canvas");r.width=r.height=64;const a=r.getContext("2d"),c=a.createRadialGradient(32,32,0,32,32,32);c.addColorStop(0,"rgba(255,255,255,1)"),c.addColorStop(.3,"rgba(255,255,255,0.45)"),c.addColorStop(1,"rgba(255,255,255,0)"),a.fillStyle=c,a.fillRect(0,0,64,64),this.haloGeo.setAttribute("position",new Yt(this.spots.flatMap(h=>[h.x,h.y+.05,h.z]),3)),this.haloGeo.setDrawRange(0,0);const l=new _s(this.haloGeo,new $i({size:.32,map:new Ve(r),color:"#ffb35a",transparent:!0,opacity:.8,depthWrite:!1,blending:vo}));l.frustumCulled=!1,this.group.add(l)}get newest(){return this.spots[Math.max(0,this.lit-1)]}set(t){this.lit=Math.max(0,Math.min(this.spots.length,t)),this.flames.count=this.lit,this.haloGeo.setDrawRange(0,this.lit)}update(t){for(let e=0;e<this.lit;e++){const n=.85+Math.sin(t*11+e*1.7)*.1+Math.sin(t*23+e)*.05;this.m.compose(this.spots[e],new mn,new _(1,n,1)),this.flames.setMatrixAt(e,this.m)}this.flames.instanceMatrix.needsUpdate=!0}}const Zm=["#e8542a","#f2f0ea","#f2a23a","#d8352a","#f6d36b"];function Jm(i,t){const e=rt.lake,n=rt.isle,s=rt.bridge,o=(i-e.x)/(e.rx-1.2),r=(t-e.z)/(e.rz-1.2);return o*o+r*r>=1||Math.abs(i-n.x)<=n.half+.8&&Math.abs(t-n.z)<=n.half+.8?!1:!(i>=s.x0-.5&&i<=s.x1+.8&&Math.abs(t-s.z)<=s.half+.6)}function lA(i,t){const e=new _(i.x+Math.sin(t)*3,0,i.z+Math.cos(t)*3);if(Jm(e.x,e.z))return e;const n=rt.lake,s=new _(n.x-i.x,0,n.z-i.z).setLength(3.2).add(new _(i.x,0,i.z));return Jm(s.x,s.z)?s:null}class hA{group=new it;pool=[];rings=[];constructor(){for(let t=0;t<10;t++){const e=new it,n=Zm[t%Zm.length],s=new mt({color:n,roughness:.4,transparent:!0}),o=new mt({color:n,roughness:.5,transparent:!0,side:Re}),r=new z(new gt(.07,10,8),s);r.scale.set(.8,.7,2.4);const a=new z(new rn(.06,.14,4),o);a.rotation.x=-Math.PI/2,a.scale.set(1.4,.25,1),a.position.z=-.2,e.add(r,a),e.visible=!1,this.group.add(e),this.pool.push({mesh:e,mat:[s,o],at:-99,from:new _,to:new _,dir:0})}}release(t,e,n){this.pool.filter(r=>n-r.at>9).slice(0,5).forEach((r,a)=>{const c=a/5*Math.PI*2;r.at=n+a*.12,r.from.copy(t),r.to.set(e.x+Math.cos(c)*.6,rt.lake.water+.02,e.z+Math.sin(c)*.6),r.dir=Math.atan2(r.to.x-t.x,r.to.z-t.z)+(Math.random()-.5)*1.6});const o=new z(new Rr(.2,.23,32),new xe({color:"#dfeef0",transparent:!0,opacity:.45,depthWrite:!1}));o.rotation.x=-Math.PI/2,o.position.set(e.x,rt.lake.water+.03,e.z),this.group.add(o),this.rings.push({mesh:o,at:n+.55})}update(t){for(const e of this.pool){const n=t-e.at;if(e.mesh.visible=n>=0&&n<9,!e.mesh.visible)continue;const s=.55;if(n<s){const r=n/s;e.mesh.position.lerpVectors(e.from,e.to,r),e.mesh.position.y+=Math.sin(r*Math.PI)*.7,e.mesh.rotation.set(-Math.cos(r*Math.PI)*.9,Math.atan2(e.to.x-e.from.x,e.to.z-e.from.z),0)}else{const r=n-s,a=r*.7,c=e.dir+Math.sin(r*1.3)*.3;e.mesh.position.set(e.to.x+Math.sin(e.dir)*a,rt.lake.water-Math.min(.12,r*.02),e.to.z+Math.cos(e.dir)*a),e.mesh.rotation.set(0,c+Math.sin(r*9)*.25,0)}const o=Math.min(1,Math.max(0,(9-n)/3));for(const r of e.mat)r.opacity=o}this.rings=this.rings.filter(e=>{const n=t-e.at;return n>2?(this.group.remove(e.mesh),!1):(e.mesh.visible=n>=0,e.mesh.scale.setScalar(1+Math.max(0,n)*4),e.mesh.material.opacity=.45*(1-Math.max(0,n)/2),!0)})}}cE();const So=matchMedia("(pointer: coarse)").matches;document.documentElement.classList.toggle("touch",So);const qg=document.getElementById("scene"),Ln=new G0({canvas:qg,antialias:!0,powerPreference:"high-performance"});Ln.setSize(innerWidth,innerHeight);Ln.toneMapping=fd;Ln.toneMappingExposure=1;Ln.shadowMap.enabled=!0;Ln.shadowMap.type=u0;Ln.shadowMap.autoUpdate=!1;let uA=0,Xg=1;const tn=kE(So),qe=new Ad;function Zd(i){Ln.setPixelRatio(Math.min(devicePixelRatio,i==="nhe"?1:i==="vua"?1.5:2)),Ln.setSize(innerWidth,innerHeight),Xg=i==="dep"&&!So?1:i==="dep"?2:3;const t=i!=="nhe";Ln.shadowMap.enabled!==t&&(Ln.shadowMap.enabled=t,qe.traverse(e=>{if(e instanceof z)for(const n of Array.isArray(e.material)?e.material:[e.material])n.needsUpdate=!0}))}Zd(tn.quality);const wn=new Mn(55,innerWidth/innerHeight,.1,1800),Fa=new vS(qe,Ln,So);await Fw();const Ra=AT();qe.add(Ra.root);for(const i of Ra.lights)Fa.addLanternLight(i);for(const i of Ra.lamps.lightSpots)Fa.addLanternLight(i,14);for(const i of Lg)Fa.addWarmLight(i.pos,i.intensity,i.range);const jg=new iA(Di);qe.add(jg.group);const Yg=new fT([new _(0,2.5,33),new _(0,rt.hall.y+2.6,-21.6),new _(50,1.6,-19.5)]);qe.add(Yg.points);const Kg=new pT;qe.add(Kg.group);const cd=new uE;qe.add(cd.group);const Hs=new ME;qe.add(Hs.group);const Pa=mE();Pa?.fullMoon&&Fa.moon.scale.setScalar(1.8);const he=fS(),lt=new Fd(he);qe.add(lt.root);const Zg=rt.spawn.clone();lt.root.position.copy(Zg);lt.root.rotation.y=Math.PI;const hi=new Gw(wn,Gi);hi.snap(Zg);hi.sensitivity=tn.camSpeed;hi.autoFollow=tn.autoCam;Hd.show=tn.names;Gd.on=tn.haptics;const zn=new RT;zn.setVolume(tn.volume);const ld=new LT;let Ze=null;const At=new Qw(document.getElementById("hud"),he.name,i=>{i?(zn.start(),zn.context&&ld.attach(zn.context)):zn.stop()},()=>ui());function Cl(i){const t=Ua[i];At.fade(()=>{ui(),Je=null,fn=null,lt.state="idle",lt.root.position.copy(t.pos),lt.root.rotation.y=t.yaw+Math.PI,hi.yaw=t.yaw,hi.snap(t.pos)})}const ke=document.getElementById("hud"),Ke=new Map,Ha=new lg(ke),ps=new ET(ke);qe.add(ps.group);let Qm=0;const t0=new eA,nn=new $E(ke);nn.setOn(tn.ticker);qE(nn);const Jg=new XE(ke);function Qg(i){if(document.querySelector(".guide.open"))return void setTimeout(()=>Qg(i),1e3);Jg.show(i)}const Rl=new Zw;qe.add(Rl.points);const Jd=new Jw;qe.add(Jd.points);let Vs={quet:!1,den:!1,ca:!1};const bi=new rA;qe.add(bi.mesh);const dl=new cA;qe.add(dl.group);const Qd=new hA;qe.add(Qd.group);const ar=document.createElement("div");ar.className="chore-pill";ke.appendChild(ar);let hd=0;function dA(){if(bi.active)return Jc();ui(),bi.start(lt.root.position),lt.sweep(9999),Et.send({t:"emote",e:"quet"}),hd=performance.now(),ar.dataset.swept="0",ar.innerHTML=`Quét lá bồ đề <b>0/${bi.total}</b> <button type="button" class="chore-stop-btn" aria-label="Dừng quét">×</button>`,ar.classList.add("show");const sb=ar.querySelector(".chore-stop-btn");if(sb){const h=ev=>{ev.preventDefault();ev.stopPropagation();Jc()};sb.onclick=h;sb.ontouchend=h}At.toast("Bắt đầu quét lá bồ đề: đi tới đâu chổi quét tới đó 🙏",3500)}function Jc(){bi.stop(),lt.sweep(0),ar.classList.remove("show")}function fA(i,t){if(!bi.active)return;const e=lt.root.rotation.y;bi.update(i,lt.root.position.clone().add(new _(-Math.sin(e)*.75,0,-Math.cos(e)*.75)));if(ar.dataset.swept!==String(bi.swept)){ar.dataset.swept=String(bi.swept);ar.innerHTML=`Quét lá bồ đề <b>${bi.swept}/${bi.total}</b> <button type="button" class="chore-stop-btn" aria-label="Dừng quét">×</button>`;ar.classList.add("show");const sb=ar.querySelector(".chore-stop-btn");if(sb){const h=ev=>{ev.preventDefault();ev.stopPropagation();Jc()};sb.onclick=h;sb.ontouchend=h}}performance.now()-hd>2e4&&(hd=performance.now(),Et.send({t:"emote",e:"quet"}));bi.swept>=bi.total&&(setTimeout(Jc,900),bi.active=!1,Vs.quet||Et.send({t:"viec",k:"quet"}),At.toast("✨ Sân chùa sạch bong lá bồ đề! Công đức quét lá hôm nay vô lượng 🙏",4500))}function pA(){const i=Oa();if(i<16.5||i>=21.5)return At.toast("Đèn Chánh điện được thắp từ 16:30 đến 21:30. Chiều tối quay lại nhé",4e3);if(Vs.den)return At.toast("Tối nay bạn đã thắp một ngọn đèn rồi");ui(),fn=null,Je=aA(lt.root.position),Sr(Je),Bi=()=>{lt.root.rotation.y=Math.PI,lt.bow(),Et.send({t:"lamp"})}}function tv(i,t){const e=i.root.position,n=lA(e,i.root.rotation.y);return n?(i.toss(),Qd.release(e.clone().setY(e.y+.8),n,xs.elapsedTime),!0):(t&&At.toast("Lại gần mép hồ hơn chút nữa rồi thả cá nhé"),!1)}function mA(i,t){const e=rt.petGarden,n=Fi.clamp(i.x+Math.sin(t)*1.5,e.x0+1,e.x1-1),s=Fi.clamp(i.z+Math.cos(t)*1.5,e.z0+1,e.z1-1);return new _(n,oi(n,s),s)}function ev(i){const t=i.root.position,e=mA(t,i.root.rotation.y);Jd.burst(t.clone().setY(t.y+.75),e,xs.elapsedTime),$s.feedAt(e,xs.elapsedTime)}function nv(){const i=()=>{if(lt.busy)return;ui(),Je=null,lt.toss(),ev(lt),Et.send({t:"emote",e:"gieo"});const t=ai.pet;t&&!t.fedToday&&setTimeout(()=>Et.send({t:"pet-feed"}),400),At.toast(t&&!t.fedToday?`Bạn rắc hạt cho ${t.n} và các linh thú ăn`:"Bạn rắc hạt cho các linh thú trong vườn ăn",3500)};if(Oi(lt.root.position.x,lt.root.position.z)==="Vườn Linh Thú")return i();At.toast("Đang về Vườn Linh Thú…",1500),Cl(Ua.findIndex(t=>t.name==="Vườn Linh Thú")),setTimeout(i,1100)}const $s=new HT(qe,ke);$s.showOthers=!tn.hidePets;const zc=new Map,iv="anduyen.muted",Pn=new Set;try{for(const i of JSON.parse(localStorage.getItem(iv)||"[]"))Pn.add(i)}catch{}function gA(){try{localStorage.setItem(iv,JSON.stringify([...Pn]))}catch{}}const Et=new DT(()=>({name:he.name,kind:he.kind,robe:he.robe,skin:he.skin,bio:he.bio??"",beads:he.beads,cushion:he.cushion,room:new URLSearchParams(location.search).get("phong")}),vA,i=>{if(!i){for(const t of Ke.values())t.dispose(qe);Ke.clear(),At.setCount(0)}});function e0(i){i.id===Et.myId||Ke.has(i.id)||Ke.set(i.id,new Xw(i,qe,ke))}function vA(i){switch(i.t){case"welcome":{i.saved&&(Object.assign(he,i.saved),Ea(he),lt.setLook(he),At.setName(he.name),zi.setProfile(he),At.toast(i.user?`Đã đăng nhập @${i.user} · chào mừng ${he.name} trở lại`:`Chào mừng ${he.name} trở lại`,4500)),NT(),ud.clear();for(const e of i.peers)e0(e);cd.set(i.incense),Hs.set(i.lanterns),Ui.set(i.vows??[],!!i.vowed),dl.set(i.lamps??0),t0.set(i.pinned??""),Mr.set(i.donors??[]),Et.send({t:"garden"}),uo.pull(),i.chores&&(Vs=i.chores),At.setCount(i.total??i.peers.length+1);const t=new URL(location.href);t.searchParams.set("phong",i.room),history.replaceState(null,"",t),sv(!0);break}case"join":e0(i.peer);break;case"look":i.peer.id===Et.myId?i.peer.name!==he.name&&(he.name=i.peer.name,Ea(he),At.setName(he.name)):Ke.get(i.peer.id)?.setLook(i.peer);break;case"leave":Ke.get(i.id)?.dispose(qe),Ke.delete(i.id);break;case"state":Ke.get(i.id)?.setState(i.x,i.y,i.z,i.ry,i.s);break;case"states":for(const[t,e,n,s,o,r]of i.a)t!==Et.myId&&Ke.get(t)?.setState(e,n,s,o,r);break;case"chat":{const isMe=(i.id===Et.myId);const sName=isMe?he.name:(i.name||"Đồng tu");At.addLog(sName,i.text,i.warn);if(isMe){Ha.say(i.text,!1)}else{const t=Ke.get(i.id);if(t&&!Pn.has(t.info.pid)&&t.monk.root.position.distanceTo(lt.root.position)<=45){t.say(i.text,i.warn)}}break}case"emote":{const t=Ke.get(i.id);t?.emote(i.e),t&&i.e==="hoa"&&t.monk.root.position.distanceTo(lt.root.position)<40&&Rl.burst(t.monk.root.position,xs.elapsedTime),t&&i.e==="gieo"&&t.monk.root.position.distanceTo(lt.root.position)<60&&ev(t.monk),t&&i.e==="ca"&&t.monk.root.position.distanceTo(lt.root.position)<60&&tv(t.monk,!1);break}case"greet":At.toast(`${i.name} chắp tay chào bạn`);break;case"notice":At.toast(i.text,4500);break;case"total":At.setCount(i.n);break;case"incense":cd.set(i.n),i.id!==Et.myId&&Oi(lt.root.position.x,lt.root.position.z)==="Chánh điện"&&At.toast(`${i.name} vừa thắp hương`);break;case"bell":zn.on&&zn.bell(.45),i.id===Et.myId?At.toast("Bạn vừa thỉnh chuông"):nn.on?nn.push(`Thí chủ ${Rn(i.name)} vừa thỉnh chuông · tiếng chuông vang khắp chùa`):At.toast(`${i.name} vừa thỉnh chuông`);break;case"lantern":Hs.add(i.lantern),i.lantern.pid===Et.myPid?At.toast("Đèn của bạn đang trôi trên hồ sen"):nn.push(`Thí chủ ${Rn(i.lantern.name)} vừa thả một ngọn hoa đăng trên hồ sen`);break;case"banned":{Et.halt();const t=document.createElement("div");t.className="banned",t.innerHTML="<div><b>Tài khoản này đã bị khoá</b><p>Chùa An Bình Tự tạm không tiếp bạn vì vi phạm nội quy. Nếu có nhầm lẫn, xin liên hệ quản trị chùa.</p></div>",document.body.appendChild(t);break}case"ann":{if(i.k==="admin"){nn.push(`Chùa thông báo: ${i.text}`,!0),nn.on||At.toast(`Chùa thông báo: ${i.text}`,6e3);break}const t=i.pid===Et.myPid,e=wi.pids.has(i.pid);if(i.k==="join")Pn.has(i.pid)||nn.join(i.name,e);else if(i.k==="self")nn.push(i.streak>1?`A Di Đà Phật! Chào mừng thí chủ ${Rn(i.name)} trở lại · ngày thứ ${i.streak} liên tiếp`:i.days>1?`A Di Đà Phật! Chào mừng thí chủ ${Rn(i.name)} trở lại chùa An Bình Tự`:`A Di Đà Phật! Kính chào thí chủ ${Rn(i.name)} lần đầu về chùa An Bình Tự`,!0);else if(i.k==="level")nn.push(t?`Chúc mừng bạn đã lên cấp tu ${Rn(i.level)} · tùy hỷ công đức!`:`Tùy hỷ thí chủ ${Rn(i.name)} vừa lên cấp tu ${i.level}`,t||e);else if(i.k==="pet")nn.push(t?`Bạn đã nhận nuôi ${Rn(i.pet)} · nhớ cho ăn mỗi ngày nhé`:`Tùy hỷ thí chủ ${Rn(i.name)} được nhận nuôi ${i.pet}`,t||e);else if(i.k==="quiz"){const n=i.top.findIndex(s=>s.pid===Et.myPid);nn.push(n>=0?`Chúc mừng bạn đứng hạng ${n+1} Đố vui Phật pháp tối nay · tùy hỷ công đức!`:`Đố vui Phật pháp tối nay: ${i.top.map((s,o)=>`${o+1}. ${Rn(s.name)}`).join(" · ")} · tùy hỷ!`,n>=0||i.top.some(s=>wi.pids.has(s.pid)))}else i.k==="title"&&nn.push(t?`Bạn vừa đạt danh hiệu ${Rn(i.title)}`:`Thí chủ ${Rn(i.name)} vừa đạt danh hiệu “${i.title}”`,t||e);break}case"pet":ai.set(i.p,i.can);break;case"quiz":uo.set(i);break;case"donors":Mr.set(i.list),pl.isOpen&&pl.open(i.list);break;case"quiz-got":uo.answered(i.i,i.c);break;case"quiz-practice":uo.practice(i.qs);break;case"vow":if(Pn.has(i.vow.pid))break;Ui.add(i.vow),i.vow.pid===Et.myPid?nn.push(`Lời nguyện của bạn đã gửi tới cả chùa: “${i.vow.text}”`,!0):nn.push(`Thí chủ ${Rn(i.vow.name)} nguyện: “${i.vow.text}”`,wi.pids.has(i.vow.pid)),!nn.on&&i.vow.pid!==Et.myPid&&At.toast(`${i.vow.name} nguyện: “${i.vow.text}”`,5e3);break;case"garden":{const t={mine:i.mine,flowers:i.flowers,beds:i.beds};ps.set(t,Et.myPid),mo.set(t);break}case"watered":{const t=ps.owners.findIndex(e=>e?.pid===i.pid);t>=0&&i.id!==Et.myId&&ps.water(t,xs.elapsedTime),Oi(lt.root.position.x,lt.root.position.z)==="Vườn hoa"&&Et.send({t:"garden"});break}case"pinned":t0.set(i.text);break;case"feedback-ok":ml.ok();break;case"feedback-err":ml.refuse(i.text);break;case"chores":Vs=i.c;break;case"lamps":dl.set(i.n),i.id===Et.myId?At.toast("Bạn đã thắp một ngọn đèn dâng Phật. Đèn sáng tới sáng mai"):Oi(lt.root.position.x,lt.root.position.z)==="Chánh điện"&&At.toast(`${i.name} vừa thắp một ngọn đèn`);break;case"vow-likes":Ui.likes(i.id,i.n);break;case"vow-gone":Ui.remove(i.id);break;case"vow-tuyhy":At.toast(`${i.name} tùy hỷ lời nguyện “${i.text}” của bạn`,5e3);break;case"vow-err":Ui.refuse(i.text),At.toast(i.text,4e3);break;case"pet-pat":{$s.hearts3(i.id),i.id===Et.myId&&ai.pet&&At.toast(`${i.by} vừa vuốt ve ${ai.pet.n}`,3500);break}case"pet-fed":$s.hearts3(i.id);break;case"checkin":setTimeout(()=>Qg(i),1500);break;case"likes":Hs.setLikes(i.lantern,i.n);break;case"tuyhy":At.toast(`${i.name} tùy hỷ lời nguyện “${i.text}”`,5e3);break;case"xam":Ke.get(i.id)?.say(Fg(i.n),!1);break;case"xam-match":Pl.showMatch(i.names);break;case"merit":ys.update(i.me,i.gain),At.setRank(i.me.lv,i.me.title??""),i.gain&&Os(12);break;case"board":ys.setBoard(i);break;case"journal":Mo.update(i.j);break;case"account-err":Mo.error(i.text);break;case"login-ok":Ng(i.cid);break;case"profile":(Qc===i.p.pid||Qc===i.p.id||fl.pid===i.p.pid)&&fl.show(i.p),Qc=null;break;case"wish":if(Pn.has(i.pid))break;wr.addWords({kind:"wish",name:i.name,text:i.text,at:Date.now()}),At.toast(`${i.name} gửi lời chúc: “${i.text}”`,6e3),At.addLog(i.name,`(gửi riêng bạn) ${i.text}`,i.warn),Os(15);break;case"gift":wr.addWords({kind:"gift",name:i.name,text:"Dâng một nén hương cầu an cho bạn",at:Date.now()}),At.toast(`${i.name} vừa dâng một nén hương cầu an cho bạn`,5e3),Os(15);break;case"friend-req":Pn.has(i.pid)||wi.request(i.name);break;case"friends":wi.setFriends(i.list,i.reqIn);break;case"dm":if(i.from!==Et.myPid&&Pn.has(i.from))break;wi.dm(i),i.from!==Et.myPid&&Os(10);break}}At.onSend=i=>Et.send({t:"chat",text:i});At.onEmote=i=>{Et.send({t:"emote",e:i}),Ha.emote(i),i==="chap"&&lt.bow()};function yA(){const i=ai.pet,t=[{id:Et.myId,pid:Et.myPid,pet:i?{k:i.k,n:i.n}:null,x:lt.root.position.x,z:lt.root.position.z,ry:lt.root.rotation.y,mine:!0}];for(const e of Ke.values()){const n=e.monk.root.position;t.push({id:e.info.id,pid:e.info.pid,pet:e.info.pet??null,x:n.x,z:n.z,ry:e.monk.root.rotation.y,mine:!1})}return t}let n0=0;const Qr={x:0,z:0,ry:0,s:-1};function sv(i=!1){const t=performance.now(),e=lt.root.position,n=Ze?2:lt.state==="walk"?1:0,s=Math.abs(e.x-Qr.x)+Math.abs(e.z-Qr.z)>.05||Math.abs(lt.root.rotation.y-Qr.ry)>.05||n!==Qr.s;!i&&t-n0<(s?100:2e3)||(n0=t,Object.assign(Qr,{x:e.x,z:e.z,ry:lt.root.rotation.y,s:n}),Et.send({t:"state",x:e.x,y:e.y,z:e.z,ry:lt.root.rotation.y,s:n}))}let i0=0;const Mo=new WT(ke,{send:i=>Et.send(i),profile:()=>he,code:()=>Dg(),switchTo:i=>Ng(i),signOut:()=>IT(),editLook:()=>zi.open("nv"),toast:i=>At.toast(i,4e3),pets:()=>{Mo.close(),ai.open(!0)},equip:i=>{Object.assign(he,i),Ea(he),lt.setLook(he),zi.setProfile(he),clearTimeout(i0),i0=window.setTimeout(()=>Et.send({t:"look",name:he.name,kind:he.kind,robe:he.robe,skin:he.skin,bio:he.bio??"",beads:he.beads,cushion:he.cushion}),1200)}});let Qc=null;const fl=new iE(ke,{send:i=>Et.send(i),greet:i=>{Et.send({t:"greet",to:i}),lt.bow(),Ha.emote("chap")},muted:i=>Pn.has(i),mute:(i,t)=>{Pn.has(i)?Pn.delete(i):Pn.add(i),gA(),At.toast(Pn.has(i)?`Đã tắt tiếng ${t}`:`Đã bỏ tắt tiếng ${t}`)},report:i=>Et.send({t:"report",who:i}),zoneOf:i=>{const t=Ke.get(i);return t?Oi(t.monk.root.position.x,t.monk.root.position.z):null},chat:(i,t)=>wi.chat(i,t),editMe:()=>zi.open("nv")});function ov(i){Qc="to"in i?i.to:i.pid,fl.request(i)}function xA(i){ov({to:i.info.id})}const Ns=vE(),ys=new qw(ke,i=>Et.send(i)),wi=new oE(ys.row,ke,()=>Et.myPid,i=>Et.send(i),i=>ov({pid:i}),i=>At.toast(i,4500));let tl=0;setInterval(()=>{tl&&(Et.send({t:"beads",n:tl}),tl=0)},2e3);let s0=0;const rv=new yE(ke,Ns,()=>{tl++,Os(6),zn.on&&zn.bead(),lt.counting(2.5);const i=performance.now();i-s0>3e3&&(s0=i,Et.send({t:"emote",e:"chuoi"}))}),Pl=new YT(ke),Ll=new SE(ke),av=new TE(ke),cr=_r?new AE:null;cr&&qe.add(cr.group);const Mr=new LE;qe.add(Mr.group);const pl=new IE(ke,_r?()=>Il("hom"):null);function Il(i="menu"){_r&&av.open(_r,i)}_r&&At.addDonate(()=>Il());const cv=new gE(zn);let lv=!1;const zi=new OE(ke,he,tn,So,{onLook:(i,t)=>{lt.setLook(i),At.setName(i.name.trim()||he.name),t&&(Object.assign(he,i),Et.send({t:"look",name:i.name,kind:i.kind,robe:i.robe,skin:i.skin,bio:i.bio??"",beads:i.beads,cushion:i.cushion}))},onSettings:i=>{zn.setVolume(i.volume),hi.sensitivity=i.camSpeed,hi.autoFollow=i.autoCam,Hd.show=i.names,Gd.on=i.haptics,nn.setOn(i.ticker),$s.showOthers=!i.hidePets,Zd(i.quality)},onPreview:i=>{lv=i,i||wn.clearViewOffset()},soundOn:()=>!At.muted,setSound:i=>At.setSound(i),today:()=>Ns,toast:i=>At.toast(i,3500),showGuide:()=>dv(),showJournal:i=>Mo.open(i),previewChant:()=>cv.preview(),install:aE()});At.addSettings(()=>zi.isOpen?zi.close():zi.open());function bA(i){const t=zi.rect(),e=innerWidth,n=innerHeight,s=t.left>e*.35,o=s?t.left:e,r=s?n:t.top,a=Fi.clamp(1.15*n/(.6*Math.max(r,120)*1.04),2.4,7),c=lt.root.position,l=lt.root.rotation.y+Math.sin(i*.5)*.6;wn.position.set(c.x+Math.sin(l)*a,c.y+.95,c.z+Math.cos(l)*a),wn.lookAt(c.x,c.y+.55,c.z),wn.setViewOffset(e,n,s?e/2-o/2:0,s?0:n/2-r/2,e,n),wn.updateMatrixWorld()}const _A=new _(-15,0,52);function MA(i,t){const e={id:"hat",label:"Tràng hạt"},n={id:"dongtac",label:"Động tác"},m={id:"gomo",label:"Gõ mõ"},th={id:"thien",label:"Ngồi thiền"},qd={id:"queday",label:"Quẻ ngày"};return i==="Chánh điện"?[{id:"lay",label:"Lạy"},{id:"huong",label:"Thắp hương"},qd,m,th,{id:"thapden",label:"Thắp đèn"},...mo.flowersInHand?[{id:"danghoa",label:"Dâng hoa"}]:[],e,n]:i==="Vườn hoa"?[{id:"tuoi",label:"Luống hoa"},qd,th,e,n]:i==="Bảo tháp"?[{id:"lay",label:"Lạy"},qd,m,th,e,n]:(i==="Hồ sen · Cầu Duyên"||i==="Hồ sen Cầu An")?[{id:"den",label:"Thả hoa đăng"},qd,{id:"xam",label:"Xin xăm"},{id:"phongsinh",label:"Phóng sinh"},th,e,n]:t.distanceTo(_A)<8?[{id:"chuong",label:"Thỉnh chuông"},qd,m,th,e,n]:i==="Sân chùa"?[{id:"huong",label:"Thắp hương"},{id:"nguyen",label:"Lời nguyện"},qd,{id:"quet",label:"Quét lá"},m,th,e,n]:i==="Vườn Linh Thú"?[{id:"choan",label:"Cho ăn"},qd,{id:"linhthu",label:"Linh thú"},e,n]:[qd,m,th,e,n]}function wA(i){if(i==="thien"){if(Ze)return At.toast("Bạn đang ngồi rồi");Je=null,fn=null,Bi=null,fv({id:"dat",position:lt.root.position.clone(),facing:lt.root.rotation.y,mesh:lt.root,taken:!1}),At.toast("Ngồi thiền · thở chậm, mỗi phút ngồi tĩnh được thêm công đức",4e3)}else if(i==="hoa"){if(lt.busy)return;lt.toss(),Rl.burst(lt.root.position,xs.elapsedTime),Et.send({t:"emote",e:"hoa"})}else if(i==="cui"){if(lt.busy)return;ui(),lt.deepBow(),Et.send({t:"emote",e:"cui"})}else i==="chuoi"?(rv.open(),lt.counting(2.5)):i==="choan"&&nv()}const hv=new Kw(ke,i=>{Os(),wA(i)});At.onAction=i=>{if(i==="lay"){if(lt.busy)return;lt.lay(),Et.send({t:"emote",e:"lay"}),Ns.bows+=3,ad(Ns),setTimeout(()=>At.toast(`Hôm nay bạn đã lạy ${Ns.bows} lạy`),5600)}else if(i==="huong"){openIncenseModal();}else if(i==="gomo"){if(lt.busy)return;lt.bow();try{zn.muyu?zn.muyu(.6):(zn.on&&zn.bell&&zn.bell(.15))}catch(e){}Ns.muyu=(Ns.muyu||0)+1;ad(Ns);try{Et.send({t:"emote",e:"cui"})}catch(e){}const mantras=["Cốc... Nam Mô A Di Đà Phật 🙏","Cốc... Nam Mô Bổn Sư Thích Ca Mâu Ni Phật 🙏","Cốc... Nam Mô Quán Thế Âm Bồ Tát 🙏","Cốc... Án Ma Ni Bát Mê Hồng 🙏"];const m=mantras[Ns.muyu%mantras.length];At.toast(`${m} (Đã niệm ${Ns.muyu} biến)`,2800)}else if(i==="thien"){wA("thien");try{zn.on&&zn.bell&&zn.bell(.35)}catch(e){}At.toast("Thân tâm buông thư, an trú trong hiện tại... Hít vào tâm tĩnh lặng, thở ra miệng mỉm cười 🙏",6000)}else if(i==="hat")rv.open();else if(i==="den")Ll.openWrite((t,e)=>Et.send({t:"lantern",color:t,text:e}));else if(i==="xam")Pl.open(t=>{wr.addFortune(t),Et.send({t:"xam",n:t}),Ha.say(Fg(t),!1)});else if(i==="chuong")Et.send({t:"bell"});else if(i==="dongtac")hv.toggle();else if(i==="choan")nv();else if(i==="tuoi")mo.isOpen?mo.close():mo.open(0,null);else if(i==="danghoa")ui(),fn=null,Je=Bm.clone(),Sr(Je),Bi=()=>{lt.root.rotation.y=Math.PI,lt.bow(),Et.send({t:"offer-flowers"})};else if(i==="quet")dA();else if(i==="queday"){window.dailyLotSystem&&window.dailyLotSystem.open();}else if(i==="thapden")pA();else if(i==="phongsinh"){if(lt.busy||!tv(lt,!0))return;Et.send({t:"emote",e:"ca"}),Vs.ca||Et.send({t:"viec",k:"ca"}),At.toast(Vs.ca?"Cá bơi đi thong thả. A Di Đà Phật!":"Bạn thả cá về hồ sen. Phóng sinh hôm nay đã ghi nhận",4e3)}else i==="nguyen"?Ui.isOpen?Ui.close():Ui.open():i==="linhthu"&&(ai.isOpen?ai.close():ai.open())};const uv=new XT(ke,()=>({x:lt.root.position.x,z:lt.root.position.z,ry:lt.root.rotation.y}),()=>{const i=wi.pids;return[...Ke.values()].map(t=>({x:t.monk.root.position.x,z:t.monk.root.position.z,friend:i.has(t.info.pid),name:t.info.name}))},i=>Cl(i),()=>Oi(lt.root.position.x,lt.root.position.z)),Ui=new ZE(ke,{send:i=>Et.send(i),myPid:()=>Et.myPid,muted:i=>Pn.has(i)}),uo=new JE(ke,ys.row,{send:i=>Et.send(i),myPid:()=>Et.myPid,tell:(i,t)=>nn.on?nn.push(i,t):At.toast(i,5e3),beforeOpen:()=>gl()}),ml=new QE(ke,i=>Et.send(i),()=>Oi(lt.root.position.x,lt.root.position.z)),mo=new sA(ke,{water:(i,t)=>{ui(),fn=null,Je=MT(i),Sr(Je),Bi=()=>{const e=xi[i];lt.root.rotation.y=Math.atan2(e.x-lt.root.position.x,e.z-lt.root.position.z),lt.bow(),ps.water(i,xs.elapsedTime),Et.send({t:"water",pid:t})}},plant:i=>Et.send({t:"plant",k:i}),pick:()=>Et.send({t:"pick"}),toHall:()=>Cl(Ua.findIndex(i=>i.name==="Chánh điện"))}),ai=new GT(ke,{send:i=>Et.send(i),inGarden:()=>Oi(lt.root.position.x,lt.root.position.z)==="Vườn Linh Thú",toGarden:()=>Cl(Ua.findIndex(i=>i.name==="Vườn Linh Thú"))}),wr=new KT(ke,{myLanterns:()=>Hs.all().filter(i=>i.pid===Et.myPid),today:()=>Ns,giftsLeft:()=>ys.gifts,readFortune:i=>Pl.reread(i),readLantern:i=>Ll.openRead(i,!0,()=>{})});function gl(){for(const i of[ys,wi,Mo,uv,wr,zi,fl,Pl,Ll,av,Jg,hv,ai,Ui,uo,ml,mo,pl])i.close()}const SA=new JT(ke,["nhiemvu","tuido","bando","xephang","congdong","loinguyen","dovui","linhthu","hoso",..._r?["gopgao"]:[],"gopy","caidat"],i=>{gl(),i==="nhiemvu"?ys.open("nv"):i==="tuido"?wr.open():i==="bando"?uv.open():i==="xephang"?ys.open("xh"):i==="congdong"?wi.open():i==="hoso"?Mo.open("me"):i==="linhthu"?ai.open():i==="loinguyen"?Ui.open():i==="dovui"?uo.open():i==="gopy"?ml.open():i==="gopgao"?Il():i==="gomo"?At.onAction("gomo"):i==="phongsinh"?At.onAction("phongsinh"):i==="caidat"&&zi.open()});setInterval(()=>SA.setBadges({nhiemvu:ys.ready,congdong:wi.waiting,tuido:wr.unread,dovui:uo.live?1:0}),1e3);Pa&&!tn.ticker&&setTimeout(()=>At.toast(Pa.label,5e3),1500);const TA=new eE(ke,So);function dv(){TA.open(mS)}pS()||setTimeout(dv,900);let Je=null,fn=null,el=!1,Bi=null;const go=new z(new Rr(.22,.3,32),new xe({color:"#ffe2a8",transparent:!0,opacity:0,depthWrite:!1}));go.rotation.x=-Math.PI/2;qe.add(go);const Ii=new ig,vl=new z(new ft(.4,.4,1.2,8),new xe({visible:!1}));vl.position.y=.6;lt.root.add(vl);const o0=So?40:80;let r0=0;function EA(i){if(Ke.size<=o0){for(const e of Ke.values())e.shown=!0;return}[...Ke.values()].sort((e,n)=>e.monk.root.position.distanceToSquared(i)-n.monk.root.position.distanceToSquared(i)).forEach((e,n)=>e.shown=n<o0)}function nl(i){if(i===Ze)return!0;for(const t of Ke.values()){const e=t.monk.root.position;if(t.state===2&&Math.hypot(e.x-i.position.x,e.z-i.position.z)<.45)return!0}return!1}function a0(i){Ze&&ui(),fn=i,el=!1,Bi=null,Je=i.position.clone(),Sr(Je)}function AA(i,t){const e=new Q(i/innerWidth*2-1,-(t/innerHeight)*2+1);Ii.setFromCamera(e,wn);const n=Ii.intersectObjects(Bn,!1)[0],s=n?n.distance+.5:1/0;for(const d of Ii.intersectObjects(Di.map(f=>f.mesh),!1)){if(d.distance>s)break;const f=Di.find(p=>p.mesh===d.object);if(f&&f!==Ze&&!nl(f))return a0(f)}if(n){const d=n.point;if(Math.hypot(d.x,d.z-33)<4||(Math.abs(d.x)<3&&Math.abs(d.z+21.6)<3.5))return gl(),openIncenseModal();let f=null,p=1.2;for(const v of Di){if(!v.id.startsWith("cd-")||v===Ze||Math.abs(v.position.y-d.y)>.6)continue;const m=Math.hypot(v.position.x-d.x,v.position.z-d.z);m<p&&!nl(v)&&(f=v,p=m)}if(f)return a0(f)}const _cHit=Ii.intersectObjects(censerTargets,!1)[0];if(_cHit&&_cHit.distance<s)return gl(),openIncenseModal();const o=cr?Ii.intersectObject(cr.hit,!1)[0]:void 0;if(o&&o.distance<s)return cr.flash(),gl(),Il("hom");const r=Ii.intersectObject(Mr.hit,!1)[0];if(r&&r.distance<s)return gl(),pl.open(Mr.list);const a=Ii.intersectObjects([...Ke.values()].filter(d=>d.shown).map(d=>d.hit).concat(vl),!1)[0],c=Ii.intersectObjects($s.hitTargets(),!1)[0];if(c&&(!a||c.distance<a.distance)){const d=c.object.userData.petRes;if(d){const m=-(Al.indexOf(d)+1),g=performance.now();return g-(zc.get(m)||0)<15e3?At.toast(`${jn[d].name} đang lim dim vì sướng, lát nữa vuốt tiếp nhé`):(zc.set(m,g),Et.send({t:"pet-pat",res:d}),At.toast(`Bạn vuốt ve ${jn[d].name} của chùa`))}const f=c.object.userData.petOwner;if(f===Et.myId)return ai.open();const p=$s.nameOf(f),v=performance.now();if(v-(zc.get(f)||0)<15e3)return At.toast(`${p?.name??"Linh thú"} đang lim dim vì sướng, lát nữa vuốt tiếp nhé`);zc.set(f,v),Et.send({t:"pet-pat",to:f}),p&&At.toast(`Bạn vuốt ve ${p.name} (${jn[p.kind].name})`);return}if(a?.object===vl)return Mo.open("me");if(a){const d=Ke.get(a.object.userData.peer);if(d)return xA(d)}At.hideCard();const l=ps.group.visible?Ii.intersectObjects(ps.hits,!1)[0]:void 0;if(l){const d=l.object.userData.bed;return mo.open(d,ps.owners[d])}const h=Ii.intersectObjects(Hs.hitTargets(),!1)[0];if(h){const d=Hs.get(h.object.userData.lantern);if(d)return Ll.openRead(d,d.pid===Et.myPid,()=>Et.send({t:"tuyhy",lantern:d.id}))}const u=Ii.intersectObjects(Di.map(d=>d.mesh),!1)[0];if(u&&u.distance<s){const d=Di.find(f=>f.mesh===u.object);if(d&&d!==Ze&&nl(d))return At.toast("Chỗ này đã có người ngồi, bạn chọn chỗ khác nhé");if(d===Ze)return}n&&(Ze&&ui(),fn=null,Bi=null,Je=n.point.clone(),Sr(Je))}function Sr(i){go.position.set(i.x,oi(i.x,i.z)+.04,i.z),go.material.opacity=.9,go.scale.setScalar(1)}function fv(i){Ze=i,i.taken=!0,lt.state="sit",lt.root.position.copy(i.position),lt.root.rotation.y=i.facing,hi.yaw=i.facing+Math.PI,At.setSitting(!0),window.sutraSystem&&window.sutraSystem.onSitDown()}function ui(){if(!Ze)return;Ze.taken=!1;const i=new _(Math.sin(Ze.facing),0,Math.cos(Ze.facing)).multiplyScalar(Ze.id==="dat"?0:-.6),t=Ze.position.clone().add(i);lt.root.position.set(t.x,oi(t.x,t.z),t.z),Ze=null,lt.state="idle",At.setSitting(!1),window.sutraSystem&&window.sutraSystem.onStandUp()}/* capture listener replaced by safe UI isolation *//* touchstart capture listener replaced */const c0=new Vw(qg,hi,AA);function pv(){wn.aspect=innerWidth/innerHeight;const i=wn.aspect<.8;wn.fov=i?62:55,hi.distScale=i?.78:1,wn.updateProjectionMatrix(),Ln.setSize(innerWidth,innerHeight)}pv();addEventListener("resize",pv);(()=>{if(!document.getElementById("modal-backdrop")){const bd=document.createElement("div");bd.id="modal-backdrop";document.body.appendChild(bd);bd.onclick=()=>{document.querySelectorAll(".sheet.open,.guide.open").forEach(s=>s.classList.remove("open"));bd.classList.remove("show")};}})();const xs=new U2,ud=new Set,eu=4.6;let Xo=0,l0=!0;const ta=new _,cs={time:0,frames:0,steps:0};function CA(i,t){if(tn.qualityManual||cs.steps>=2||t<3||document.hidden||tn.quality==="nhe"||(cs.time+=i,cs.frames++,cs.time<4))return;const e=cs.time/cs.frames*1e3;cs.time=cs.frames=0,!(e<34)&&(cs.steps++,tn.quality=tn.quality==="dep"?"vua":"nhe",Wg(tn),Zd(tn.quality),At.toast("Máy hơi chậm nên chùa giảm chất lượng hình cho mượt (đổi lại trong Cài đặt)",4500))}function mv(){const i=Math.min(xs.getDelta(),.05),t=xs.elapsedTime;CA(i,t);const e=lt.root.position;c0.turnCamera(i);const n=c0.move();n&&(Ze&&ui(),Je=e.clone().addScaledVector(n.dir,1.8),fn=null);const s=n?n.speed:1;let o=0;if(Je&&!Ze){const d=e.clone(),f=fn?.15:.12,p=new _(Je.x-e.x,0,Je.z-e.z);if(p.length()<=f)fn&&fv(fn),Bi?.(),Bi=null,Je=null,fn=null,Ze||(lt.state="idle");else{const v=fn&&(p.length()<.9||el)?e.clone().add(p.clone().setLength(Math.min(p.length(),eu*s*i))):yg(e,Je,eu*s*i);e.x=v.x,e.z=v.z;const m=Math.hypot(e.x-d.x,e.z-d.z);o=m/i,lt.state="walk";let x=Math.atan2(p.x,p.z)-lt.root.rotation.y;x=Math.atan2(Math.sin(x),Math.cos(x)),lt.root.rotation.y+=x*Math.min(1,i*18),Xo=m<eu*s*i*.2?Xo+i:0,Xo>.4&&fn&&!el&&fn.id.startsWith("cd-")&&Oi(e.x,e.z)==="Chánh điện"?(el=!0,Xo=0):Xo>.4&&(Je=null,fn=null,Bi=null,lt.state="idle",Xo=0)}}Ze||(e.y+=(oi(e.x,e.z)-e.y)*Math.min(1,i*22)),lt.update(i,t,o);const r=Oi(e.x,e.z);jg.update(t,r==="Chánh điện",fn,nl),ud.has(r)||(ud.add(r),Et.send({t:"visit",zone:r})),hi.follow(i,lt.root.rotation.y,n?.dir??null),hi.update(i,e,r==="Chánh điện"),lv&&bA(t),At.setChatMode(r==="Chánh điện"||r==="Bảo tháp"?"quiet":"chat"),At.setActions(MA(r,e));const a=pE();At.setBanner(a?`${a.name} · mời bạn vào chánh điện`:Pa?Pa.label:null),cv.update(i,tn.chant?a:null,tn.chant&&r==="Chánh điện"),Hs.update(t),Rl.update(t),Jd.update(t),ps.update(t,wn,e),r==="Vườn hoa"&&performance.now()-Qm>2e4&&(Qm=performance.now(),Et.send({t:"garden"})),dl.update(t),cr?.update(t),Mr.update(t),Qd.update(t),fA(t,r),$s.update(i,t,e,wn,yA()),sv(),t-r0>.5&&(r0=t,EA(e));for(const d of Ke.values())d.update(i,t,wn,e,Pn.has(d.info.pid));const c=Fa.update(e);iS(t),cS(t),Yg.update(t),Kg.update(t,c.night<.5),hS(Ra.fireflies,t,c.night),Ra.lamps.update(c.night),ld.update(i,tn.music&&zn.on,r==="Chánh điện",tn.volume),zn.hushed=ld.playing,zn.setScene(c.night,r==="Chánh điện");const l=go.material;l.opacity>0&&(l.opacity=Math.max(0,l.opacity-i*1.2),go.scale.setScalar(1+(.9-l.opacity)*.6)),ta.copy(e).setY(e.y+(Ze?1.25:1.35)).project(wn);const h=(ta.x*.5+.5)*innerWidth,u=(-ta.y*.5+.5)*innerHeight;At.placeTag(h,u,ta.z<1),Ha.place(h,u,ta.z<1),window.sutraSystem&&window.sutraSystem.placeOverhead(h,u,ta.z<1),Ln.shadowMap.enabled&&uA++%Xg===0&&(Ln.shadowMap.needsUpdate=!0),Ln.render(qe,wn),l0&&(l0=!1,(document.getElementById("loading")?.classList.add("done"),setTimeout(()=>{const el=document.getElementById("loading");if(el)el.style.display="none"},1000))),requestAnimationFrame(mv)}requestAnimationFrame(mv);
+      ${e?`<div class="in-hand">${o?`Hoa đã hái: <b>${Jh(o)}</b>. Vào Chánh điện bấm “Dâng hoa”. <button class="ghost" data-act="hall">Đến Chánh điện</button>`:"Chưa có hoa đã hái."}</div>`:""}`,this.el.querySelector(".sheet-close").addEventListener("click",()=>this.close()),this.el.querySelectorAll("[data-plant]").forEach(a=>a.addEventListener("click",()=>this.h.plant(a.dataset.plant))),this.el.querySelector("[data-act=water]")?.addEventListener("click",()=>{this.close(),this.h.water(this.bed,e?"":t.pid)}),this.el.querySelector("[data-act=pick]")?.addEventListener("click",()=>this.h.pick()),this.el.querySelector("[data-act=hall]")?.addEventListener("click",()=>{this.close(),this.h.toHall()})}}const Qh=20,oA=2.2,Km=["#d9a441","#c9782e","#e2c15a","#a8642a","#b98b3a"].map(i=>new Dt(i));class rA{mesh;leaves=[];m=new Vt;q=new mn;active=!1;constructor(){const t=new We(.34,.18);t.rotateX(-Math.PI/2),this.mesh=new ci(t,new mt({roughness:.9,side:Re}),Qh),this.mesh.frustumCulled=!1,this.mesh.visible=!1;for(let e=0;e<Qh;e++)this.mesh.setColorAt(e,Km[e%Km.length])}start(t){this.leaves=[];for(let s=0;this.leaves.length<Qh&&s<300;s++){const o=Math.random()*Math.PI*2,r=1.2+Math.random()*6.5,a=t.x+Math.cos(o)*r,c=t.z+Math.sin(o)*r,y=Math.max(oi(a,c),(t.y||0))+.03;this.leaves.push({p:new _(a,y,c),rot:Math.random()*6.28,gone:-1,dir:new _})}this.active=!0,this.mesh.visible=!0}stop(){this.active=!1,this.mesh.visible=!1}get swept(){return this.leaves.filter(t=>t.gone>=0).length}get total(){return this.leaves.length}update(t,e){this.active&&(this.leaves.forEach((n,s)=>{n.gone<0&&Math.hypot(n.p.x-e.x,n.p.z-e.z)<oA&&(n.gone=t,n.dir.set(n.p.x-e.x,0,n.p.z-e.z).normalize(),(()=>{try{zn&&zn.bell&&zn.bell(.08)}catch(err){}})());let o=1;const r=n.p.clone();if(n.gone>=0){const a=Math.min(1,(t-n.gone)/.8);r.addScaledVector(n.dir,a*1.6),r.y+=Math.sin(a*Math.PI)*.5,o=1-a}this.q.setFromEuler(new kn(n.gone>=0?(t-n.gone)*9:0,n.rot+(n.gone>=0?(t-n.gone)*6:0),0)),this.m.compose(r,this.q,new _(o,o,o)),this.mesh.setMatrixAt(s,this.m)}),this.mesh.count=this.leaves.length,this.mesh.instanceMatrix.needsUpdate=!0)}}const Zc=[new _(-7.4,rt.hall.y,-21.8),new _(7.4,rt.hall.y,-21.8)],Jr=8,tu=3;function aA(i){const t=Zc[i.x<0?0:1];return new _(t.x,t.y,t.z+1.1)}class cA{group=new it;flames;spots=[];lit=0;m=new Vt;haloGeo=new me;constructor(){const t=k.gold(),e=new ft(.05,.035,.05,8),n=new ci(e,t,Jr*tu*Zc.length);let s=0;for(const h of Zc){for(let d=0;d<tu;d++){const f=.55+d*.22,p=h.z+.3-d*.24,v=new z(new Wt(1.7,.04,.2),t);v.position.set(h.x,h.y+f,p),this.group.add(v);for(let m=0;m<Jr;m++){const g=h.x-.72+m*1.44/(Jr-1);this.m.makeTranslation(g,h.y+f+.045,p),n.setMatrixAt(s++,this.m)}}for(const d of[-.8,.8]){const f=new z(new ft(.025,.035,1,6),t);f.position.set(h.x+d,h.y+.5,h.z),this.group.add(f)}const u=new z(new Wt(1.9,.08,.9),k.lacquer());u.position.set(h.x,h.y+.04,h.z),this.group.add(u),Ee(h.x,h.z,2,1)}this.group.add(n);for(let h=0;h<tu;h++)for(let u=0;u<Jr;u++)for(const d of Zc){const f=[3,4,2,5,1,6,0,7][u],p=d.x-.72+f*1.44/(Jr-1);this.spots.push(new _(p,d.y+.55+h*.22+.1,d.z+.3-h*.24))}const o=new rn(.022,.08,6);o.translate(0,.04,0),this.flames=new ci(o,new xe({color:"#ffa63a",toneMapped:!1}),this.spots.length),this.flames.count=0,this.flames.frustumCulled=!1,this.group.add(this.flames);const r=document.createElement("canvas");r.width=r.height=64;const a=r.getContext("2d"),c=a.createRadialGradient(32,32,0,32,32,32);c.addColorStop(0,"rgba(255,255,255,1)"),c.addColorStop(.3,"rgba(255,255,255,0.45)"),c.addColorStop(1,"rgba(255,255,255,0)"),a.fillStyle=c,a.fillRect(0,0,64,64),this.haloGeo.setAttribute("position",new Yt(this.spots.flatMap(h=>[h.x,h.y+.05,h.z]),3)),this.haloGeo.setDrawRange(0,0);const l=new _s(this.haloGeo,new $i({size:.32,map:new Ve(r),color:"#ffb35a",transparent:!0,opacity:.8,depthWrite:!1,blending:vo}));l.frustumCulled=!1,this.group.add(l)}get newest(){return this.spots[Math.max(0,this.lit-1)]}set(t){this.lit=Math.max(0,Math.min(this.spots.length,t)),this.flames.count=this.lit,this.haloGeo.setDrawRange(0,this.lit)}update(t){for(let e=0;e<this.lit;e++){const n=.85+Math.sin(t*11+e*1.7)*.1+Math.sin(t*23+e)*.05;this.m.compose(this.spots[e],new mn,new _(1,n,1)),this.flames.setMatrixAt(e,this.m)}this.flames.instanceMatrix.needsUpdate=!0}}const Zm=["#e8542a","#f2f0ea","#f2a23a","#d8352a","#f6d36b"];function Jm(i,t){const e=rt.lake,n=rt.isle,s=rt.bridge,o=(i-e.x)/(e.rx-1.2),r=(t-e.z)/(e.rz-1.2);return o*o+r*r>=1||Math.abs(i-n.x)<=n.half+.8&&Math.abs(t-n.z)<=n.half+.8?!1:!(i>=s.x0-.5&&i<=s.x1+.8&&Math.abs(t-s.z)<=s.half+.6)}function lA(i,t){const e=new _(i.x+Math.sin(t)*3,0,i.z+Math.cos(t)*3);if(Jm(e.x,e.z))return e;const n=rt.lake,s=new _(n.x-i.x,0,n.z-i.z).setLength(3.2).add(new _(i.x,0,i.z));return Jm(s.x,s.z)?s:null}class hA{group=new it;pool=[];rings=[];constructor(){for(let t=0;t<10;t++){const e=new it,n=Zm[t%Zm.length],s=new mt({color:n,roughness:.4,transparent:!0}),o=new mt({color:n,roughness:.5,transparent:!0,side:Re}),r=new z(new gt(.07,10,8),s);r.scale.set(.8,.7,2.4);const a=new z(new rn(.06,.14,4),o);a.rotation.x=-Math.PI/2,a.scale.set(1.4,.25,1),a.position.z=-.2,e.add(r,a),e.visible=!1,this.group.add(e),this.pool.push({mesh:e,mat:[s,o],at:-99,from:new _,to:new _,dir:0})}}release(t,e,n){this.pool.filter(r=>n-r.at>9).slice(0,5).forEach((r,a)=>{const c=a/5*Math.PI*2;r.at=n+a*.12,r.from.copy(t),r.to.set(e.x+Math.cos(c)*.6,rt.lake.water+.02,e.z+Math.sin(c)*.6),r.dir=Math.atan2(r.to.x-t.x,r.to.z-t.z)+(Math.random()-.5)*1.6});const o=new z(new Rr(.2,.23,32),new xe({color:"#dfeef0",transparent:!0,opacity:.45,depthWrite:!1}));o.rotation.x=-Math.PI/2,o.position.set(e.x,rt.lake.water+.03,e.z),this.group.add(o),this.rings.push({mesh:o,at:n+.55})}update(t){for(const e of this.pool){const n=t-e.at;if(e.mesh.visible=n>=0&&n<9,!e.mesh.visible)continue;const s=.55;if(n<s){const r=n/s;e.mesh.position.lerpVectors(e.from,e.to,r),e.mesh.position.y+=Math.sin(r*Math.PI)*.7,e.mesh.rotation.set(-Math.cos(r*Math.PI)*.9,Math.atan2(e.to.x-e.from.x,e.to.z-e.from.z),0)}else{const r=n-s,a=r*.7,c=e.dir+Math.sin(r*1.3)*.3;e.mesh.position.set(e.to.x+Math.sin(e.dir)*a,rt.lake.water-Math.min(.12,r*.02),e.to.z+Math.cos(e.dir)*a),e.mesh.rotation.set(0,c+Math.sin(r*9)*.25,0)}const o=Math.min(1,Math.max(0,(9-n)/3));for(const r of e.mat)r.opacity=o}this.rings=this.rings.filter(e=>{const n=t-e.at;return n>2?(this.group.remove(e.mesh),!1):(e.mesh.visible=n>=0,e.mesh.scale.setScalar(1+Math.max(0,n)*4),e.mesh.material.opacity=.45*(1-Math.max(0,n)/2),!0)})}}cE();const So=matchMedia("(pointer: coarse)").matches;document.documentElement.classList.toggle("touch",So);const qg=document.getElementById("scene"),Ln=new G0({canvas:qg,antialias:!0,powerPreference:"high-performance"});Ln.setSize(innerWidth,innerHeight);Ln.toneMapping=fd;Ln.toneMappingExposure=1;Ln.shadowMap.enabled=!0;Ln.shadowMap.type=u0;Ln.shadowMap.autoUpdate=!1;let uA=0,Xg=1;const tn=kE(So),qe=new Ad;function Zd(i){Ln.setPixelRatio(Math.min(devicePixelRatio,i==="nhe"?1:i==="vua"?1.5:2)),Ln.setSize(innerWidth,innerHeight),Xg=i==="dep"&&!So?1:i==="dep"?2:3;const t=i!=="nhe";Ln.shadowMap.enabled!==t&&(Ln.shadowMap.enabled=t,qe.traverse(e=>{if(e instanceof z)for(const n of Array.isArray(e.material)?e.material:[e.material])n.needsUpdate=!0}))}Zd(tn.quality);const wn=new Mn(55,innerWidth/innerHeight,.1,1800),Fa=new vS(qe,Ln,So);await Fw();const Ra=AT();qe.add(Ra.root);for(const i of Ra.lights)Fa.addLanternLight(i);for(const i of Ra.lamps.lightSpots)Fa.addLanternLight(i,14);for(const i of Lg)Fa.addWarmLight(i.pos,i.intensity,i.range);const jg=new iA(Di);qe.add(jg.group);const Yg=new fT([new _(0,2.5,33),new _(0,rt.hall.y+2.6,-21.6),new _(50,1.6,-19.5)]);qe.add(Yg.points);const Kg=new pT;qe.add(Kg.group);const cd=new uE;qe.add(cd.group);const Hs=new ME;qe.add(Hs.group);const Pa=mE();Pa?.fullMoon&&Fa.moon.scale.setScalar(1.8);const he=fS(),lt=new Fd(he);qe.add(lt.root);const Zg=rt.spawn.clone();lt.root.position.copy(Zg);lt.root.rotation.y=Math.PI;const hi=new Gw(wn,Gi);hi.snap(Zg);hi.sensitivity=tn.camSpeed;hi.autoFollow=tn.autoCam;Hd.show=tn.names;Gd.on=tn.haptics;const zn=new RT;zn.setVolume(tn.volume);const ld=new LT;let Ze=null;const At=new Qw(document.getElementById("hud"),he.name,i=>{i?(zn.start(),zn.context&&ld.attach(zn.context)):zn.stop()},()=>ui());function Cl(i){const t=Ua[i];At.fade(()=>{ui(),Je=null,fn=null,lt.state="idle",lt.root.position.copy(t.pos),lt.root.rotation.y=t.yaw+Math.PI,hi.yaw=t.yaw,hi.snap(t.pos)})}const ke=document.getElementById("hud"),Ke=new Map,Ha=new lg(ke),ps=new ET(ke);qe.add(ps.group);let Qm=0;const t0=new eA,nn=new $E(ke);nn.setOn(tn.ticker);qE(nn);const Jg=new XE(ke);function Qg(i){if(document.querySelector(".guide.open"))return void setTimeout(()=>Qg(i),1e3);Jg.show(i)}const Rl=new Zw;qe.add(Rl.points);const Jd=new Jw;qe.add(Jd.points);let Vs={quet:!1,den:!1,ca:!1};const bi=new rA;qe.add(bi.mesh);const dl=new cA;qe.add(dl.group);const Qd=new hA;qe.add(Qd.group);const ar=document.createElement("div");ar.className="chore-pill";ke.appendChild(ar);let hd=0;function dA(){if(bi.active)return Jc();ui(),bi.start(lt.root.position),lt.sweep(9999),Et.send({t:"emote",e:"quet"}),hd=performance.now(),ar.dataset.swept="0",ar.innerHTML=`Quét lá bồ đề <b>0/${bi.total}</b> <button type="button" class="chore-stop-btn" aria-label="Dừng quét">×</button>`,ar.classList.add("show");const sb=ar.querySelector(".chore-stop-btn");if(sb){const h=ev=>{ev.preventDefault();ev.stopPropagation();Jc()};sb.onclick=h;sb.ontouchend=h}At.toast("Bắt đầu quét lá bồ đề: đi tới đâu chổi quét tới đó 🙏",3500)}function Jc(){bi.stop(),lt.sweep(0),ar.classList.remove("show")}function fA(i,t){if(!bi.active)return;const e=lt.root.rotation.y;bi.update(i,lt.root.position.clone().add(new _(-Math.sin(e)*.75,0,-Math.cos(e)*.75)));if(ar.dataset.swept!==String(bi.swept)){ar.dataset.swept=String(bi.swept);ar.innerHTML=`Quét lá bồ đề <b>${bi.swept}/${bi.total}</b> <button type="button" class="chore-stop-btn" aria-label="Dừng quét">×</button>`;ar.classList.add("show");const sb=ar.querySelector(".chore-stop-btn");if(sb){const h=ev=>{ev.preventDefault();ev.stopPropagation();Jc()};sb.onclick=h;sb.ontouchend=h}}performance.now()-hd>2e4&&(hd=performance.now(),Et.send({t:"emote",e:"quet"}));bi.swept>=bi.total&&(setTimeout(Jc,900),bi.active=!1,Vs.quet||Et.send({t:"viec",k:"quet"}),At.toast("✨ Sân chùa sạch bong lá bồ đề! Công đức quét lá hôm nay vô lượng 🙏",4500))}function pA(){const i=Oa();if(i<16.5||i>=21.5)return At.toast("Đèn Chánh điện được thắp từ 16:30 đến 21:30. Chiều tối quay lại nhé",4e3);if(Vs.den)return At.toast("Tối nay bạn đã thắp một ngọn đèn rồi");ui(),fn=null,Je=aA(lt.root.position),Sr(Je),Bi=()=>{lt.root.rotation.y=Math.PI,lt.bow(),Et.send({t:"lamp"})}}function tv(i,t){const e=i.root.position,n=lA(e,i.root.rotation.y);return n?(i.toss(),Qd.release(e.clone().setY(e.y+.8),n,xs.elapsedTime),!0):(t&&At.toast("Lại gần mép hồ hơn chút nữa rồi thả cá nhé"),!1)}function mA(i,t){const e=rt.petGarden,n=Fi.clamp(i.x+Math.sin(t)*1.5,e.x0+1,e.x1-1),s=Fi.clamp(i.z+Math.cos(t)*1.5,e.z0+1,e.z1-1);return new _(n,oi(n,s),s)}function ev(i){const t=i.root.position,e=mA(t,i.root.rotation.y);Jd.burst(t.clone().setY(t.y+.75),e,xs.elapsedTime),$s.feedAt(e,xs.elapsedTime)}function nv(){const i=()=>{if(lt.busy)return;ui(),Je=null,lt.toss(),ev(lt),Et.send({t:"emote",e:"gieo"});const t=ai.pet;t&&!t.fedToday&&setTimeout(()=>Et.send({t:"pet-feed"}),400),At.toast(t&&!t.fedToday?`Bạn rắc hạt cho ${t.n} và các linh thú ăn`:"Bạn rắc hạt cho các linh thú trong vườn ăn",3500)};if(Oi(lt.root.position.x,lt.root.position.z)==="Vườn Linh Thú")return i();At.toast("Đang về Vườn Linh Thú…",1500),Cl(Ua.findIndex(t=>t.name==="Vườn Linh Thú")),setTimeout(i,1100)}const $s=new HT(qe,ke);$s.showOthers=!tn.hidePets;const zc=new Map,iv="anduyen.muted",Pn=new Set;try{for(const i of JSON.parse(localStorage.getItem(iv)||"[]"))Pn.add(i)}catch{}function gA(){try{localStorage.setItem(iv,JSON.stringify([...Pn]))}catch{}}const Et=new DT(()=>({name:he.name,kind:he.kind,robe:he.robe,skin:he.skin,bio:he.bio??"",beads:he.beads,cushion:he.cushion,room:new URLSearchParams(location.search).get("phong")}),vA,i=>{if(!i){for(const t of Ke.values())t.dispose(qe);Ke.clear(),At.setCount(0)}});function e0(i){i.id===Et.myId||Ke.has(i.id)||Ke.set(i.id,new Xw(i,qe,ke))}function vA(i){switch(i.t){case"welcome":{i.saved&&(Object.assign(he,i.saved),Ea(he),lt.setLook(he),At.setName(he.name),zi.setProfile(he),At.toast(i.user?`Đã đăng nhập @${i.user} · chào mừng ${he.name} trở lại`:`Chào mừng ${he.name} trở lại`,4500)),NT(),ud.clear();for(const e of i.peers)e0(e);cd.set(i.incense),Hs.set(i.lanterns),Ui.set(i.vows??[],!!i.vowed),dl.set(i.lamps??0),t0.set(i.pinned??""),Mr.set(i.donors??[]),Et.send({t:"garden"}),uo.pull(),i.chores&&(Vs=i.chores),At.setCount(i.total??i.peers.length+1);const t=new URL(location.href);t.searchParams.set("phong",i.room),history.replaceState(null,"",t),sv(!0);break}case"join":e0(i.peer);break;case"look":i.peer.id===Et.myId?i.peer.name!==he.name&&(he.name=i.peer.name,Ea(he),At.setName(he.name)):Ke.get(i.peer.id)?.setLook(i.peer);break;case"leave":Ke.get(i.id)?.dispose(qe),Ke.delete(i.id);break;case"state":Ke.get(i.id)?.setState(i.x,i.y,i.z,i.ry,i.s);break;case"states":for(const[t,e,n,s,o,r]of i.a)t!==Et.myId&&Ke.get(t)?.setState(e,n,s,o,r);break;case"chat":{const isMe=(i.id===Et.myId);const sName=isMe?he.name:(i.name||"Đồng tu");At.addLog(sName,i.text,i.warn);if(isMe){Ha.say(i.text,!1)}else{const t=Ke.get(i.id);if(t&&!Pn.has(t.info.pid)&&t.monk.root.position.distanceTo(lt.root.position)<=45){t.say(i.text,i.warn)}}break}case"emote":{const t=Ke.get(i.id);t?.emote(i.e),t&&i.e==="hoa"&&t.monk.root.position.distanceTo(lt.root.position)<40&&Rl.burst(t.monk.root.position,xs.elapsedTime),t&&i.e==="gieo"&&t.monk.root.position.distanceTo(lt.root.position)<60&&ev(t.monk),t&&i.e==="ca"&&t.monk.root.position.distanceTo(lt.root.position)<60&&tv(t.monk,!1);break}case"greet":At.toast(`${i.name} chắp tay chào bạn`);break;case"notice":At.toast(i.text,4500);break;case"admin_gift":{const isMe=(i.targetPid===Et.myPid||i.targetPid==="self"||i.targetPid==="all");if(isMe){if(i.merit){const cur=(Ns&&Ns.merit)||parseInt(localStorage.getItem("anduyen.merit")||"0",10)||0,nTotal=cur+i.merit;if(Ns)Ns.merit=nTotal;try{localStorage.setItem("anduyen.merit",String(nTotal))}catch(e){}ys&&ys.showGain&&ys.showGain(i.merit,"Sư Quản Trị ban tặng");ys&&ys.update&&ys.update({lv:99,level:he.title||"Đại chúng",total:nTotal,quests:(ys.info?.quests||[])},{n:i.merit,why:"Sư Quản Trị ban tặng"});}if(i.pet){const petKey=i.petKey||"meo",petData={k:petKey,n:i.pet,fedToday:false};try{localStorage.setItem("anduyen.adopt",petKey);localStorage.setItem("anduyen.pet",JSON.stringify(petData))}catch(e){}ai&&ai.set&&ai.set(petData,{lv:99,days:999,wait:0});}if(i.item){wr&&wr.addWords&&wr.addWords(i.item);}if(i.title){he.title=i.title;At&&At.setName&&At.setName(he.name+" · "+i.title);At&&At.setRank&&At.setRank(99,i.title);try{localStorage.setItem("anduyen.title",i.title);localStorage.setItem("anduyen.profile",JSON.stringify(he))}catch(e){}}if(i.robe||i.beads){if(i.robe)he.robe=i.robe;if(i.beads)he.beads=i.beads;lt&&lt.setLook&&lt.setLook(he);try{localStorage.setItem("anduyen.profile",JSON.stringify(he))}catch(e){}}At&&At.toast&&At.toast(`✨ Sư Quản Trị đã ban phước lành: ${i.merit?`+${i.merit.toLocaleString()} Tinh Tấn `:''}${i.pet?`[Linh thú ${i.pet}] `:''}${i.item?`[${i.item}]`:''}`,5000);}break;}case"total":At.setCount(i.n);break;case"incense":cd.set(i.n),i.id!==Et.myId&&Oi(lt.root.position.x,lt.root.position.z)==="Chánh điện"&&At.toast(`${i.name} vừa thắp hương`);break;case"bell":zn.on&&zn.bell(.45),i.id===Et.myId?At.toast("Bạn vừa thỉnh chuông"):nn.on?nn.push(`Thí chủ ${Rn(i.name)} vừa thỉnh chuông · tiếng chuông vang khắp chùa`):At.toast(`${i.name} vừa thỉnh chuông`);break;case"lantern":Hs.add(i.lantern),i.lantern.pid===Et.myPid?At.toast("Đèn của bạn đang trôi trên hồ sen"):nn.push(`Thí chủ ${Rn(i.lantern.name)} vừa thả một ngọn hoa đăng trên hồ sen`);break;case"banned":{Et.halt();const t=document.createElement("div");t.className="banned",t.innerHTML="<div><b>Tài khoản này đã bị khoá</b><p>Chùa An Bình Tự tạm không tiếp bạn vì vi phạm nội quy. Nếu có nhầm lẫn, xin liên hệ quản trị chùa.</p></div>",document.body.appendChild(t);break}case"ann":{if(i.k==="admin"){nn.push(`Chùa thông báo: ${i.text}`,!0),nn.on||At.toast(`Chùa thông báo: ${i.text}`,6e3);break}const t=i.pid===Et.myPid,e=wi.pids.has(i.pid);if(i.k==="join")Pn.has(i.pid)||nn.join(i.name,e);else if(i.k==="self")nn.push(i.streak>1?`A Di Đà Phật! Chào mừng thí chủ ${Rn(i.name)} trở lại · ngày thứ ${i.streak} liên tiếp`:i.days>1?`A Di Đà Phật! Chào mừng thí chủ ${Rn(i.name)} trở lại chùa An Bình Tự`:`A Di Đà Phật! Kính chào thí chủ ${Rn(i.name)} lần đầu về chùa An Bình Tự`,!0);else if(i.k==="level")nn.push(t?`Chúc mừng bạn đã lên cấp tu ${Rn(i.level)} · tùy hỷ công đức!`:`Tùy hỷ thí chủ ${Rn(i.name)} vừa lên cấp tu ${i.level}`,t||e);else if(i.k==="pet")nn.push(t?`Bạn đã nhận nuôi ${Rn(i.pet)} · nhớ cho ăn mỗi ngày nhé`:`Tùy hỷ thí chủ ${Rn(i.name)} được nhận nuôi ${i.pet}`,t||e);else if(i.k==="quiz"){const n=i.top.findIndex(s=>s.pid===Et.myPid);nn.push(n>=0?`Chúc mừng bạn đứng hạng ${n+1} Đố vui Phật pháp tối nay · tùy hỷ công đức!`:`Đố vui Phật pháp tối nay: ${i.top.map((s,o)=>`${o+1}. ${Rn(s.name)}`).join(" · ")} · tùy hỷ!`,n>=0||i.top.some(s=>wi.pids.has(s.pid)))}else i.k==="title"&&nn.push(t?`Bạn vừa đạt danh hiệu ${Rn(i.title)}`:`Thí chủ ${Rn(i.name)} vừa đạt danh hiệu “${i.title}”`,t||e);break}case"pet":ai.set(i.p,i.can);break;case"quiz":uo.set(i);break;case"donors":Mr.set(i.list),pl.isOpen&&pl.open(i.list);break;case"quiz-got":uo.answered(i.i,i.c);break;case"quiz-practice":uo.practice(i.qs);break;case"vow":if(Pn.has(i.vow.pid))break;Ui.add(i.vow),i.vow.pid===Et.myPid?nn.push(`Lời nguyện của bạn đã gửi tới cả chùa: “${i.vow.text}”`,!0):nn.push(`Thí chủ ${Rn(i.vow.name)} nguyện: “${i.vow.text}”`,wi.pids.has(i.vow.pid)),!nn.on&&i.vow.pid!==Et.myPid&&At.toast(`${i.vow.name} nguyện: “${i.vow.text}”`,5e3);break;case"garden":{const t={mine:i.mine,flowers:i.flowers,beds:i.beds};ps.set(t,Et.myPid),mo.set(t);break}case"watered":{const t=ps.owners.findIndex(e=>e?.pid===i.pid);t>=0&&i.id!==Et.myId&&ps.water(t,xs.elapsedTime),Oi(lt.root.position.x,lt.root.position.z)==="Vườn hoa"&&Et.send({t:"garden"});break}case"pinned":t0.set(i.text);break;case"feedback-ok":ml.ok();break;case"feedback-err":ml.refuse(i.text);break;case"chores":Vs=i.c;break;case"lamps":dl.set(i.n),i.id===Et.myId?At.toast("Bạn đã thắp một ngọn đèn dâng Phật. Đèn sáng tới sáng mai"):Oi(lt.root.position.x,lt.root.position.z)==="Chánh điện"&&At.toast(`${i.name} vừa thắp một ngọn đèn`);break;case"vow-likes":Ui.likes(i.id,i.n);break;case"vow-gone":Ui.remove(i.id);break;case"vow-tuyhy":At.toast(`${i.name} tùy hỷ lời nguyện “${i.text}” của bạn`,5e3);break;case"vow-err":Ui.refuse(i.text),At.toast(i.text,4e3);break;case"pet-pat":{$s.hearts3(i.id),i.id===Et.myId&&ai.pet&&At.toast(`${i.by} vừa vuốt ve ${ai.pet.n}`,3500);break}case"pet-fed":$s.hearts3(i.id);break;case"checkin":setTimeout(()=>Qg(i),1500);break;case"likes":Hs.setLikes(i.lantern,i.n);break;case"tuyhy":At.toast(`${i.name} tùy hỷ lời nguyện “${i.text}”`,5e3);break;case"xam":Ke.get(i.id)?.say(Fg(i.n),!1);break;case"xam-match":Pl.showMatch(i.names);break;case"merit":ys.update(i.me,i.gain),At.setRank(i.me.lv,i.me.title??""),i.gain&&Os(12);break;case"board":ys.setBoard(i);break;case"journal":Mo.update(i.j);break;case"account-err":Mo.error(i.text);break;case"login-ok":Ng(i.cid);break;case"profile":(Qc===i.p.pid||Qc===i.p.id||fl.pid===i.p.pid)&&fl.show(i.p),Qc=null;break;case"wish":if(Pn.has(i.pid))break;wr.addWords({kind:"wish",name:i.name,text:i.text,at:Date.now()}),At.toast(`${i.name} gửi lời chúc: “${i.text}”`,6e3),At.addLog(i.name,`(gửi riêng bạn) ${i.text}`,i.warn),Os(15);break;case"gift":wr.addWords({kind:"gift",name:i.name,text:"Dâng một nén hương cầu an cho bạn",at:Date.now()}),At.toast(`${i.name} vừa dâng một nén hương cầu an cho bạn`,5e3),Os(15);break;case"friend-req":Pn.has(i.pid)||wi.request(i.name);break;case"friends":wi.setFriends(i.list,i.reqIn);break;case"dm":if(i.from!==Et.myPid&&Pn.has(i.from))break;wi.dm(i),i.from!==Et.myPid&&Os(10);break}}At.onSend=i=>Et.send({t:"chat",text:i});At.onEmote=i=>{Et.send({t:"emote",e:i}),Ha.emote(i),i==="chap"&&lt.bow()};function yA(){const i=ai.pet,t=[{id:Et.myId,pid:Et.myPid,pet:i?{k:i.k,n:i.n}:null,x:lt.root.position.x,z:lt.root.position.z,ry:lt.root.rotation.y,mine:!0}];for(const e of Ke.values()){const n=e.monk.root.position;t.push({id:e.info.id,pid:e.info.pid,pet:e.info.pet??null,x:n.x,z:n.z,ry:e.monk.root.rotation.y,mine:!1})}return t}let n0=0;const Qr={x:0,z:0,ry:0,s:-1};function sv(i=!1){const t=performance.now(),e=lt.root.position,n=Ze?2:lt.state==="walk"?1:0,s=Math.abs(e.x-Qr.x)+Math.abs(e.z-Qr.z)>.05||Math.abs(lt.root.rotation.y-Qr.ry)>.05||n!==Qr.s;!i&&t-n0<(s?100:2e3)||(n0=t,Object.assign(Qr,{x:e.x,z:e.z,ry:lt.root.rotation.y,s:n}),Et.send({t:"state",x:e.x,y:e.y,z:e.z,ry:lt.root.rotation.y,s:n}))}let i0=0;const Mo=new WT(ke,{send:i=>Et.send(i),profile:()=>he,code:()=>Dg(),switchTo:i=>Ng(i),signOut:()=>IT(),editLook:()=>zi.open("nv"),toast:i=>At.toast(i,4e3),pets:()=>{Mo.close(),ai.open(!0)},equip:i=>{Object.assign(he,i),Ea(he),lt.setLook(he),zi.setProfile(he),clearTimeout(i0),i0=window.setTimeout(()=>Et.send({t:"look",name:he.name,kind:he.kind,robe:he.robe,skin:he.skin,bio:he.bio??"",beads:he.beads,cushion:he.cushion}),1200)}});let Qc=null;const fl=new iE(ke,{send:i=>Et.send(i),greet:i=>{Et.send({t:"greet",to:i}),lt.bow(),Ha.emote("chap")},muted:i=>Pn.has(i),mute:(i,t)=>{Pn.has(i)?Pn.delete(i):Pn.add(i),gA(),At.toast(Pn.has(i)?`Đã tắt tiếng ${t}`:`Đã bỏ tắt tiếng ${t}`)},report:i=>Et.send({t:"report",who:i}),zoneOf:i=>{const t=Ke.get(i);return t?Oi(t.monk.root.position.x,t.monk.root.position.z):null},chat:(i,t)=>wi.chat(i,t),editMe:()=>zi.open("nv")});function ov(i){Qc="to"in i?i.to:i.pid,fl.request(i)}function xA(i){ov({to:i.info.id})}const Ns=vE(),ys=new qw(ke,i=>Et.send(i)),wi=new oE(ys.row,ke,()=>Et.myPid,i=>Et.send(i),i=>ov({pid:i}),i=>At.toast(i,4500));let tl=0;setInterval(()=>{tl&&(Et.send({t:"beads",n:tl}),tl=0)},2e3);let s0=0;const rv=new yE(ke,Ns,()=>{tl++,Os(6),zn.on&&zn.bead(),lt.counting(2.5);const i=performance.now();i-s0>3e3&&(s0=i,Et.send({t:"emote",e:"chuoi"}))}),Pl=new YT(ke),Ll=new SE(ke),av=new TE(ke),cr=_r?new AE:null;cr&&qe.add(cr.group);const Mr=new LE;qe.add(Mr.group);const pl=new IE(ke,_r?()=>Il("hom"):null);function Il(i="menu"){_r&&av.open(_r,i)}_r&&At.addDonate(()=>Il());const cv=new gE(zn);let lv=!1;const zi=new OE(ke,he,tn,So,{onLook:(i,t)=>{lt.setLook(i),At.setName(i.name.trim()||he.name),t&&(Object.assign(he,i),Et.send({t:"look",name:i.name,kind:i.kind,robe:i.robe,skin:i.skin,bio:i.bio??"",beads:i.beads,cushion:i.cushion}))},onSettings:i=>{zn.setVolume(i.volume),hi.sensitivity=i.camSpeed,hi.autoFollow=i.autoCam,Hd.show=i.names,Gd.on=i.haptics,nn.setOn(i.ticker),$s.showOthers=!i.hidePets,Zd(i.quality)},onPreview:i=>{lv=i,i||wn.clearViewOffset()},soundOn:()=>!At.muted,setSound:i=>At.setSound(i),today:()=>Ns,toast:i=>At.toast(i,3500),showGuide:()=>dv(),showJournal:i=>Mo.open(i),previewChant:()=>cv.preview(),install:aE()});At.addSettings(()=>zi.isOpen?zi.close():zi.open());function bA(i){const t=zi.rect(),e=innerWidth,n=innerHeight,s=t.left>e*.35,o=s?t.left:e,r=s?n:t.top,a=Fi.clamp(1.15*n/(.6*Math.max(r,120)*1.04),2.4,7),c=lt.root.position,l=lt.root.rotation.y+Math.sin(i*.5)*.6;wn.position.set(c.x+Math.sin(l)*a,c.y+.95,c.z+Math.cos(l)*a),wn.lookAt(c.x,c.y+.55,c.z),wn.setViewOffset(e,n,s?e/2-o/2:0,s?0:n/2-r/2,e,n),wn.updateMatrixWorld()}const _A=new _(-15,0,52);function MA(i,t){const e={id:"hat",label:"Tràng hạt"},n={id:"dongtac",label:"Động tác"},m={id:"gomo",label:"Gõ mõ"},th={id:"thien",label:"Ngồi thiền"},qd={id:"queday",label:"Quẻ ngày"};return i==="Chánh điện"?[{id:"lay",label:"Lạy"},{id:"huong",label:"Thắp hương"},qd,m,th,{id:"thapden",label:"Thắp đèn"},...mo.flowersInHand?[{id:"danghoa",label:"Dâng hoa"}]:[],e,n]:i==="Vườn hoa"?[{id:"tuoi",label:"Luống hoa"},qd,th,e,n]:i==="Bảo tháp"?[{id:"lay",label:"Lạy"},qd,m,th,e,n]:(i==="Hồ sen · Cầu Duyên"||i==="Hồ sen Cầu An")?[{id:"den",label:"Thả hoa đăng"},qd,{id:"xam",label:"Xin xăm"},{id:"phongsinh",label:"Phóng sinh"},th,e,n]:t.distanceTo(_A)<8?[{id:"chuong",label:"Thỉnh chuông"},qd,m,th,e,n]:i==="Sân chùa"?[{id:"huong",label:"Thắp hương"},{id:"nguyen",label:"Lời nguyện"},qd,{id:"quet",label:"Quét lá"},m,th,e,n]:i==="Vườn Linh Thú"?[{id:"choan",label:"Cho ăn"},qd,{id:"linhthu",label:"Linh thú"},e,n]:[qd,m,th,e,n]}function wA(i){if(i==="thien"){if(Ze)return At.toast("Bạn đang ngồi rồi");Je=null,fn=null,Bi=null,fv({id:"dat",position:lt.root.position.clone(),facing:lt.root.rotation.y,mesh:lt.root,taken:!1}),At.toast("Ngồi thiền · thở chậm, mỗi phút ngồi tĩnh được thêm công đức",4e3)}else if(i==="hoa"){if(lt.busy)return;lt.toss(),Rl.burst(lt.root.position,xs.elapsedTime),Et.send({t:"emote",e:"hoa"})}else if(i==="cui"){if(lt.busy)return;ui(),lt.deepBow(),Et.send({t:"emote",e:"cui"})}else i==="chuoi"?(rv.open(),lt.counting(2.5)):i==="choan"&&nv()}const hv=new Kw(ke,i=>{Os(),wA(i)});At.onAction=i=>{if(i==="lay"){if(lt.busy)return;lt.lay(),Et.send({t:"emote",e:"lay"}),Ns.bows+=3,ad(Ns),setTimeout(()=>At.toast(`Hôm nay bạn đã lạy ${Ns.bows} lạy`),5600)}else if(i==="huong"){openIncenseModal();}else if(i==="gomo"){if(lt.busy)return;lt.bow();try{zn.muyu?zn.muyu(.6):(zn.on&&zn.bell&&zn.bell(.15))}catch(e){}Ns.muyu=(Ns.muyu||0)+1;ad(Ns);try{Et.send({t:"emote",e:"cui"})}catch(e){}const mantras=["Cốc... Nam Mô A Di Đà Phật 🙏","Cốc... Nam Mô Bổn Sư Thích Ca Mâu Ni Phật 🙏","Cốc... Nam Mô Quán Thế Âm Bồ Tát 🙏","Cốc... Án Ma Ni Bát Mê Hồng 🙏"];const m=mantras[Ns.muyu%mantras.length];At.toast(`${m} (Đã niệm ${Ns.muyu} biến)`,2800)}else if(i==="thien"){wA("thien");try{zn.on&&zn.bell&&zn.bell(.35)}catch(e){}At.toast("Thân tâm buông thư, an trú trong hiện tại... Hít vào tâm tĩnh lặng, thở ra miệng mỉm cười 🙏",6000)}else if(i==="hat")rv.open();else if(i==="den")Ll.openWrite((t,e)=>Et.send({t:"lantern",color:t,text:e}));else if(i==="xam")Pl.open(t=>{wr.addFortune(t),Et.send({t:"xam",n:t}),Ha.say(Fg(t),!1)});else if(i==="chuong")Et.send({t:"bell"});else if(i==="dongtac")hv.toggle();else if(i==="choan")nv();else if(i==="tuoi")mo.isOpen?mo.close():mo.open(0,null);else if(i==="danghoa")ui(),fn=null,Je=Bm.clone(),Sr(Je),Bi=()=>{lt.root.rotation.y=Math.PI,lt.bow(),Et.send({t:"offer-flowers"})};else if(i==="quet")dA();else if(i==="queday"){window.dailyLotSystem&&window.dailyLotSystem.open();}else if(i==="thapden")pA();else if(i==="phongsinh"){if(lt.busy||!tv(lt,!0))return;Et.send({t:"emote",e:"ca"}),Vs.ca||Et.send({t:"viec",k:"ca"}),At.toast(Vs.ca?"Cá bơi đi thong thả. A Di Đà Phật!":"Bạn thả cá về hồ sen. Phóng sinh hôm nay đã ghi nhận",4e3)}else i==="nguyen"?Ui.isOpen?Ui.close():Ui.open():i==="linhthu"&&(ai.isOpen?ai.close():ai.open())};const uv=new XT(ke,()=>({x:lt.root.position.x,z:lt.root.position.z,ry:lt.root.rotation.y}),()=>{const i=wi.pids;return[...Ke.values()].map(t=>({x:t.monk.root.position.x,z:t.monk.root.position.z,friend:i.has(t.info.pid),name:t.info.name}))},i=>Cl(i),()=>Oi(lt.root.position.x,lt.root.position.z)),Ui=new ZE(ke,{send:i=>Et.send(i),myPid:()=>Et.myPid,muted:i=>Pn.has(i)}),uo=new JE(ke,ys.row,{send:i=>Et.send(i),myPid:()=>Et.myPid,tell:(i,t)=>nn.on?nn.push(i,t):At.toast(i,5e3),beforeOpen:()=>gl()}),ml=new QE(ke,i=>Et.send(i),()=>Oi(lt.root.position.x,lt.root.position.z)),mo=new sA(ke,{water:(i,t)=>{ui(),fn=null,Je=MT(i),Sr(Je),Bi=()=>{const e=xi[i];lt.root.rotation.y=Math.atan2(e.x-lt.root.position.x,e.z-lt.root.position.z),lt.bow(),ps.water(i,xs.elapsedTime),Et.send({t:"water",pid:t})}},plant:i=>Et.send({t:"plant",k:i}),pick:()=>Et.send({t:"pick"}),toHall:()=>Cl(Ua.findIndex(i=>i.name==="Chánh điện"))}),ai=new GT(ke,{send:i=>Et.send(i),inGarden:()=>Oi(lt.root.position.x,lt.root.position.z)==="Vườn Linh Thú",toGarden:()=>Cl(Ua.findIndex(i=>i.name==="Vườn Linh Thú"))}),wr=new KT(ke,{myLanterns:()=>Hs.all().filter(i=>i.pid===Et.myPid),today:()=>Ns,giftsLeft:()=>ys.gifts,readFortune:i=>Pl.reread(i),readLantern:i=>Ll.openRead(i,!0,()=>{})});function gl(){for(const i of[ys,wi,Mo,uv,wr,zi,fl,Pl,Ll,av,Jg,hv,ai,Ui,uo,ml,mo,pl])i.close()}window.At=At;window.Et=Et;window.ai=ai;window.wr=wr;window.ys=ys;window.Mo=Mo;window.zi=zi;window.lt=lt;window.he=he;window.Ns=Ns;window.$s=$s;window.Ke=Ke;window.zn=zn;window.qn=qn;window.Wn=Wn;window.ki=ki;window.jn=jn;window.Al=Al;const SA=new JT(ke,["nhiemvu","tuido","bando","xephang","congdong","loinguyen","dovui","linhthu","hoso",..._r?["gopgao"]:[],"gopy","caidat"],i=>{gl(),i==="nhiemvu"?ys.open("nv"):i==="tuido"?wr.open():i==="bando"?uv.open():i==="xephang"?ys.open("xh"):i==="congdong"?wi.open():i==="hoso"?Mo.open("me"):i==="linhthu"?ai.open():i==="loinguyen"?Ui.open():i==="dovui"?uo.open():i==="gopy"?ml.open():i==="gopgao"?Il():i==="gomo"?At.onAction("gomo"):i==="phongsinh"?At.onAction("phongsinh"):i==="caidat"&&zi.open()});setInterval(()=>SA.setBadges({nhiemvu:ys.ready,congdong:wi.waiting,tuido:wr.unread,dovui:uo.live?1:0}),1e3);Pa&&!tn.ticker&&setTimeout(()=>At.toast(Pa.label,5e3),1500);const TA=new eE(ke,So);function dv(){TA.open(mS)}pS()||setTimeout(dv,900);let Je=null,fn=null,el=!1,Bi=null;const go=new z(new Rr(.22,.3,32),new xe({color:"#ffe2a8",transparent:!0,opacity:0,depthWrite:!1}));go.rotation.x=-Math.PI/2;qe.add(go);const Ii=new ig,vl=new z(new ft(.4,.4,1.2,8),new xe({visible:!1}));vl.position.y=.6;lt.root.add(vl);const o0=So?40:80;let r0=0;function EA(i){if(Ke.size<=o0){for(const e of Ke.values())e.shown=!0;return}[...Ke.values()].sort((e,n)=>e.monk.root.position.distanceToSquared(i)-n.monk.root.position.distanceToSquared(i)).forEach((e,n)=>e.shown=n<o0)}function nl(i){if(i===Ze)return!0;for(const t of Ke.values()){const e=t.monk.root.position;if(t.state===2&&Math.hypot(e.x-i.position.x,e.z-i.position.z)<.45)return!0}return!1}function a0(i){Ze&&ui(),fn=i,el=!1,Bi=null,Je=i.position.clone(),Sr(Je)}function AA(i,t){const e=new Q(i/innerWidth*2-1,-(t/innerHeight)*2+1);Ii.setFromCamera(e,wn);const n=Ii.intersectObjects(Bn,!1)[0],s=n?n.distance+.5:1/0;for(const d of Ii.intersectObjects(Di.map(f=>f.mesh),!1)){if(d.distance>s)break;const f=Di.find(p=>p.mesh===d.object);if(f&&f!==Ze&&!nl(f))return a0(f)}if(n){const d=n.point;if(Math.hypot(d.x,d.z-33)<4||(Math.abs(d.x)<3&&Math.abs(d.z+21.6)<3.5))return gl(),openIncenseModal();let f=null,p=1.2;for(const v of Di){if(!v.id.startsWith("cd-")||v===Ze||Math.abs(v.position.y-d.y)>.6)continue;const m=Math.hypot(v.position.x-d.x,v.position.z-d.z);m<p&&!nl(v)&&(f=v,p=m)}if(f)return a0(f)}const _cHit=Ii.intersectObjects(censerTargets,!1)[0];if(_cHit&&_cHit.distance<s)return gl(),openIncenseModal();const o=cr?Ii.intersectObject(cr.hit,!1)[0]:void 0;if(o&&o.distance<s)return cr.flash(),gl(),Il("hom");const r=Ii.intersectObject(Mr.hit,!1)[0];if(r&&r.distance<s)return gl(),pl.open(Mr.list);const a=Ii.intersectObjects([...Ke.values()].filter(d=>d.shown).map(d=>d.hit).concat(vl),!1)[0],c=Ii.intersectObjects($s.hitTargets(),!1)[0];if(c&&(!a||c.distance<a.distance)){const d=c.object.userData.petRes;if(d){const m=-(Al.indexOf(d)+1),g=performance.now();return g-(zc.get(m)||0)<15e3?At.toast(`${jn[d].name} đang lim dim vì sướng, lát nữa vuốt tiếp nhé`):(zc.set(m,g),Et.send({t:"pet-pat",res:d}),At.toast(`Bạn vuốt ve ${jn[d].name} của chùa`))}const f=c.object.userData.petOwner;if(f===Et.myId)return ai.open();const p=$s.nameOf(f),v=performance.now();if(v-(zc.get(f)||0)<15e3)return At.toast(`${p?.name??"Linh thú"} đang lim dim vì sướng, lát nữa vuốt tiếp nhé`);zc.set(f,v),Et.send({t:"pet-pat",to:f}),p&&At.toast(`Bạn vuốt ve ${p.name} (${jn[p.kind].name})`);return}if(a?.object===vl)return Mo.open("me");if(a){const d=Ke.get(a.object.userData.peer);if(d)return xA(d)}At.hideCard();const l=ps.group.visible?Ii.intersectObjects(ps.hits,!1)[0]:void 0;if(l){const d=l.object.userData.bed;return mo.open(d,ps.owners[d])}const h=Ii.intersectObjects(Hs.hitTargets(),!1)[0];if(h){const d=Hs.get(h.object.userData.lantern);if(d)return Ll.openRead(d,d.pid===Et.myPid,()=>Et.send({t:"tuyhy",lantern:d.id}))}const u=Ii.intersectObjects(Di.map(d=>d.mesh),!1)[0];if(u&&u.distance<s){const d=Di.find(f=>f.mesh===u.object);if(d&&d!==Ze&&nl(d))return At.toast("Chỗ này đã có người ngồi, bạn chọn chỗ khác nhé");if(d===Ze)return}n&&(Ze&&ui(),fn=null,Bi=null,Je=n.point.clone(),Sr(Je))}function Sr(i){go.position.set(i.x,oi(i.x,i.z)+.04,i.z),go.material.opacity=.9,go.scale.setScalar(1)}function fv(i){Ze=i,i.taken=!0,lt.state="sit",lt.root.position.copy(i.position),lt.root.rotation.y=i.facing,hi.yaw=i.facing+Math.PI,At.setSitting(!0),window.sutraSystem&&window.sutraSystem.onSitDown()}function ui(){if(!Ze)return;Ze.taken=!1;const i=new _(Math.sin(Ze.facing),0,Math.cos(Ze.facing)).multiplyScalar(Ze.id==="dat"?0:-.6),t=Ze.position.clone().add(i);lt.root.position.set(t.x,oi(t.x,t.z),t.z),Ze=null,lt.state="idle",At.setSitting(!1),window.sutraSystem&&window.sutraSystem.onStandUp()}/* capture listener replaced by safe UI isolation *//* touchstart capture listener replaced */const c0=new Vw(qg,hi,AA);function pv(){wn.aspect=innerWidth/innerHeight;const i=wn.aspect<.8;wn.fov=i?62:55,hi.distScale=i?.78:1,wn.updateProjectionMatrix(),Ln.setSize(innerWidth,innerHeight)}pv();addEventListener("resize",pv);(()=>{if(!document.getElementById("modal-backdrop")){const bd=document.createElement("div");bd.id="modal-backdrop";document.body.appendChild(bd);bd.onclick=()=>{document.querySelectorAll(".sheet.open,.guide.open").forEach(s=>s.classList.remove("open"));bd.classList.remove("show")};}})();const xs=new U2,ud=new Set,eu=4.6;let Xo=0,l0=!0;const ta=new _,cs={time:0,frames:0,steps:0};function CA(i,t){if(tn.qualityManual||cs.steps>=2||t<3||document.hidden||tn.quality==="nhe"||(cs.time+=i,cs.frames++,cs.time<4))return;const e=cs.time/cs.frames*1e3;cs.time=cs.frames=0,!(e<34)&&(cs.steps++,tn.quality=tn.quality==="dep"?"vua":"nhe",Wg(tn),Zd(tn.quality),At.toast("Máy hơi chậm nên chùa giảm chất lượng hình cho mượt (đổi lại trong Cài đặt)",4500))}function mv(){const i=Math.min(xs.getDelta(),.05),t=xs.elapsedTime;CA(i,t);const e=lt.root.position;c0.turnCamera(i);const n=c0.move();n&&(Ze&&ui(),Je=e.clone().addScaledVector(n.dir,1.8),fn=null);const s=n?n.speed:1;let o=0;if(Je&&!Ze){const d=e.clone(),f=fn?.15:.12,p=new _(Je.x-e.x,0,Je.z-e.z);if(p.length()<=f)fn&&fv(fn),Bi?.(),Bi=null,Je=null,fn=null,Ze||(lt.state="idle");else{const v=fn&&(p.length()<.9||el)?e.clone().add(p.clone().setLength(Math.min(p.length(),eu*s*i))):yg(e,Je,eu*s*i);e.x=v.x,e.z=v.z;const m=Math.hypot(e.x-d.x,e.z-d.z);o=m/i,lt.state="walk";let x=Math.atan2(p.x,p.z)-lt.root.rotation.y;x=Math.atan2(Math.sin(x),Math.cos(x)),lt.root.rotation.y+=x*Math.min(1,i*18),Xo=m<eu*s*i*.2?Xo+i:0,Xo>.4&&fn&&!el&&fn.id.startsWith("cd-")&&Oi(e.x,e.z)==="Chánh điện"?(el=!0,Xo=0):Xo>.4&&(Je=null,fn=null,Bi=null,lt.state="idle",Xo=0)}}Ze||(e.y+=(oi(e.x,e.z)-e.y)*Math.min(1,i*22)),lt.update(i,t,o);const r=Oi(e.x,e.z);jg.update(t,r==="Chánh điện",fn,nl),ud.has(r)||(ud.add(r),Et.send({t:"visit",zone:r})),hi.follow(i,lt.root.rotation.y,n?.dir??null),hi.update(i,e,r==="Chánh điện"),lv&&bA(t),At.setChatMode(r==="Chánh điện"||r==="Bảo tháp"?"quiet":"chat"),At.setActions(MA(r,e));const a=pE();At.setBanner(a?`${a.name} · mời bạn vào chánh điện`:Pa?Pa.label:null),cv.update(i,tn.chant?a:null,tn.chant&&r==="Chánh điện"),Hs.update(t),Rl.update(t),Jd.update(t),ps.update(t,wn,e),r==="Vườn hoa"&&performance.now()-Qm>2e4&&(Qm=performance.now(),Et.send({t:"garden"})),dl.update(t),cr?.update(t),Mr.update(t),Qd.update(t),fA(t,r),$s.update(i,t,e,wn,yA()),sv(),t-r0>.5&&(r0=t,EA(e));for(const d of Ke.values())d.update(i,t,wn,e,Pn.has(d.info.pid));const c=Fa.update(e);iS(t),cS(t),Yg.update(t),Kg.update(t,c.night<.5),hS(Ra.fireflies,t,c.night),Ra.lamps.update(c.night),ld.update(i,tn.music&&zn.on,r==="Chánh điện",tn.volume),zn.hushed=ld.playing,zn.setScene(c.night,r==="Chánh điện");const l=go.material;l.opacity>0&&(l.opacity=Math.max(0,l.opacity-i*1.2),go.scale.setScalar(1+(.9-l.opacity)*.6)),ta.copy(e).setY(e.y+(Ze?1.25:1.35)).project(wn);const h=(ta.x*.5+.5)*innerWidth,u=(-ta.y*.5+.5)*innerHeight;At.placeTag(h,u,ta.z<1),Ha.place(h,u,ta.z<1),window.sutraSystem&&window.sutraSystem.placeOverhead(h,u,ta.z<1),Ln.shadowMap.enabled&&uA++%Xg===0&&(Ln.shadowMap.needsUpdate=!0),Ln.render(qe,wn),l0&&(l0=!1,(document.getElementById("loading")?.classList.add("done"),setTimeout(()=>{const el=document.getElementById("loading");if(el)el.style.display="none"},1000))),requestAnimationFrame(mv)}requestAnimationFrame(mv);
 
 
 // ==================== 8 BỘ KINH PHẬT THƯỜNG TỤNG ====================
@@ -5844,12 +5844,39 @@ class AdminPortalManager {
     this.loadCustomSettings();
   }
 
+  notify(title, desc = '') {
+    // 1. Play temple bell chime
+    try {
+      if (window.zn && typeof window.zn.bell === 'function') {
+        window.zn.bell(0.45);
+      }
+    } catch(e) {}
+
+    // 2. Golden on-screen toast
+    try {
+      if (window.At && typeof window.At.toast === 'function') {
+        window.At.toast(title, 4500);
+      }
+    } catch(e) {}
+
+    // 3. In-modal top status bar
+    const bar = document.getElementById('admin-notify-bar');
+    if (bar) {
+      bar.innerHTML = '<span>✅</span> <b>' + title + '</b>' + (desc ? '<br/><span style="font-size:12px; font-weight:normal; opacity:0.9;">' + desc + '</span>' : '');
+      bar.style.display = 'block';
+      clearTimeout(this._notifyTimer);
+      this._notifyTimer = setTimeout(() => {
+        if (bar) bar.style.display = 'none';
+      }, 6000);
+    }
+  }
+
   createPortalButton() {
     const btn = document.createElement('button');
     btn.id = 'btn-admin-portal';
     btn.className = 'admin-portal-pill';
     btn.innerHTML = '<span>🔑</span> Sư quản trị';
-    btn.title = 'Khu vực quản trị của Sư Trụ Trì';
+    btn.title = 'Khu vực quản trị tối cao của Sư Trụ Trì';
     document.body.appendChild(btn);
 
     const stop = (e) => e.stopPropagation();
@@ -5906,9 +5933,7 @@ class AdminPortalManager {
         this.isAuthenticated = true;
         err.style.display = 'none';
         this.closeAuth();
-        if (window.At && window.At.toast) {
-          window.At.toast('✨ Xác thực Sư Quản Trị thành công! Toàn quyền điều hành An Bình Tự 🙏', 4000);
-        }
+        this.notify('👑 Xác thực Sư Quản Trị thành công!', 'Toàn quyền điều hành An Bình Tự đã mở.');
         this.openConsole();
       } else {
         err.style.display = 'block';
@@ -5971,19 +5996,20 @@ class AdminPortalManager {
       <button class="sheet-close" aria-label="Đóng">×</button>
       <div class="admin-header">
         <div class="admin-badge">👑 BẢNG ĐIỀU HÀNH TỐI CAO</div>
-        <div class="sheet-title">Sư Quản Trị Chùa An Bình Tự</div>
-        <p class="sheet-sub">Toàn quyền phong cấp, ban tặng điểm tinh tấn, linh thú, vật phẩm và tùy biến giao diện toàn chùa.</p>
+        <div class="sheet-title" style="font-size:22px; margin-bottom:4px;">Sư Quản Trị Chùa An Bình Tự</div>
+        <p class="sheet-sub" style="font-size:13px; max-width:580px; margin:0 auto 10px;">Toàn quyền phong cấp, ban tặng điểm tinh tấn, linh thú, vật phẩm và khoác pháp phục tức thì.</p>
       </div>
 
+      <div id="admin-notify-bar" class="admin-notify-bar" style="display:none;"></div>
+
       <div class="admin-tabs">
-        <button type="button" class="admin-tab ${this.currentTab === 'users' ? 'active' : ''}" data-tab="users">👥 Phật Tử & Tài Khoản</button>
+        <button type="button" class="admin-tab ${this.currentTab === 'users' ? 'active' : ''}" data-tab="users">👥 Ban Tặng & Phong Cấp</button>
+        <button type="button" class="admin-tab ${this.currentTab === 'robes' ? 'active' : ''}" data-tab="robes">👘 Y Áo & Pháp Phục 3D</button>
         <button type="button" class="admin-tab ${this.currentTab === 'rename' ? 'active' : ''}" data-tab="rename">⚙️ Đổi Tên Tính Năng</button>
         <button type="button" class="admin-tab ${this.currentTab === 'events' ? 'active' : ''}" data-tab="events">🌟 Quyền Năng Toàn Chùa</button>
       </div>
 
-      <div class="admin-tab-content" id="admin-tab-content">
-        <!-- Dynamic tab content injected here -->
-      </div>
+      <div class="admin-tab-content" id="admin-tab-content"></div>
     `;
 
     const closeBtn = this.consoleModal.querySelector('.sheet-close');
@@ -6008,6 +6034,8 @@ class AdminPortalManager {
 
     if (this.currentTab === 'users') {
       this.renderUsersTab(container);
+    } else if (this.currentTab === 'robes') {
+      this.renderRobesTab(container);
     } else if (this.currentTab === 'rename') {
       this.renderRenameTab(container);
     } else if (this.currentTab === 'events') {
@@ -6022,7 +6050,9 @@ class AdminPortalManager {
       { id: "all", name: "🌐 Toàn bộ Phật tử đang ở chùa" },
       { id: "tai", name: "🚶 Anh Tài sửa xe" },
       { id: "ha", name: "🪷 Cô Hà bán bún" },
-      { id: "kien", name: "⛩️ Anh Kiên đầu bạc" }
+      { id: "kien", name: "⛩️ Anh Kiên đầu bạc" },
+      { id: "nhien", name: "🙏 Thầy An Nhiên" },
+      { id: "tuan", name: "☸️ Tuấn Tử Tế" }
     ];
 
     if (window.Ke) {
@@ -6035,195 +6065,326 @@ class AdminPortalManager {
     }
 
     container.innerHTML = `
-      <div class="admin-card">
-        <div class="admin-card-title">1. Chọn Đối Tượng Tiếp Nhận Phước Lành</div>
+      <!-- Row 1: Target select -->
+      <div class="admin-card" style="margin-bottom:14px;">
+        <div class="admin-card-title"><span>🎯</span> 1. Chọn Đối Tượng Tiếp Nhận Phước Lành</div>
+        <p class="admin-hint">Chọn "Chính tôi" để tài khoản của bạn nhận ngay lập tức, hoặc chọn Phật tử khác để ban phước qua mạng.</p>
         <select id="admin-target-select" class="admin-select">
           ${targets.map(t => `<option value="${t.id}">${t.name}</option>`).join('')}
         </select>
       </div>
 
-      <div class="admin-card">
-        <div class="admin-card-title">2. Tặng Điểm Tinh Tấn / Công Đức</div>
-        <p class="admin-hint">Điểm tinh tấn dùng để mua linh thú, sắm vật phẩm và nâng cấp pháp tòa.</p>
-        <div class="admin-quick-buttons">
-          <button type="button" class="admin-btn-quick" data-merit="500">+500</button>
-          <button type="button" class="admin-btn-quick" data-merit="1000">+1,000</button>
-          <button type="button" class="admin-btn-quick" data-merit="5000">+5,000</button>
-          <button type="button" class="admin-btn-quick" data-merit="10000">+10,000</button>
+      <!-- Row 2: 2-column grid for Merit & Pet -->
+      <div class="admin-grid-2col">
+        <div class="admin-card">
+          <div class="admin-card-title"><span>💎</span> 2. Tặng Điểm Tinh Tấn / Công Đức</div>
+          <p class="admin-hint">Cộng điểm trực tiếp để sở hữu tức thì, mua linh thú hoặc sắm vật phẩm.</p>
+          <div class="admin-quick-buttons">
+            <button type="button" class="admin-btn-quick" data-merit="1000">+1,000</button>
+            <button type="button" class="admin-btn-quick" data-merit="5000">+5,000</button>
+            <button type="button" class="admin-btn-quick" data-merit="10000">+10,000</button>
+            <button type="button" class="admin-btn-quick" data-merit="50000">+50,000</button>
+          </div>
+          <div class="admin-input-row">
+            <input type="number" id="admin-merit-input" placeholder="Số điểm..." value="10000" />
+            <button type="button" class="primary admin-btn-action" id="admin-give-merit-btn">Ban Tặng Điểm 💎</button>
+          </div>
+          <span class="admin-act-status" id="status-merit"></span>
         </div>
-        <div class="admin-input-row">
-          <input type="number" id="admin-merit-input" placeholder="Nhập số điểm tùy ý..." value="1000" />
-          <button type="button" class="primary admin-btn-action" id="admin-give-merit-btn">Ban Tặng Điểm 💎</button>
+
+        <div class="admin-card">
+          <div class="admin-card-title"><span>🐾</span> 3. Ban Tặng Linh Thú Hộ Pháp</div>
+          <p class="admin-hint">Linh thú 3D sẽ xuất hiện ngay lập tức bên cạnh bạn và mở khóa trong menu Linh Thú.</p>
+          <div class="admin-input-row" style="margin-bottom:8px;">
+            <select id="admin-pet-select" class="admin-select">
+              <option value="meo|🐅 Bạch Hổ Thần Uy Nghi">🐅 Bạch Hổ Thần Uy Nghi (Mãnh Hổ Hộ Pháp)</option>
+              <option value="rua|🐢 Kim Quy Thần Giáp">🐢 Kim Quy Thần Giáp (Rùa Vàng Trường Thọ)</option>
+              <option value="hac|🐉 Thanh Long Hộ Pháp">🐉 Thanh Long Hộ Pháp (Khai Sáng Trí Tuệ)</option>
+              <option value="huou|🦌 Hươu Sao Bồ Đề">🦌 Hươu Sao Bồ Đề (Thanh Cao Thiện Lành)</option>
+              <option value="tho|🐇 Thỏ Trắng An Nhiên">🐇 Thỏ Trắng An Nhiên (Hiền Hòa Thuần Khiết)</option>
+              <option value="soc|🐿️ Sóc Nâu Tinh Nghịch">🐿️ Sóc Nâu Tinh Nghịch (Nhanh Nhẹn Hoạt Bát)</option>
+              <option value="hac|🦚 Bạch Hạc Cát Tường">🦚 Bạch Hạc Cát Tường (Thanh Thoát Thiền Tự)</option>
+              <option value="meo|🐈 Mèo Tam Thể Chiêu Tài">🐈 Mèo Tam Thể Chiêu Tài (Hiền Lành Quấn Chủ)</option>
+            </select>
+          </div>
+          <button type="button" class="primary admin-btn-action full" id="admin-give-pet-btn">Nhận Nuôi & Xuất Hiện Linh Thú 🐾</button>
+          <span class="admin-act-status" id="status-pet"></span>
         </div>
       </div>
 
-      <div class="admin-card">
-        <div class="admin-card-title">3. Ban Tặng Linh Thú Hộ Pháp</div>
-        <p class="admin-hint">Linh thú thần thánh sẽ xuất hiện đồng hành cùng người chơi.</p>
-        <div class="admin-input-row">
-          <select id="admin-pet-select" class="admin-select">
-            <option value="Bạch Hổ Thần">🐅 Bạch Hổ Thần (Dũng Mãnh Uy Nghi)</option>
-            <option value="Kim Quy">🐢 Kim Quy (Rùa Vàng Trường Thọ)</option>
-            <option value="Thanh Long">🐉 Thanh Long (Khai Sáng Trí Tuệ)</option>
-            <option value="Chu Tước">🦚 Chu Tước (Lửa Từ Bi Hộ Trì)</option>
-            <option value="Hươu Sao Bồ Đề">🦌 Hươu Sao Bồ Đề (Thanh Tao)</option>
-            <option value="Thỏ Trắng An Nhiên">🐇 Thỏ Trắng An Nhiên (Thiện Lành)</option>
-            <option value="Cá Chép Vàng">🐟 Cá Chép Vàng (Cát Tường)</option>
-            <option value="Mèo Tam Thể">🐈 Mèo Tam Thể (Chiêu Tài Như Ý)</option>
-          </select>
-          <button type="button" class="primary admin-btn-action" id="admin-give-pet-btn">Tặng Linh Thú 🐾</button>
+      <!-- Row 3: 2-column grid for Items & Titles -->
+      <div class="admin-grid-2col">
+        <div class="admin-card">
+          <div class="admin-card-title"><span>🎒</span> 4. Thêm Vật Phẩm Quý Vào Túi Đồ</div>
+          <p class="admin-hint">Vật phẩm được đưa ngay vào Menu > Túi đồ để bạn sở hữu và chiêm ngưỡng.</p>
+          <div class="admin-input-row" style="margin-bottom:8px;">
+            <select id="admin-item-select" class="admin-select">
+              <option value="📿 Chuỗi hạt Bồ Đề 108 hạt">📿 Chuỗi hạt Bồ Đề 108 hạt</option>
+              <option value="📿 Chuỗi hạt Mã Não đỏ Tây Tạng">📿 Chuỗi hạt Mã Não đỏ Tây Tạng</option>
+              <option value="📿 Chuỗi hạt Trầm Hương Hoàng Cung">📿 Chuỗi hạt Trầm Hương Hoàng Cung</option>
+              <option value="👘 Áo Vàng Cà Sa Đại Đức Hộ Pháp">👘 Áo Vàng Cà Sa Đại Đức Hộ Pháp</option>
+              <option value="👘 Áo Tràng Lam Thanh Tịnh">👘 Áo Tràng Lam Thanh Tịnh</option>
+              <option value="🪷 Hoa Đăng Sen Vàng Cát Tường (x10)">🪷 Hoa Đăng Sen Vàng Cát Tường (x10)</option>
+              <option value="🪷 Nhang Trầm Thơm Thượng Hạng (x30)">🪷 Nhang Trầm Thơm Thượng Hạng (x30)</option>
+              <option value="🪵 Mõ Gỗ Mít Khắc Kinh Kim Cương">🪵 Mõ Gỗ Mít Khắc Kinh Kim Cương</option>
+              <option value="📜 Quẻ Thượng Thượng Cát Vạn Sự Hanh Thông">📜 Quẻ Thượng Thượng Cát Vạn Sự Hanh Thông</option>
+            </select>
+          </div>
+          <button type="button" class="primary admin-btn-action full" id="admin-give-item-btn">Thêm Vào Túi Đồ Ngay 🎒</button>
+          <span class="admin-act-status" id="status-item"></span>
         </div>
-      </div>
 
-      <div class="admin-card">
-        <div class="admin-card-title">4. Thêm Vật Phẩm Quý Vào Túi Đồ</div>
-        <div class="admin-input-row">
-          <select id="admin-item-select" class="admin-select">
-            <option value="Chuỗi hạt Bồ Đề 108 hạt">📿 Chuỗi hạt Bồ Đề 108 hạt</option>
-            <option value="Chuỗi hạt Mã Não đỏ thượng hạng">📿 Chuỗi hạt Mã Não đỏ thượng hạng</option>
-            <option value="Chuỗi hạt Trầm Hương Tây Tạng">📿 Chuỗi hạt Trầm Hương Tây Tạng</option>
-            <option value="Áo Vàng Cà Sa Hộ Pháp">👘 Áo Vàng Cà Sa Hộ Pháp</option>
-            <option value="Áo Tràng Lam Đại Đức">👘 Áo Tràng Lam Đại Đức</option>
-            <option value="Hoa Đăng Sen Vàng Ngũ Sắc">🪷 Hoa Đăng Sen Vàng Ngũ Sắc (x10)</option>
-            <option value="Nhang Trầm Hảo Hạng">🪷 Nhang Trầm Hảo Hạng (x30)</option>
-            <option value="Mõ Gỗ Mít Khắc Kinh Kim Cương">🪵 Mõ Gỗ Mít Khắc Kinh Kim Cương</option>
-          </select>
-          <button type="button" class="primary admin-btn-action" id="admin-give-item-btn">Thêm Vào Túi 🎒</button>
-        </div>
-      </div>
-
-      <div class="admin-card">
-        <div class="admin-card-title">5. Phong Cấp & Đổi Danh Hiệu</div>
-        <div class="admin-input-row">
-          <select id="admin-title-select" class="admin-select">
-            <option value="Thiện nam">Thiện nam</option>
-            <option value="Tín nữ">Tín nữ</option>
-            <option value="Hộ pháp">Hộ pháp</option>
-            <option value="Trưởng lão">Trưởng lão</option>
-            <option value="Đại đức">Đại đức</option>
-            <option value="Sư phụ">Sư phụ</option>
-            <option value="Viện chủ">Viện chủ</option>
-          </select>
-          <button type="button" class="primary admin-btn-action" id="admin-give-title-btn">Phong Cấp 🏷️</button>
+        <div class="admin-card">
+          <div class="admin-card-title"><span>👑</span> 5. Phong Cấp & Đổi Danh Hiệu</div>
+          <p class="admin-hint">Danh hiệu hiển thị trang trọng trên đầu nhân vật và trong hồ sơ toàn chùa.</p>
+          <div class="admin-input-row" style="margin-bottom:8px;">
+            <select id="admin-title-select" class="admin-select">
+              <option value="Sư Trụ Trì Tối Cao">👑 Sư Trụ Trì Tối Cao</option>
+              <option value="Sư Quản Trị An Bình Tự">🔑 Sư Quản Trị An Bình Tự</option>
+              <option value="Hộ Pháp Kim Cang">🛡️ Hộ Pháp Kim Cang</option>
+              <option value="Đại Đức">🪷 Đại Đức</option>
+              <option value="Trưởng Lão">📜 Trưởng Lão</option>
+              <option value="Thiện Nam Tinh Tấn">⭐ Thiện Nam Tinh Tấn</option>
+              <option value="Tín Nữ Thuần Thành">🌸 Tín Nữ Thuần Thành</option>
+            </select>
+          </div>
+          <button type="button" class="primary admin-btn-action full" id="admin-give-title-btn">Phong Cấp Danh Hiệu 👑</button>
+          <span class="admin-act-status" id="status-title"></span>
         </div>
       </div>
     `;
 
-    // Bind Merit quick buttons
+    // Quick buttons
     container.querySelectorAll('.admin-btn-quick').forEach(btn => {
       btn.onclick = () => {
         container.querySelector('#admin-merit-input').value = btn.dataset.merit;
       };
     });
 
-    // Give Merit Action
+    // 1. Give Merit
     container.querySelector('#admin-give-merit-btn').onclick = () => {
       const targetSelect = container.querySelector('#admin-target-select');
+      const targetId = targetSelect.value;
       const targetName = targetSelect.options[targetSelect.selectedIndex].text;
-      const merit = parseInt(container.querySelector('#admin-merit-input').value, 10) || 1000;
+      const merit = parseInt(container.querySelector('#admin-merit-input').value, 10) || 10000;
 
-      // Update self merit
-      if (window.ys && window.ys.update) {
-        window.ys.update({ lv: 99, total: ((window.Ns && window.Ns.merit) || 0) + merit }, merit);
+      if (targetId === 'self' || targetId === (window.Et && window.Et.myPid)) {
+        const cur = (window.Ns && window.Ns.merit) || parseInt(localStorage.getItem('anduyen.merit') || '0', 10) || 0;
+        const nTotal = cur + merit;
+        if (window.Ns) window.Ns.merit = nTotal;
+        try { localStorage.setItem('anduyen.merit', String(nTotal)); } catch(e){}
+        if (window.ys && window.ys.showGain) window.ys.showGain(merit, "Sư Quản Trị ban tặng");
+        if (window.ys && window.ys.update) {
+          window.ys.update({ lv: 99, level: (window.he && window.he.title) || "Sư Quản Trị", total: nTotal, quests: (window.ys.info?.quests || []) }, { n: merit, why: "Sư Quản Trị ban tặng" });
+        }
       }
-      if (window.Ns) window.Ns.merit = (window.Ns.merit || 0) + merit;
 
-      // Broadcast via WebSocket
       if (window.Et && window.Et.send) {
         window.Et.send({
           t: 'admin_action',
           passcode: '051193@',
           action: 'give',
-          targetPid: targetSelect.value,
+          targetPid: targetId,
           targetName,
           merit
         });
       }
 
-      if (window.At && window.At.toast) {
-        window.At.toast(`🎉 Sư Quản Trị đã ban tặng +${merit.toLocaleString()} điểm Tinh Tấn cho ${targetName}!`, 4500);
-      }
+      const st = container.querySelector('#status-merit');
+      if (st) st.textContent = '✅ Đã ghi nhận! +' + merit.toLocaleString() + ' Tinh Tấn đã nạp vào tài khoản.';
+      this.notify('✨ Đã ban tặng +' + merit.toLocaleString() + ' Tinh Tấn!', 'Điểm công đức đã được ghi nhận và cập nhật ngay lập tức.');
     };
 
-    // Give Pet Action
+    // 2. Give Pet
     container.querySelector('#admin-give-pet-btn').onclick = () => {
-      const pet = container.querySelector('#admin-pet-select').value;
       const targetSelect = container.querySelector('#admin-target-select');
+      const targetId = targetSelect.value;
       const targetName = targetSelect.options[targetSelect.selectedIndex].text;
+      const rawVal = container.querySelector('#admin-pet-select').value;
+      const [petKey, petName] = rawVal.split('|');
 
-      try {
-        localStorage.setItem('anduyen.adopt', pet);
-        if (window.he) window.he.pet = pet;
-        if (window.ai && window.ai.set) window.ai.set(pet, true);
-      } catch (e) {}
+      if (targetId === 'self' || targetId === (window.Et && window.Et.myPid)) {
+        const petData = { k: petKey, n: petName, fedToday: false };
+        try {
+          localStorage.setItem('anduyen.adopt', petKey);
+          localStorage.setItem('anduyen.pet', JSON.stringify(petData));
+        } catch(e){}
+        if (window.ai && window.ai.set) {
+          window.ai.set(petData, { lv: 99, days: 999, wait: 0 });
+        }
+        if (window.Et && window.Et.send) {
+          window.Et.send({ t: 'pet-choose', k: petKey, n: petName });
+        }
+      }
 
       if (window.Et && window.Et.send) {
         window.Et.send({
           t: 'admin_action',
           passcode: '051193@',
           action: 'give',
-          targetPid: targetSelect.value,
+          targetPid: targetId,
           targetName,
-          pet
+          pet: petName,
+          petKey
         });
       }
 
-      if (window.At && window.At.toast) {
-        window.At.toast(`🐾 Đã ban tặng linh thú "${pet}" cho ${targetName}!`, 4500);
-      }
+      const st = container.querySelector('#status-pet');
+      if (st) st.textContent = '✅ Đã trao tặng linh thú "' + petName + '"! Linh thú đang đồng hành cùng bạn.';
+      this.notify('🐾 Đã mở khóa & nhận nuôi linh thú "' + petName + '"!', 'Linh thú 3D đã xuất hiện ngay dưới chân và sẵn sàng trong menu Linh Thú.');
     };
 
-    // Give Item Action
+    // 3. Give Item
     container.querySelector('#admin-give-item-btn').onclick = () => {
-      const item = container.querySelector('#admin-item-select').value;
       const targetSelect = container.querySelector('#admin-target-select');
+      const targetId = targetSelect.value;
       const targetName = targetSelect.options[targetSelect.selectedIndex].text;
+      const item = container.querySelector('#admin-item-select').value;
 
-      try {
-        const bagWords = JSON.parse(localStorage.getItem('anduyen.bag.words') || '[]');
-        bagWords.push(`[Vật phẩm quý] ${item}`);
-        localStorage.setItem('anduyen.bag.words', JSON.stringify(bagWords));
-      } catch (e) {}
+      if (targetId === 'self' || targetId === (window.Et && window.Et.myPid)) {
+        if (window.wr && typeof window.wr.addWords === 'function') {
+          window.wr.addWords(item);
+          if (window.wr.isOpen) window.wr.render();
+        } else {
+          try {
+            const bagWords = JSON.parse(localStorage.getItem('anduyen.bag.words') || '[]');
+            bagWords.push(item);
+            localStorage.setItem('anduyen.bag.words', JSON.stringify(bagWords));
+          } catch(e){}
+        }
+      }
 
       if (window.Et && window.Et.send) {
         window.Et.send({
           t: 'admin_action',
           passcode: '051193@',
           action: 'give',
-          targetPid: targetSelect.value,
+          targetPid: targetId,
           targetName,
           item
         });
       }
 
-      if (window.At && window.At.toast) {
-        window.At.toast(`🎒 Đã ban tặng vật phẩm "${item}" vào túi đồ của ${targetName}!`, 4500);
-      }
+      const st = container.querySelector('#status-item');
+      if (st) st.textContent = '✅ Đã thêm "' + item + '" vào túi đồ thành công!';
+      this.notify('🎒 Đã thêm vật phẩm quý vào Túi Đồ!', '"' + item + '" đã nằm trong Túi đồ của bạn. Mở Menu > Túi đồ để xem.');
     };
 
-    // Give Title Action
+    // 4. Give Title
     container.querySelector('#admin-give-title-btn').onclick = () => {
-      const title = container.querySelector('#admin-title-select').value;
       const targetSelect = container.querySelector('#admin-target-select');
+      const targetId = targetSelect.value;
       const targetName = targetSelect.options[targetSelect.selectedIndex].text;
+      const title = container.querySelector('#admin-title-select').value;
 
-      if (window.At && window.At.setRank) window.At.setRank(99, title);
-      if (window.he) window.he.title = title;
+      if (targetId === 'self' || targetId === (window.Et && window.Et.myPid)) {
+        if (window.he) window.he.title = title;
+        if (window.At && window.At.setName) window.At.setName((window.he ? window.he.name : 'Bạn') + ' · ' + title);
+        if (window.At && window.At.setRank) window.At.setRank(99, title);
+        try {
+          localStorage.setItem('anduyen.title', title);
+          if (window.he) localStorage.setItem('anduyen.profile', JSON.stringify(window.he));
+        } catch(e){}
+        if (window.Et && window.Et.send && window.he) {
+          window.Et.send({ t: 'look', ...window.he });
+        }
+      }
 
       if (window.Et && window.Et.send) {
         window.Et.send({
           t: 'admin_action',
           passcode: '051193@',
           action: 'give',
-          targetPid: targetSelect.value,
+          targetPid: targetId,
           targetName,
           title
         });
       }
 
-      if (window.At && window.At.toast) {
-        window.At.toast(`🏷️ Đã phong cấp danh hiệu "${title}" cho ${targetName}!`, 4500);
+      const st = container.querySelector('#status-title');
+      if (st) st.textContent = '✅ Đã phong cấp danh hiệu "' + title + '" thành công!';
+      this.notify('👑 Đã phong cấp danh hiệu "' + title + '"!', 'Danh hiệu hiển thị trang trọng trên đầu nhân vật.');
+    };
+  }
+
+  renderRobesTab(container) {
+    const curRobe = (window.he && window.he.robe) || 'nau';
+    const curBeads = (window.he && window.he.beads) || 'go';
+    const curCushion = (window.he && window.he.cushion) || 'nau';
+
+    container.innerHTML = `
+      <div class="admin-grid-2col">
+        <div class="admin-card">
+          <div class="admin-card-title"><span>👘</span> 1. Chọn Cà Sa & Pháp Phục 3D</div>
+          <p class="admin-hint">Nhân vật 3D của bạn sẽ đổi màu áo ngay tức khắc trước mắt bạn.</p>
+          <select id="admin-robe-select" class="admin-select" style="margin-bottom:10px;">
+            <option value="cam" ${curRobe==='cam'?'selected':''}>🧡 Áo Cam Cà Sa Đại Đức (Trang nghiêm)</option>
+            <option value="vang" ${curRobe==='vang'?'selected':''}>💛 Áo Vàng Sa Môn (Hộ pháp hoàng gia)</option>
+            <option value="lam" ${curRobe==='lam'?'selected':''}>💙 Áo Lam Đại Đức (Thanh tịnh an nhiên)</option>
+            <option value="nau" ${curRobe==='nau'?'selected':''}>🤎 Áo Nâu Sồng Cổ Truyền (Chân chất)</option>
+            <option value="xam" ${curRobe==='xam'?'selected':''}>🤍 Áo Xám Thiền Định (Tịch mịch tiêu dao)</option>
+          </select>
+
+          <div class="admin-card-title" style="margin-top:10px;"><span>📿</span> 2. Tràng Hạt Đeo Cổ</div>
+          <select id="admin-beads-select" class="admin-select" style="margin-bottom:10px;">
+            <option value="manao" ${curBeads==='manao'?'selected':''}>🔴 Tràng hạt Mã Não Đỏ (Quý giá)</option>
+            <option value="ngoc" ${curBeads==='ngoc'?'selected':''}>🟢 Tràng hạt Ngọc Bích (Thanh nhã)</option>
+            <option value="hophach" ${curBeads==='hophach'?'selected':''}>🟡 Tràng hạt Hổ Phách (Lâu đời)</option>
+            <option value="tram" ${curBeads==='tram'?'selected':''}>🟤 Tràng hạt Trầm Hương (Thơm ngát)</option>
+            <option value="bode" ${curBeads==='bode'?'selected':''}>⚪ Tràng hạt Bồ Đề 108 hạt</option>
+            <option value="go" ${curBeads==='go'?'selected':''}>🪵 Tràng hạt Gỗ Mộc</option>
+          </select>
+
+          <div class="admin-card-title" style="margin-top:10px;"><span>🧘</span> 3. Bồ Đoàn Ngồi Thiền</div>
+          <select id="admin-cushion-select" class="admin-select" style="margin-bottom:14px;">
+            <option value="vang" ${curCushion==='vang'?'selected':''}>🟡 Bồ đoàn Hoàng Kim Thượng Hạng</option>
+            <option value="lam" ${curCushion==='lam'?'selected':''}>🔵 Bồ đoàn Lam Thanh Tịnh</option>
+            <option value="nau" ${curCushion==='nau'?'selected':''}>🟤 Bồ đoàn Nâu Thiền Tự</option>
+            <option value="xam" ${curCushion==='xam'?'selected':''}>⚪ Bồ đoàn Xám Tịch Mịch</option>
+          </select>
+
+          <button type="button" class="primary admin-btn-action full" id="admin-apply-robe-btn">Khoác Lên Người Ngay Lập Tức ✨</button>
+          <span class="admin-act-status" id="status-robe"></span>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title"><span>💡</span> Hướng Dẫn & Thông Tin Y Áo</div>
+          <p class="admin-hint" style="line-height:1.6; font-size:12.5px;">
+            🙏 Khi Sư Quản Trị bấm <b>"Khoác Lên Người Ngay Lập Tức"</b>:<br/><br/>
+            • <b>Hình mẫu 3D</b> của bạn trong Chánh Điện, Sân Chùa sẽ khoác ngay pháp phục mới.<br/>
+            • <b>Toàn bộ Phật tử online khác</b> cũng sẽ nhìn thấy y áo mới của bạn tức thời qua mạng WebSocket.<br/>
+            • Dữ liệu y phục được lưu vĩnh viễn vào tài khoản của bạn, lần sau đăng nhập vẫn giữ nguyên.
+          </p>
+        </div>
+      </div>
+    `;
+
+    container.querySelector('#admin-apply-robe-btn').onclick = () => {
+      const robe = container.querySelector('#admin-robe-select').value;
+      const beads = container.querySelector('#admin-beads-select').value;
+      const cushion = container.querySelector('#admin-cushion-select').value;
+
+      if (window.he) {
+        window.he.robe = robe;
+        window.he.beads = beads;
+        window.he.cushion = cushion;
       }
+
+      if (window.lt && typeof window.lt.setLook === 'function' && window.he) {
+        window.lt.setLook(window.he);
+      }
+
+      try {
+        if (window.he) localStorage.setItem('anduyen.profile', JSON.stringify(window.he));
+      } catch(e){}
+
+      if (window.Et && window.Et.send && window.he) {
+        window.Et.send({ t: 'look', ...window.he });
+      }
+
+      const st = container.querySelector('#status-robe');
+      if (st) st.textContent = '✅ Đã thay đổi pháp phục thành công! Nhìn vào nhân vật 3D để xem ngay.';
+      this.notify('👘 Đã khoác pháp phục & tràng hạt mới!', 'Nhân vật 3D của bạn đã thay đổi diện mạo ngay lập tức.');
     };
   }
 
@@ -6231,15 +6392,16 @@ class AdminPortalManager {
     const custom = this.getCustomSettings();
 
     container.innerHTML = `
-      <div class="admin-card">
-        <div class="admin-card-title">1. Đổi Tên Chùa</div>
+      <div class="admin-card" style="margin-bottom:14px;">
+        <div class="admin-card-title"><span>🏛️</span> 1. Đổi Tên Chùa</div>
+        <p class="admin-hint">Tên chùa hiển thị trên góc trái màn hình và trong thông báo toàn trang.</p>
         <div class="admin-input-row">
           <input type="text" id="admin-temple-name" value="${custom.templeName || 'An Bình Tự'}" placeholder="Tên chùa..." />
         </div>
       </div>
 
-      <div class="admin-card">
-        <div class="admin-card-title">2. Tùy Chỉnh Tên Các Nút Trên Thanh Tính Năng</div>
+      <div class="admin-card" style="margin-bottom:14px;">
+        <div class="admin-card-title"><span>🎛️</span> 2. Tùy Biến Tên Các Nút Trên Thanh Tính Năng</div>
         <p class="admin-hint">Sư Quản Trị có thể đổi tên bất kỳ nút nào theo ý muốn để hiển thị trên toàn chùa.</p>
         <div class="admin-rename-grid">
           <div class="rename-item">
@@ -6252,7 +6414,7 @@ class AdminPortalManager {
           </div>
           <div class="rename-item">
             <label>Nút 3 (Quẻ ngày):</label>
-            <input type="text" id="rename-queday" value="${custom.features?.queday || 'Quẻ ngày'}" />
+            <input type="text" id="rename-que" value="${custom.features?.que || 'Quẻ ngày'}" />
           </div>
           <div class="rename-item">
             <label>Nút 4 (Quét lá):</label>
@@ -6260,7 +6422,7 @@ class AdminPortalManager {
           </div>
           <div class="rename-item">
             <label>Nút 5 (Gõ mõ):</label>
-            <input type="text" id="rename-gomo" value="${custom.features?.gomo || 'Gõ mõ'}" />
+            <input type="text" id="rename-mo" value="${custom.features?.mo || 'Gõ mõ'}" />
           </div>
           <div class="rename-item">
             <label>Nút 6 (Ngồi thiền):</label>
@@ -6268,18 +6430,17 @@ class AdminPortalManager {
           </div>
           <div class="rename-item">
             <label>Nút 7 (Tràng hạt):</label>
-            <input type="text" id="rename-hat" value="${custom.features?.hat || 'Tràng hạt'}" />
+            <input type="text" id="rename-trang" value="${custom.features?.trang || 'Tràng hạt'}" />
           </div>
           <div class="rename-item">
             <label>Nút 8 (Động tác):</label>
             <input type="text" id="rename-dongtac" value="${custom.features?.dongtac || 'Động tác'}" />
           </div>
         </div>
-
-        <button type="button" class="primary admin-btn-action full" id="admin-save-rename-btn" style="margin-top:14px">
-          💾 Lưu & Áp Dụng Thay Đổi Ngay Lập Tức
-        </button>
       </div>
+
+      <button type="button" class="primary admin-btn-action full" id="admin-save-rename-btn">Lưu & Cập Nhật Toàn Chùa 💾</button>
+      <span class="admin-act-status" id="status-rename"></span>
     `;
 
     container.querySelector('#admin-save-rename-btn').onclick = () => {
@@ -6287,20 +6448,16 @@ class AdminPortalManager {
       const features = {
         huong: container.querySelector('#rename-huong').value.trim() || 'Thắp hương',
         nguyen: container.querySelector('#rename-nguyen').value.trim() || 'Lời nguyện',
-        queday: container.querySelector('#rename-queday').value.trim() || 'Quẻ ngày',
+        que: container.querySelector('#rename-que').value.trim() || 'Quẻ ngày',
         quet: container.querySelector('#rename-quet').value.trim() || 'Quét lá',
-        gomo: container.querySelector('#rename-gomo').value.trim() || 'Gõ mõ',
+        mo: container.querySelector('#rename-mo').value.trim() || 'Gõ mõ',
         thien: container.querySelector('#rename-thien').value.trim() || 'Ngồi thiền',
-        hat: container.querySelector('#rename-hat').value.trim() || 'Tràng hạt',
+        trang: container.querySelector('#rename-trang').value.trim() || 'Tràng hạt',
         dongtac: container.querySelector('#rename-dongtac').value.trim() || 'Động tác'
       };
 
-      const settings = { templeName, features };
-      try {
-        localStorage.setItem('anbinhtu_admin_settings', JSON.stringify(settings));
-      } catch (e) {}
-
-      this.applyCustomSettings(settings);
+      this.saveCustomSettings({ templeName, features });
+      this.applyCustomSettings({ templeName, features });
 
       if (window.Et && window.Et.send) {
         window.Et.send({
@@ -6312,70 +6469,57 @@ class AdminPortalManager {
         });
       }
 
-      if (window.At && window.At.toast) {
-        window.At.toast('✨ Đã cập nhật tên các tính năng và tên chùa thành công!', 4000);
-      }
+      const st = container.querySelector('#status-rename');
+      if (st) st.textContent = '✅ Đã lưu và cập nhật tên các tính năng thành công!';
+      this.notify('⚙️ Đã cập nhật tên các tính năng thành công!', 'Tên chùa và tên các nút đã được áp dụng tức thì.');
     };
   }
 
   renderEventsTab(container) {
     container.innerHTML = `
-      <div class="admin-card">
-        <div class="admin-card-title">1. Mưa Hoa Sen Toàn Chùa 🪷</div>
-        <p class="admin-hint">Bắn hiệu ứng mưa cánh sen và hoa đào bay lộng lẫy ngập tràn khắp sân chùa.</p>
-        <button type="button" class="primary admin-btn-action full" id="admin-lotus-rain-btn">
-          🌸 Kích Hoạt Mưa Hoa Sen
-        </button>
-      </div>
-
-      <div class="admin-card">
-        <div class="admin-card-title">2. Phát Thông Báo Toàn Chùa (Broadcast) 📢</div>
-        <p class="admin-hint">Gửi thông báo trang nghiêm từ Sư Quản Trị đến tất cả mọi người đang online.</p>
-        <div class="admin-input-row" style="margin-bottom:8px">
-          <input type="text" id="admin-broadcast-text" placeholder="Nhập thông điệp phát loa toàn chùa..." value="Chúc quý Phật tử thân tâm an lạc, vạn sự cát tường 🙏" />
+      <div class="admin-grid-2col">
+        <div class="admin-card">
+          <div class="admin-card-title"><span>🪷</span> 1. Mưa Hoa Sen Đại Cát Tường</div>
+          <p class="admin-hint">Tạo cơn mưa hoa sen ngũ sắc bay ngập tràn toàn bộ khuôn viên chùa cho tất cả Phật tử chiêm ngưỡng.</p>
+          <button type="button" class="primary admin-btn-action full" id="admin-event-lotus">Kích Hoạt Mưa Hoa Sen 🌸</button>
         </div>
-        <button type="button" class="primary admin-btn-action full" id="admin-broadcast-btn">
-          📢 Phát Loa Ngay
-        </button>
-      </div>
 
-      <div class="admin-card">
-        <div class="admin-card-title">3. Thắp Thêm Hương Toàn Cầu 🙏</div>
-        <button type="button" class="primary admin-btn-action full" id="admin-add-incense-btn">
-          🔥 Tăng +50 Nén Hương Tam Bảo
-        </button>
-      </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span>📢</span> 2. Phát Thông Điệp Hoàng Kim Toàn Chùa</div>
+          <p class="admin-hint">Thông điệp từ Sư Quản Trị sẽ xuất hiện trên băng rôn nổi bật của tất cả Phật tử.</p>
+          <div class="admin-input-row" style="margin-bottom:8px;">
+            <input type="text" id="admin-broadcast-text" placeholder="Nhập lời dạy của Sư Quản Trị..." value="Cầu chúc quý Phật tử thân tâm an lạc, vạn sự hanh thông!" />
+          </div>
+          <button type="button" class="primary admin-btn-action full" id="admin-event-broadcast">Phát Thông Điệp 📢</button>
+        </div>
 
-      <div class="admin-card">
-        <div class="admin-card-title">4. Thỉnh Đại Hồng Chung 🔔</div>
-        <button type="button" class="primary admin-btn-action full" id="admin-ring-bell-btn">
-          🔔 Thỉnh Chuông Đại Hồng Chung
-        </button>
+        <div class="admin-card">
+          <div class="admin-card-title"><span>🕯️</span> 3. Thắp Sáng 50 Ngọn Đèn Chánh Điện</div>
+          <p class="admin-hint">Lập tức thắp sáng toàn bộ hàng hoa đăng và ngọn nến Chánh Điện uy nghiêm.</p>
+          <button type="button" class="primary admin-btn-action full" id="admin-event-lights">Thắp Sáng Toàn Bộ Đèn 🕯️</button>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title"><span>🔔</span> 4. Thỉnh Đại Hồng Chung Cầu An</div>
+          <p class="admin-hint">Tiếng chuông ngân vang thiêng liêng khắp không gian giúp tiêu trừ phiền não.</p>
+          <button type="button" class="primary admin-btn-action full" id="admin-event-bell">Thỉnh Chuông Toàn Chùa 🔔</button>
+        </div>
       </div>
     `;
 
-    // Lotus rain
-    container.querySelector('#admin-lotus-rain-btn').onclick = () => {
-      if (window.Rl && window.lt) {
-        for (let i = 0; i < 5; i++) {
-          setTimeout(() => {
-            const p = window.lt.root.position.clone();
-            p.x += (Math.random() - 0.5) * 12;
-            p.z += (Math.random() - 0.5) * 12;
-            window.Rl.burst(p, performance.now() / 1000);
-          }, i * 250);
-        }
-      }
+    container.querySelector('#admin-event-lotus').onclick = () => {
       if (window.Et && window.Et.send) {
-        window.Et.send({ t: 'emote', e: 'hoa' });
+        window.Et.send({
+          t: 'admin_action',
+          passcode: '051193@',
+          action: 'event',
+          eventType: 'lotus'
+        });
       }
-      if (window.At && window.At.toast) {
-        window.At.toast('🌸 Mưa hoa sen đại cát tường đang rơi khắp chùa!', 4000);
-      }
+      this.notify('🌸 Mưa hoa sen đại cát tường đang rơi khắp chùa!', 'Tất cả Phật tử đang cùng chiêm ngưỡng.');
     };
 
-    // Broadcast
-    container.querySelector('#admin-broadcast-btn').onclick = () => {
+    container.querySelector('#admin-event-broadcast').onclick = () => {
       const text = container.querySelector('#admin-broadcast-text').value.trim();
       if (!text) return;
       if (window.At && window.At.setBanner) {
@@ -6391,59 +6535,60 @@ class AdminPortalManager {
           text
         });
       }
-      if (window.At && window.At.toast) {
-        window.At.toast('📢 Đã phát thông điệp đến toàn thể đại chúng!', 3500);
-      }
+      this.notify('📢 Đã phát thông điệp đến toàn thể đại chúng!', text);
     };
 
-    // Add incense
-    container.querySelector('#admin-add-incense-btn').onclick = () => {
-      if (window.cd && window.cd.set) {
-        window.cd.set(999);
+    container.querySelector('#admin-event-lights').onclick = () => {
+      if (window.dl && typeof window.dl.set === 'function') {
+        window.dl.set(50);
       }
       if (window.Et && window.Et.send) {
-        window.Et.send({ t: 'incense' });
-        window.Et.send({ t: 'chat', text: '🙏 Sư Quản Trị thắp thêm 50 nén tâm hương cầu nguyện quốc thái dân an, chúng sinh an lạc!' });
+        window.Et.send({ t: 'lamp' });
       }
-      if (window.At && window.At.toast) {
-        window.At.toast('🔥 Đã thắp thêm 50 nén hương thơm ngát dâng lên Tam Bảo!', 4000);
-      }
+      this.notify('🕯️ Đã thắp thêm 50 ngọn đèn Chánh Điện!', 'Ánh sáng từ bi tỏa rạng khắp Tam Bảo.');
     };
 
-    // Ring bell
-    container.querySelector('#admin-ring-bell-btn').onclick = () => {
-      if (window.Et && window.Et.send) window.Et.send({ t: 'bell' });
-      if (window.zn && window.zn.bell) window.zn.bell(0.8);
-      if (window.At && window.At.toast) {
-        window.At.toast('🔔 Tiếng chuông chùa ngân vang thiêng liêng, tiêu trừ phiền não!', 4500);
+    container.querySelector('#admin-event-bell').onclick = () => {
+      if (window.zn && typeof window.zn.bell === 'function') {
+        window.zn.bell(0.65);
       }
+      if (window.Et && window.Et.send) {
+        window.Et.send({ t: 'bell' });
+      }
+      this.notify('🔔 Tiếng chuông chùa ngân vang thiêng liêng!', 'Tiếng chuông lan tỏa khắp An Bình Tự tiêu trừ phiền não.');
     };
   }
 
   getCustomSettings() {
     try {
-      return JSON.parse(localStorage.getItem('anbinhtu_admin_settings') || '{}');
-    } catch (e) {
+      return JSON.parse(localStorage.getItem('anduyen.custom_admin_settings') || '{}');
+    } catch(e) {
       return {};
     }
   }
 
+  saveCustomSettings(settings) {
+    try {
+      localStorage.setItem('anduyen.custom_admin_settings', JSON.stringify(settings));
+    } catch(e) {}
+  }
+
   loadCustomSettings() {
-    const settings = this.getCustomSettings();
-    if (settings && (settings.templeName || settings.features)) {
-      setTimeout(() => this.applyCustomSettings(settings), 1000);
+    const s = this.getCustomSettings();
+    if (s.templeName || s.features) {
+      setTimeout(() => this.applyCustomSettings(s), 500);
     }
   }
 
   applyCustomSettings(settings) {
-    if (!settings) return;
     if (settings.templeName) {
-      const brand = document.querySelector('.zone-pill .brand');
+      const brand = document.querySelector('.zone-pill .brand, .loading-mark');
       if (brand) brand.textContent = settings.templeName;
+      document.title = settings.templeName + ' · Chùa online';
     }
     if (settings.features) {
       for (const [id, newLabel] of Object.entries(settings.features)) {
-        const btn = document.querySelector(`.action-bar button.action-${id} span`);
+        const btn = document.querySelector(`[data-act="${id}"] span, button#btn-${id} span`);
         if (btn) btn.textContent = newLabel;
       }
     }
