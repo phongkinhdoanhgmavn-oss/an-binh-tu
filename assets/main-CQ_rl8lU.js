@@ -5617,15 +5617,15 @@ class DailyLotManager {
             </div>
           </div>
 
-          <div class="lot-card-actions">
-            <button type="button" class="primary lot-share-btn" id="lot-share-btn">
-              📋 Sao Chép Chia Sẻ
+          <div class="lot-card-actions horizontal">
+            <button type="button" class="primary lot-share-btn" id="lot-share-btn" title="Sao chép lời quẻ">
+              📋 Sao Chép
             </button>
-            <button type="button" class="ghost lot-again-btn" id="lot-again-btn">
-              🎋 Lắc Quẻ Khác
+            <button type="button" class="ghost lot-again-btn" id="lot-again-btn" title="Gieo lại quẻ khác">
+              🎋 Gieo Lại
             </button>
-            <button type="button" class="primary lot-accept-btn" id="lot-accept-btn">
-              Hoan Hỷ Đón Nhận 🙏
+            <button type="button" class="primary lot-accept-btn" id="lot-accept-btn" title="Hoan hỷ đón nhận">
+              🙏 Đón Nhận
             </button>
           </div>
         </div>
