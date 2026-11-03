@@ -30,21 +30,21 @@
         }
       }, 2500);
     </script>
-    <script type="module" crossorigin src="/assets/main-CQ_rl8lU.js?v=17"></script>
+    <script type="module" crossorigin src="/assets/main-CQ_rl8lU.js?v=18"></script>
     <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="stylesheet" crossorigin href="/assets/main-qo3Sxe6b.css?v=17">
+    <link rel="stylesheet" crossorigin href="/assets/main-qo3Sxe6b.css?v=18">
             <style id="action-bar-glow-style">
 
 /* =========================================================
    BOTTOM BARS SEPARATION - TÁCH RỜI HOÀN TOÀN KHÔNG CHÈN NHAU
    ========================================================= */
 
-/* Action bar: Đặt rõ ràng phía TRÊN thanh chat */
+/* Action bar: Đặt căn giữa phía dưới màn hình */
 .action-bar {
   position: absolute !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  bottom: calc(max(10px, env(safe-area-inset-bottom)) + 52px) !important;
+  bottom: max(14px, env(safe-area-inset-bottom)) !important;
   display: flex !important;
   gap: 7px !important;
   padding: 6px 10px !important;
@@ -57,9 +57,69 @@
   pointer-events: auto !important;
   z-index: 60 !important;
   touch-action: manipulation !important;
+  transition: transform 0.25s ease, opacity 0.2s ease !important;
 }
 
-.action-bar button {
+/* Action bar collapse toggle tab */
+.action-bar-toggle {
+  position: absolute !important;
+  top: -24px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: rgba(26, 17, 11, 0.94) !important;
+  border: 1px solid rgba(220, 168, 66, 0.5) !important;
+  border-bottom: none !important;
+  border-radius: 12px 12px 0 0 !important;
+  color: #ffd77a !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 3px 14px 2px !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  transition: all 0.2s ease !important;
+  user-select: none !important;
+  z-index: 62 !important;
+}
+
+.action-bar-toggle:hover {
+  background: rgba(45, 30, 20, 0.96) !important;
+  color: #ffffff !important;
+  box-shadow: 0 -2px 10px rgba(255, 215, 120, 0.3) !important;
+}
+
+.action-bar.collapsed {
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.action-bar.collapsed .action-bar-toggle {
+  position: relative !important;
+  top: 0 !important;
+  transform: none !important;
+  border-radius: 20px !important;
+  border: 1.5px solid rgba(220, 168, 66, 0.7) !important;
+  padding: 8px 18px !important;
+  font-size: 13px !important;
+  background: rgba(26, 17, 11, 0.94) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 215, 120, 0.45) !important;
+  display: flex !important;
+}
+
+.action-bar.collapsed .action-btn,
+.action-bar.collapsed button:not(.action-bar-toggle) {
+  display: none !important;
+}
+
+.action-bar button:not(.action-bar-toggle) {
   min-width: 62px !important;
   padding: 7px 10px 6px !important;
   border: 1.5px solid rgba(255, 215, 120, 0.2) !important;
@@ -81,8 +141,8 @@
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.action-bar button:hover,
-.action-bar button:focus-visible {
+.action-bar button:not(.action-bar-toggle):hover,
+.action-bar button:not(.action-bar-toggle):focus-visible {
   border-color: #ffd54f !important;
   background: linear-gradient(180deg, rgba(255, 215, 120, 0.28) 0%, rgba(212, 160, 48, 0.20) 100%) !important;
   color: #ffffff !important;
@@ -90,18 +150,19 @@
   box-shadow: 0 0 18px rgba(255, 215, 120, 0.75), 0 4px 12px rgba(0, 0, 0, 0.4) !important;
 }
 
-.action-bar button:active {
+.action-bar button:not(.action-bar-toggle):active {
   transform: translateY(0) scale(0.97) !important;
 }
 
-/* Chat bar: Đặt nằm sát mép DƯỚI CÙNG (Dưới action bar 14px) */
-.chat-bar {
+/* Chat bar: Đặt ở góc dưới BÊN TRÁI màn hình */
+.chat-bar,
+html:not(.touch) .chat-bar {
   position: absolute !important;
-  left: 50% !important;
+  left: calc(14px + env(safe-area-inset-left)) !important;
   right: auto !important;
-  transform: translateX(-50%) !important;
-  bottom: max(10px, env(safe-area-inset-bottom)) !important;
-  width: min(540px, calc(100% - 32px)) !important;
+  transform: none !important;
+  bottom: max(14px, env(safe-area-inset-bottom)) !important;
+  width: min(340px, calc(100vw - 28px)) !important;
   margin: 0 !important;
   height: 38px !important;
   display: flex !important;
@@ -114,7 +175,7 @@
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
-  z-index: 50 !important;
+  z-index: 55 !important;
   pointer-events: auto !important;
 }
 
@@ -128,213 +189,114 @@
   height: 32px !important;
 }
 
-/* Chat log: Đặt phía TRÊN action bar để không bị che khuất */
-.chat-log {
-  bottom: calc(max(10px, env(safe-area-inset-bottom)) + 124px) !important;
-  left: calc(14px + env(safe-area-inset-left)) !important;
+/* Redundant desktop menu bar: Ẩn hoàn toàn để không đè lên thanh tính năng */
+.menu-bar,
+html:not(.touch) .menu-bar {
+  display: none !important;
+}
+
+/* Menu icon button: Luôn hiển thị nút tròn ở góc dưới bên phải */
+.menu-btn,
+html:not(.touch) .menu-btn {
+  display: grid !important;
+  position: absolute !important;
+  right: calc(14px + env(safe-area-inset-right)) !important;
+  bottom: calc(max(14px, env(safe-area-inset-bottom)) + 46px) !important;
+  width: 44px !important;
+  height: 44px !important;
   z-index: 55 !important;
 }
 
-html:not(.touch) .chat-log {
-  bottom: calc(max(14px, env(safe-area-inset-bottom)) + 128px) !important;
-  left: 18px !important;
-}
-
-/* Sư quản trị pill: Đặt góc dưới bên phải, tách biệt */
+/* Sư quản trị pill: Đặt góc dưới bên phải */
 .admin-portal-pill {
-  bottom: max(10px, env(safe-area-inset-bottom)) !important;
+  bottom: max(14px, env(safe-area-inset-bottom)) !important;
   right: 14px !important;
 }
 
-/* =========================================================
-   BOX QUẺ NGÀY - ĐỦ SIZE, HIỆN LÊN RÕ RÀNG TOÀN DIỆN
-   ========================================================= */
-.daily-lot-modal {
-  position: fixed !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) scale(0.95) !important;
-  width: min(94vw, 500px) !important;
-  max-height: 94vh !important;
-  background: radial-gradient(circle at 50% 0%, rgba(38, 25, 16, 0.98) 0%, rgba(18, 12, 8, 0.99) 100%) !important;
-  border: 2px solid #ffd54f !important;
-  border-radius: 26px !important;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 40px rgba(246, 185, 75, 0.3) !important;
-  z-index: 100 !important;
-  overflow-y: auto !important;
-  padding: 14px 14px 12px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  scrollbar-width: thin !important;
-  scrollbar-color: rgba(212, 175, 55, 0.4) transparent !important;
+/* Friends pill: Ẩn nút [0] trùng lặp gây rối ở góc trên bên trái */
+.friends-pill {
+  display: none !important;
 }
 
-.daily-lot-modal.open {
-  opacity: 1 !important;
-  pointer-events: auto !important;
-  transform: translate(-50%, -50%) scale(1) !important;
+/* Zone pill: Con trỏ chỉ tay & hiệu ứng hover mở danh sách online */
+.zone-pill {
+  cursor: pointer !important;
+  user-select: none !important;
+  transition: all 0.2s ease !important;
 }
 
-.lot-card-wrap {
-  width: 100%;
-}
-
-.lot-card-scroll {
-  background: linear-gradient(180deg, #fffcf4 0%, #fef8e6 100%) !important;
-  border: 2px solid #d4af37 !important;
-  border-radius: 18px !important;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4), inset 0 0 15px rgba(212, 175, 55, 0.15) !important;
-  color: #3e2723 !important;
-  padding: 12px 14px 10px !important;
-  text-align: center !important;
-}
-
-.lot-card-lotus {
-  font-size: 18px !important;
-  margin-bottom: 2px !important;
-}
-
-.lot-card-number {
-  font-size: 11px !important;
-  font-weight: 800 !important;
-  color: #b71c1c !important;
-  letter-spacing: 1.5px !important;
-}
-
-.lot-card-title {
-  font-size: 17px !important;
-  font-weight: 800 !important;
-  color: #6d4c41 !important;
-  margin: 2px 0 8px !important;
-  line-height: 1.3 !important;
-}
-
-.lot-card-box {
-  background: rgba(255, 255, 255, 0.72) !important;
-  border: 1px solid rgba(212, 175, 55, 0.3) !important;
-  border-radius: 10px !important;
-  padding: 6px 10px !important;
-  margin-bottom: 6px !important;
-  text-align: left !important;
-}
-
-.lot-box-title {
-  font-size: 10px !important;
-  font-weight: 800 !important;
-  color: #8d6e63 !important;
-  letter-spacing: 0.8px !important;
-  margin-bottom: 2px !important;
-}
-
-.poem-box {
-  background: rgba(255, 245, 228, 0.82) !important;
-  border-color: rgba(230, 126, 34, 0.35) !important;
-  text-align: center !important;
-  padding: 8px 10px !important;
-}
-
-.lot-poem-line {
-  font-size: 13.5px !important;
-  font-weight: 600 !important;
-  line-height: 1.45 !important;
-  color: #4e342e !important;
-  font-style: italic !important;
-}
-
-.lot-motivation-text {
-  font-size: 12.5px !important;
-  line-height: 1.4 !important;
-  color: #271c18 !important;
-  margin: 0 !important;
-  font-weight: 500 !important;
-}
-
-.lot-action-text {
-  font-size: 12px !important;
-  line-height: 1.35 !important;
-  color: #1b5e20 !important;
-  margin: 0 !important;
-  font-weight: 600 !important;
-}
-
-.affirm-box {
-  background: linear-gradient(135deg, rgba(255, 236, 179, 0.85) 0%, rgba(255, 224, 130, 0.85) 100%) !important;
+.zone-pill:hover {
+  background: rgba(220, 168, 66, 0.3) !important;
   border-color: #ffd54f !important;
-  text-align: center !important;
-  padding: 6px 10px !important;
-  margin-bottom: 8px !important;
+  box-shadow: 0 0 14px rgba(255, 215, 120, 0.5) !important;
 }
 
-.lot-affirm-text {
-  font-size: 12.5px !important;
-  font-weight: 700 !important;
-  color: #bf360c !important;
-  font-style: italic !important;
+/* Onboarding Guide Modal: Đóng dễ dàng bằng Bỏ qua, dấu X hoặc bấm ra ngoài */
+.guide {
+  cursor: pointer !important;
+  z-index: 100 !important;
 }
 
-.lot-card-actions.horizontal {
+.guide-card {
+  cursor: default !important;
+  position: relative !important;
+  width: min(92vw, 380px) !important;
+  padding: 22px 20px 18px !important;
+  border-radius: 22px !important;
+  border: 1.5px solid #ffd54f !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(246, 185, 75, 0.3) !important;
+}
+
+.guide-close-btn {
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 215, 120, 0.3) !important;
+  color: #ffeedd !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
   display: flex !important;
-  flex-direction: row !important;
-  gap: 8px !important;
-  margin-top: 6px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  z-index: 10 !important;
+  transition: all 0.2s ease !important;
 }
 
-.lot-card-actions.horizontal button {
-  flex: 1 !important;
-  padding: 8px 6px !important;
-  font-size: 12.5px !important;
-  font-weight: 700 !important;
-  border-radius: 10px !important;
-  white-space: nowrap !important;
+.guide-close-btn:hover {
+  background: rgba(255, 215, 120, 0.35) !important;
+  color: #ffffff !important;
+  transform: scale(1.1) !important;
 }
-
-.lot-share-btn {
-  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%) !important;
-  color: #fff !important;
-  border: 1px solid #ffd54f !important;
-}
-
-.lot-again-btn {
-  background: rgba(120, 80, 40, 0.15) !important;
-  color: #5d4037 !important;
-  border: 1px solid rgba(120, 80, 40, 0.3) !important;
-}
-
-.lot-again-btn:hover {
-  background: rgba(120, 80, 40, 0.25) !important;
-}
-
-.lot-accept-btn {
-  background: linear-gradient(180deg, #10b981 0%, #059669 100%) !important;
-  color: #fff !important;
-  border: 1px solid #6ee7b7 !important;
-}
-
-      </style>
+</style>
       <style id="daily-lot-styles">
 
 /* =========================================================
    DAILY LOT (QUẺ NGÀY THIỆN LÀNH) STYLES
    ========================================================= */
+#daily-lot-modal.daily-lot-modal,
 .daily-lot-modal {
   position: fixed !important;
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) scale(0.95) !important;
-  width: min(92vw, 480px) !important;
-  max-height: 88vh !important;
-  background: radial-gradient(circle at 50% 0%, rgba(42, 28, 18, 0.96) 0%, rgba(20, 14, 9, 0.98) 100%) !important;
-  border: 1.5px solid rgba(230, 175, 75, 0.55) !important;
+  width: min(95vw, 540px) !important;
+  height: min(88vh, 680px) !important;
+  max-height: 92vh !important;
+  background: radial-gradient(circle at 50% 0%, rgba(42, 28, 18, 0.98) 0%, rgba(18, 12, 8, 0.99) 100%) !important;
+  border: 2px solid #ffd54f !important;
   border-radius: 28px !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(246, 185, 75, 0.3) !important;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.92), 0 0 50px rgba(246, 185, 75, 0.35) !important;
   z-index: 100 !important;
   overflow-y: auto !important;
-  padding: 24px 20px 20px !important;
+  padding: 20px 20px 16px !important;
   display: flex !important;
   flex-direction: column !important;
+  justify-content: space-between !important;
   align-items: center !important;
   text-align: center !important;
   opacity: 0 !important;
@@ -342,6 +304,7 @@ html:not(.touch) .chat-log {
   transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
+#daily-lot-modal.daily-lot-modal.open,
 .daily-lot-modal.open {
   opacity: 1 !important;
   pointer-events: auto !important;
@@ -349,7 +312,7 @@ html:not(.touch) .chat-log {
 }
 
 .lot-header {
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .lot-tag {
@@ -359,7 +322,7 @@ html:not(.touch) .chat-log {
   letter-spacing: 2px;
   color: #ffd77a;
   text-transform: uppercase;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   text-shadow: 0 0 10px rgba(255, 215, 120, 0.6);
 }
 
@@ -371,18 +334,18 @@ html:not(.touch) .chat-log {
 
 .daily-lot-modal .sheet-sub {
   font-size: 13px !important;
-  line-height: 1.5 !important;
+  line-height: 1.45 !important;
   color: #d8c2aa !important;
-  max-width: 380px !important;
-  margin: 6px auto 14px !important;
+  max-width: 400px !important;
+  margin: 4px auto 10px !important;
 }
 
 /* Bamboo Cylinder Stage */
 .lot-stage {
   position: relative;
   width: 220px;
-  height: 230px;
-  margin: 8px auto 16px;
+  height: 195px !important;
+  margin: 4px auto 8px !important;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -394,6 +357,20 @@ html:not(.touch) .chat-log {
   height: 175px;
   display: flex;
   justify-content: center;
+}
+
+#lot-cylinder-wrap {
+  cursor: pointer !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease !important;
+}
+
+#lot-cylinder-wrap:hover {
+  transform: scale(1.05) !important;
+  filter: drop-shadow(0 0 16px rgba(255, 215, 120, 0.85)) !important;
+}
+
+#lot-cylinder-wrap:active {
+  transform: scale(0.97) !important;
 }
 
 .bamboo-cylinder-wrap.shaking {
@@ -521,9 +498,13 @@ html:not(.touch) .chat-log {
   letter-spacing: 2px;
 }
 
-/* Lot Card Scroll (Full revelation) */
+/* Lot Card Scroll (Full revelation - Đủ size, hiện lên toàn diện) */
 .lot-card-wrap {
-  width: 100%;
+  width: 100% !important;
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
   animation: fadeInLot 0.4s ease-out;
 }
 
@@ -533,128 +514,147 @@ html:not(.touch) .chat-log {
 }
 
 .lot-card-scroll {
-  background: linear-gradient(180deg, rgba(255, 248, 230, 0.96) 0%, rgba(254, 242, 210, 0.96) 100%);
-  border: 2px solid #d4af37;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(212, 175, 55, 0.2);
-  color: #3e2723;
-  padding: 20px 16px 16px;
-  text-align: center;
+  background: linear-gradient(180deg, rgba(255, 248, 230, 0.98) 0%, rgba(254, 242, 210, 0.98) 100%) !important;
+  border: 2px solid #d4af37 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.5), inset 0 0 20px rgba(212, 175, 55, 0.25) !important;
+  color: #3e2723 !important;
+  padding: 14px 16px 12px !important;
+  text-align: center !important;
 }
 
 .lot-card-lotus {
-  font-size: 22px;
-  margin-bottom: 4px;
+  font-size: 20px !important;
+  margin-bottom: 2px !important;
 }
 
 .lot-card-number {
-  font-size: 12px;
-  font-weight: 800;
-  color: #b71c1c;
-  letter-spacing: 1.5px;
+  font-size: 11.5px !important;
+  font-weight: 800 !important;
+  color: #b71c1c !important;
+  letter-spacing: 1.5px !important;
 }
 
 .lot-card-title {
-  font-size: 19px;
-  font-weight: 800;
-  color: #795548;
-  margin: 4px 0 14px;
-  text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+  font-size: 17.5px !important;
+  font-weight: 800 !important;
+  color: #6d4c41 !important;
+  margin: 3px 0 8px !important;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.8) !important;
 }
 
 .lot-card-box {
-  background: rgba(255, 255, 255, 0.65);
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  border-radius: 12px;
-  padding: 10px 14px;
-  margin-bottom: 10px;
-  text-align: left;
+  background: rgba(255, 255, 255, 0.72) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  border-radius: 12px !important;
+  padding: 7px 12px !important;
+  margin-bottom: 6px !important;
+  text-align: left !important;
 }
 
 .lot-box-title {
-  font-size: 11px;
-  font-weight: 800;
-  color: #8d6e63;
-  letter-spacing: 1px;
-  margin-bottom: 5px;
+  font-size: 10.5px !important;
+  font-weight: 800 !important;
+  color: #8d6e63 !important;
+  letter-spacing: 0.8px !important;
+  margin-bottom: 3px !important;
 }
 
 .poem-box {
-  background: rgba(255, 243, 224, 0.75);
-  border-color: rgba(230, 126, 34, 0.4);
-  text-align: center;
+  background: rgba(255, 243, 224, 0.85) !important;
+  border-color: rgba(230, 126, 34, 0.4) !important;
+  text-align: center !important;
+  padding: 8px 10px !important;
 }
 
 .lot-poem-line {
-  font-size: 14.5px;
-  font-weight: 600;
-  line-height: 1.6;
-  color: #4e342e;
-  font-style: italic;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  line-height: 1.45 !important;
+  color: #4e342e !important;
+  font-style: italic !important;
 }
 
 .lot-motivation-text {
-  font-size: 13.5px;
-  line-height: 1.55;
-  color: #271c18;
-  margin: 0;
-  font-weight: 500;
+  font-size: 12.5px !important;
+  line-height: 1.4 !important;
+  color: #271c18 !important;
+  margin: 0 !important;
+  font-weight: 500 !important;
 }
 
 .lot-action-text {
-  font-size: 13px;
-  line-height: 1.5;
-  color: #1b5e20;
-  margin: 0;
-  font-weight: 600;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  color: #1b5e20 !important;
+  margin: 0 !important;
+  font-weight: 600 !important;
 }
 
 .affirm-box {
-  background: linear-gradient(135deg, rgba(255, 236, 179, 0.8) 0%, rgba(255, 224, 130, 0.8) 100%);
-  border-color: #ffd54f;
-  text-align: center;
-  padding: 8px 12px;
+  background: linear-gradient(135deg, rgba(255, 236, 179, 0.85) 0%, rgba(255, 224, 130, 0.85) 100%) !important;
+  border-color: #ffd54f !important;
+  text-align: center !important;
+  padding: 6px 10px !important;
+  margin-bottom: 8px !important;
 }
 
 .lot-affirm-text {
-  font-size: 13px;
-  font-weight: 700;
-  color: #bf360c;
-  font-style: italic;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  color: #bf360c !important;
+  font-style: italic !important;
 }
 
-.lot-card-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 14px;
+.lot-card-actions.horizontal {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 8px !important;
+  margin-top: 6px !important;
+}
+
+.lot-card-actions.horizontal button {
+  flex: 1 !important;
+  padding: 8px 6px !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  border-radius: 12px !important;
 }
 
 .lot-share-btn {
   background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%) !important;
   color: #fff !important;
-  font-weight: 700 !important;
-  border-radius: 14px !important;
-  padding: 10px !important;
   border: 1px solid #fde68a !important;
   box-shadow: 0 4px 15px rgba(217, 119, 6, 0.35) !important;
 }
 
 .lot-again-btn {
-  background: rgba(120, 53, 15, 0.08) !important;
+  background: rgba(120, 53, 15, 0.1) !important;
   color: #78350f !important;
-  font-weight: 600 !important;
   border: 1px solid rgba(120, 53, 15, 0.25) !important;
-  border-radius: 14px !important;
-  padding: 8px !important;
 }
 
 .lot-accept-btn {
   background: linear-gradient(180deg, #10b981 0%, #059669 100%) !important;
   color: #fff !important;
+}
+
+.lot-footer-action {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.lot-shake-btn {
+  width: 100% !important;
+  padding: 11px !important;
+  font-size: 14.5px !important;
   font-weight: 700 !important;
-  border-radius: 14px !important;
-  padding: 10px !important;
+  border-radius: 16px !important;
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%) !important;
+  color: #fff !important;
+  border: 1px solid #ffd54f !important;
+  box-shadow: 0 4px 20px rgba(217, 119, 6, 0.45) !important;
+  cursor: pointer !important;
 }
 
 /* Welcome Gate Popup Invitation */
@@ -737,20 +737,21 @@ html:not(.touch) .chat-log {
   font-weight: 500;
   cursor: pointer;
 }
-
-    </style>
+</style>
       <style id="admin-peers-styles">
 
 /* =========================================================
    LIVE CHAT BOX (Image 1 enhancement)
    Luôn hiển thị trên màn hình để mọi người đọc chat của nhau
    ========================================================= */
-.chat-log {
+.chat-log,
+html:not(.touch) .chat-log {
   display: flex !important;
   position: absolute !important;
   left: calc(14px + env(safe-area-inset-left)) !important;
-  bottom: calc(max(20px, env(safe-area-inset-bottom)) + 58px) !important;
-  width: min(350px, calc(100% - 28px)) !important;
+  right: auto !important;
+  bottom: calc(max(14px, env(safe-area-inset-bottom)) + 46px) !important;
+  width: min(340px, calc(100vw - 28px)) !important;
   max-height: 180px !important;
   background: rgba(22, 15, 10, 0.88) !important;
   border: 1.5px solid rgba(220, 168, 66, 0.45) !important;
@@ -764,12 +765,6 @@ html:not(.touch) .chat-log {
   padding: 10px 12px !important;
   flex-direction: column !important;
   transition: max-height 0.25s ease, opacity 0.25s ease !important;
-}
-
-html:not(.touch) .chat-log {
-  bottom: calc(max(14px, env(safe-area-inset-bottom)) + 104px) !important;
-  left: 18px !important;
-  width: 340px !important;
 }
 
 .chat-log.closed {
@@ -848,20 +843,21 @@ html:not(.touch) .chat-log {
 /* =========================================================
    ONLINE PEERS MODAL & SƯ QUẢN TRỊ ADMIN PORTAL STYLES
    ========================================================= */
+#online-peers-modal.online-peers-modal,
 .online-peers-modal {
   position: fixed !important;
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) scale(0.95) !important;
-  width: min(92vw, 460px) !important;
-  max-height: 85vh !important;
-  background: radial-gradient(circle at 50% 0%, rgba(38, 26, 17, 0.98) 0%, rgba(18, 12, 8, 0.98) 100%) !important;
-  border: 1.5px solid rgba(230, 175, 75, 0.55) !important;
-  border-radius: 26px !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(246, 185, 75, 0.25) !important;
+  width: min(94vw, 540px) !important;
+  height: min(84vh, 660px) !important;
+  max-height: 88vh !important;
+  background: radial-gradient(circle at 50% 0%, rgba(38, 26, 17, 0.98) 0%, rgba(18, 12, 8, 0.99) 100%) !important;
+  border: 2px solid #ffd54f !important;
+  border-radius: 28px !important;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 45px rgba(246, 185, 75, 0.3) !important;
   z-index: 100 !important;
-  overflow-y: auto !important;
-  padding: 22px 18px !important;
+  padding: 22px 20px !important;
   display: flex !important;
   flex-direction: column !important;
   opacity: 0 !important;
@@ -888,14 +884,17 @@ html:not(.touch) .chat-log {
   margin-bottom: 4px;
 }
 
+#online-peers-modal .peers-list-wrap,
 .peers-list-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-height: 52vh;
-  overflow-y: auto;
-  padding-right: 4px;
-  margin-bottom: 14px;
+  flex: 1 1 auto !important;
+  max-height: none !important;
+  min-height: 380px !important;
+  overflow-y: auto !important;
+  padding-right: 6px !important;
+  margin-bottom: 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
 }
 
 .peer-item {
