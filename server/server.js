@@ -293,7 +293,7 @@ const npcs = [
     y: 0,
     z: -8,
     ry: 0,
-    s: 'idle'
+    s: 0
   },
   {
     id: 900002,
@@ -304,9 +304,9 @@ const npcs = [
     hat: 'tieu',
     x: -8,
     y: 0,
-    z: -2,
+    z: 4,
     ry: 1.5,
-    s: 'idle'
+    s: 1
   },
   {
     id: 900003,
@@ -317,9 +317,9 @@ const npcs = [
     hat: 'khong',
     x: 5,
     y: 0,
-    z: 22,
+    z: 26,
     ry: 0,
-    s: 'idle'
+    s: 1
   },
   {
     id: 900004,
@@ -328,11 +328,11 @@ const npcs = [
     robe: 'lam',
     beads: 'ngoc',
     hat: 'khong',
-    x: -12,
+    x: -11,
     y: 0,
-    z: 36,
+    z: 38,
     ry: 1.2,
-    s: 'idle'
+    s: 1
   },
   {
     id: 900005,
@@ -341,11 +341,11 @@ const npcs = [
     robe: 'xam',
     beads: 'go',
     hat: 'khong',
-    x: 8,
+    x: 4,
     y: 0,
-    z: 46,
+    z: 58,
     ry: 2.5,
-    s: 'idle'
+    s: 1
   }
 ];
 
@@ -606,7 +606,7 @@ setInterval(() => {
   npcs[1].z = parseFloat(nz1.toFixed(2));
   npcs[1].ry = parseFloat(nry1.toFixed(2));
   npcs[1].s = 'walk';
-  broadcast({ t: 'state', id: npcs[1].id, x: npcs[1].x, y: 0, z: npcs[1].z, ry: npcs[1].ry, s: 'walk' });
+  broadcast({ t: 'state', id: npcs[1].id, x: npcs[1].x, y: 0, z: npcs[1].z, ry: npcs[1].ry, s: 1 });
 
   // 2. Anh Tài sửa xe walking through the courtyard / incense plaza
   const nx2 = 4 + Math.cos(npcAngle * 0.6) * 6;
@@ -616,7 +616,7 @@ setInterval(() => {
   npcs[2].z = parseFloat(nz2.toFixed(2));
   npcs[2].ry = parseFloat(nry2.toFixed(2));
   npcs[2].s = 'walk';
-  broadcast({ t: 'state', id: npcs[2].id, x: npcs[2].x, y: 0, z: npcs[2].z, ry: npcs[2].ry, s: 'walk' });
+  broadcast({ t: 'state', id: npcs[2].id, x: npcs[2].x, y: 0, z: npcs[2].z, ry: npcs[2].ry, s: 1 });
 
   // 3. Cô Hà bán bún walking along the lotus pond and avenue
   const nx3 = -13 + Math.sin(npcAngle * 0.55) * 4;
@@ -626,7 +626,7 @@ setInterval(() => {
   npcs[3].z = parseFloat(nz3.toFixed(2));
   npcs[3].ry = parseFloat(nry3.toFixed(2));
   npcs[3].s = 'walk';
-  broadcast({ t: 'state', id: npcs[3].id, x: npcs[3].x, y: 0, z: npcs[3].z, ry: npcs[3].ry, s: 'walk' });
+  broadcast({ t: 'state', id: npcs[3].id, x: npcs[3].x, y: 0, z: npcs[3].z, ry: npcs[3].ry, s: 1 });
 
   // 4. Anh Kiên đầu bạc walking around the bell tower and garden avenue
   const nx4 = 8 + Math.cos(npcAngle * 0.45) * 5;
@@ -636,7 +636,7 @@ setInterval(() => {
   npcs[4].z = parseFloat(nz4.toFixed(2));
   npcs[4].ry = parseFloat(nry4.toFixed(2));
   npcs[4].s = 'walk';
-  broadcast({ t: 'state', id: npcs[4].id, x: npcs[4].x, y: 0, z: npcs[4].z, ry: npcs[4].ry, s: 'walk' });
+  broadcast({ t: 'state', id: npcs[4].id, x: npcs[4].x, y: 0, z: npcs[4].z, ry: npcs[4].ry, s: 1 });
 
   // 5. Thầy Thiện Tâm stays near Tam Bảo / main entrance, occasionally bows
   if (npcChatTick % 12 === 0) {
