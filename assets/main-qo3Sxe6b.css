@@ -918,3 +918,427 @@
   background: rgba(255, 236, 200, 0.45) !important;
   transform: scale(0.92) !important;
 }
+
+
+/* =========================================================
+   DAILY LOT (QUẺ NGÀY THIỆN LÀNH) STYLES
+   ========================================================= */
+.daily-lot-modal {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) scale(0.95) !important;
+  width: min(92vw, 480px) !important;
+  max-height: 88vh !important;
+  background: radial-gradient(circle at 50% 0%, rgba(42, 28, 18, 0.96) 0%, rgba(20, 14, 9, 0.98) 100%) !important;
+  border: 1.5px solid rgba(230, 175, 75, 0.55) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(246, 185, 75, 0.3) !important;
+  z-index: 100 !important;
+  overflow-y: auto !important;
+  padding: 24px 20px 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.daily-lot-modal.open {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translate(-50%, -50%) scale(1) !important;
+}
+
+.lot-header {
+  margin-bottom: 12px;
+}
+
+.lot-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffd77a;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  text-shadow: 0 0 10px rgba(255, 215, 120, 0.6);
+}
+
+.daily-lot-modal .sheet-title {
+  font-size: 24px !important;
+  color: #fff2cc !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5), 0 0 15px rgba(255, 215, 120, 0.5) !important;
+}
+
+.daily-lot-modal .sheet-sub {
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  color: #d8c2aa !important;
+  max-width: 380px !important;
+  margin: 6px auto 14px !important;
+}
+
+/* Bamboo Cylinder Stage */
+.lot-stage {
+  position: relative;
+  width: 220px;
+  height: 230px;
+  margin: 8px auto 16px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.bamboo-cylinder-wrap {
+  position: relative;
+  width: 110px;
+  height: 175px;
+  display: flex;
+  justify-content: center;
+}
+
+.bamboo-cylinder-wrap.shaking {
+  animation: shakeTubeAnim 0.16s infinite ease-in-out;
+}
+
+@keyframes shakeTubeAnim {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-5px, -3px) rotate(-6deg); }
+  50% { transform: translate(4px, 2px) rotate(5deg); }
+  75% { transform: translate(-3px, -2px) rotate(-4deg); }
+  100% { transform: translate(3px, 1px) rotate(4deg); }
+}
+
+.bamboo-cylinder {
+  position: absolute;
+  bottom: 0;
+  width: 100px;
+  height: 155px;
+  background: linear-gradient(135deg, #7a4820 0%, #a2652e 35%, #5e3415 70%, #874e22 100%);
+  border-radius: 12px 12px 18px 18px;
+  border: 2px solid #caa05b;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6), inset 0 0 15px rgba(0,0,0,0.5);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.bamboo-rim {
+  width: 104px;
+  height: 14px;
+  background: linear-gradient(90deg, #d4af37, #fff1b0, #b8860b);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.bamboo-gold-band {
+  width: 98px;
+  height: 8px;
+  background: linear-gradient(90deg, #b8860b, #ffe082, #996515);
+  margin-top: auto;
+  margin-bottom: 14px;
+}
+
+.bamboo-lotus-engrave {
+  font-size: 28px;
+  filter: drop-shadow(0 0 6px rgba(255, 215, 120, 0.7));
+}
+
+/* Sticks inside */
+.bamboo-sticks {
+  position: absolute;
+  top: -24px;
+  width: 80px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  z-index: 4;
+}
+
+.bamboo-sticks .stick {
+  display: block;
+  width: 6px;
+  height: 50px;
+  background: linear-gradient(180deg, #c0392b 0%, #e67e22 16%, #f39c12 25%, #d4ac0d 100%);
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+.bamboo-sticks .s1 { height: 42px; transform: rotate(-8deg); }
+.bamboo-sticks .s2 { height: 48px; transform: rotate(-4deg); }
+.bamboo-sticks .s3 { height: 52px; transform: rotate(-1deg); }
+.bamboo-sticks .s4 { height: 46px; transform: rotate(3deg); }
+.bamboo-sticks .s5 { height: 54px; transform: rotate(7deg); }
+.bamboo-sticks .s6 { height: 44px; transform: rotate(-5deg); }
+.bamboo-sticks .s7 { height: 50px; transform: rotate(4deg); }
+.bamboo-sticks .s8 { height: 46px; transform: rotate(-2deg); }
+.bamboo-sticks .s9 { height: 52px; transform: rotate(6deg); }
+
+/* Rising Stick */
+.rising-stick {
+  position: absolute;
+  bottom: 30px;
+  width: 16px;
+  height: 160px;
+  background: linear-gradient(180deg, #d32f2f 0%, #ff7043 12%, #ffe082 22%, #ffd54f 100%);
+  border-radius: 6px 6px 0 0;
+  border: 1.5px solid #fff9c4;
+  box-shadow: 0 0 25px rgba(255, 215, 120, 0.9), 0 0 50px rgba(255, 193, 7, 0.6);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(0);
+  pointer-events: none;
+}
+
+.rising-stick.rising {
+  animation: stickRiseAnim 0.95s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes stickRiseAnim {
+  0% { opacity: 0; transform: translateY(40px) scale(0.9); }
+  25% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(-75px) scale(1.08); }
+}
+
+.rising-stick-tip {
+  width: 100%;
+  height: 20px;
+  background: #b71c1c;
+  border-radius: 5px 5px 0 0;
+}
+
+.rising-stick-text {
+  writing-mode: vertical-rl;
+  font-size: 11px;
+  font-weight: 700;
+  color: #3e2723;
+  margin-top: 10px;
+  letter-spacing: 2px;
+}
+
+/* Lot Card Scroll (Full revelation) */
+.lot-card-wrap {
+  width: 100%;
+  animation: fadeInLot 0.4s ease-out;
+}
+
+@keyframes fadeInLot {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.lot-card-scroll {
+  background: linear-gradient(180deg, rgba(255, 248, 230, 0.96) 0%, rgba(254, 242, 210, 0.96) 100%);
+  border: 2px solid #d4af37;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(212, 175, 55, 0.2);
+  color: #3e2723;
+  padding: 20px 16px 16px;
+  text-align: center;
+}
+
+.lot-card-lotus {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.lot-card-number {
+  font-size: 12px;
+  font-weight: 800;
+  color: #b71c1c;
+  letter-spacing: 1.5px;
+}
+
+.lot-card-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: #795548;
+  margin: 4px 0 14px;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+}
+
+.lot-card-box {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.lot-box-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: #8d6e63;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.poem-box {
+  background: rgba(255, 243, 224, 0.75);
+  border-color: rgba(230, 126, 34, 0.4);
+  text-align: center;
+}
+
+.lot-poem-line {
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #4e342e;
+  font-style: italic;
+}
+
+.lot-motivation-text {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #271c18;
+  margin: 0;
+  font-weight: 500;
+}
+
+.lot-action-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #1b5e20;
+  margin: 0;
+  font-weight: 600;
+}
+
+.affirm-box {
+  background: linear-gradient(135deg, rgba(255, 236, 179, 0.8) 0%, rgba(255, 224, 130, 0.8) 100%);
+  border-color: #ffd54f;
+  text-align: center;
+  padding: 8px 12px;
+}
+
+.lot-affirm-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: #bf360c;
+  font-style: italic;
+}
+
+.lot-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.lot-share-btn {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  border-radius: 14px !important;
+  padding: 10px !important;
+  border: 1px solid #fde68a !important;
+  box-shadow: 0 4px 15px rgba(217, 119, 6, 0.35) !important;
+}
+
+.lot-again-btn {
+  background: rgba(120, 53, 15, 0.08) !important;
+  color: #78350f !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(120, 53, 15, 0.25) !important;
+  border-radius: 14px !important;
+  padding: 8px !important;
+}
+
+.lot-accept-btn {
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  border-radius: 14px !important;
+  padding: 10px !important;
+}
+
+/* Welcome Gate Popup Invitation */
+.daily-lot-welcome {
+  position: fixed;
+  bottom: 84px;
+  left: 50%;
+  transform: translateX(-50%) translateY(30px);
+  width: min(92vw, 420px);
+  background: linear-gradient(135deg, rgba(35, 22, 14, 0.95) 0%, rgba(18, 12, 8, 0.97) 100%);
+  border: 1.5px solid rgba(255, 215, 120, 0.65);
+  border-radius: 22px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(246, 185, 75, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 85;
+  padding: 16px 18px 14px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.daily-lot-welcome.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.lot-welcome-badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #ffd54f;
+  margin-bottom: 4px;
+}
+
+.lot-welcome-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff8e1;
+  text-shadow: 0 0 10px rgba(255, 215, 120, 0.6);
+  margin-bottom: 6px;
+}
+
+.lot-welcome-desc {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #ecd9c6;
+  margin: 0 0 12px;
+}
+
+.lot-welcome-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.lot-welcome-btn-open {
+  flex: 1.2;
+  padding: 8px 14px;
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+  color: #fff;
+  border: 1px solid #fde68a;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.lot-welcome-btn-later {
+  flex: 0.8;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #d8c2aa;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
