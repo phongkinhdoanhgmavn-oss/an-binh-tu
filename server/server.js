@@ -280,7 +280,7 @@ const vows = [
   { id: 2, name: 'Phật tử Phước Lộc', text: 'Cầu công việc thuận lợi, lòng luôn thanh thản.', likes: 12 }
 ];
 
-// Gentle Companion Monks (NPCs) to make local offline temple peaceful & alive
+// Gentle Companion Monks & Faithful Buddhist Visitors (NPCs) to make temple peaceful & alive
 const npcs = [
   {
     id: 900001,
@@ -306,6 +306,45 @@ const npcs = [
     y: 0,
     z: -2,
     ry: 1.5,
+    s: 'idle'
+  },
+  {
+    id: 900003,
+    pid: 'npc_tai_sua_xe',
+    name: 'Anh Tài sửa xe',
+    robe: 'cam',
+    beads: 'dong',
+    hat: 'khong',
+    x: 5,
+    y: 0,
+    z: 22,
+    ry: 0,
+    s: 'idle'
+  },
+  {
+    id: 900004,
+    pid: 'npc_ha_ban_bun',
+    name: 'Cô Hà bán bún',
+    robe: 'lam',
+    beads: 'ngoc',
+    hat: 'khong',
+    x: -12,
+    y: 0,
+    z: 36,
+    ry: 1.2,
+    s: 'idle'
+  },
+  {
+    id: 900005,
+    pid: 'npc_kien_dau_bac',
+    name: 'Anh Kiên đầu bạc',
+    robe: 'xam',
+    beads: 'go',
+    hat: 'khong',
+    x: 8,
+    y: 0,
+    z: 46,
+    ry: 2.5,
     s: 'idle'
   }
 ];
@@ -552,28 +591,73 @@ server.on('upgrade', (req, socket, head) => {
   clients.add(client);
 });
 
-// Periodic peaceful companion monk movement/greeting (gentle, seek-safe)
+// Periodic peaceful companion movement & friendly greetings (gentle, seek-safe)
 let npcAngle = 0;
+let npcChatTick = 0;
 setInterval(() => {
   npcAngle += 0.05;
-  // Thầy An Nhiên walking slowly around the Bodhi tree
-  const nx = -8 + Math.cos(npcAngle) * 3;
-  const nz = -2 + Math.sin(npcAngle) * 3;
-  const nry = -npcAngle + Math.PI / 2;
-  npcs[1].x = parseFloat(nx.toFixed(2));
-  npcs[1].z = parseFloat(nz.toFixed(2));
-  npcs[1].ry = parseFloat(nry.toFixed(2));
-  npcs[1].s = 'walk';
+  npcChatTick += 1;
 
-  broadcast({
-    t: 'state',
-    id: npcs[1].id,
-    x: npcs[1].x,
-    y: 0,
-    z: npcs[1].z,
-    ry: npcs[1].ry,
-    s: 'walk'
-  });
+  // 1. Thầy An Nhiên walking slowly around the Bodhi tree
+  const nx1 = -8 + Math.cos(npcAngle * 0.9) * 3;
+  const nz1 = -2 + Math.sin(npcAngle * 0.9) * 3;
+  const nry1 = -(npcAngle * 0.9) + Math.PI / 2;
+  npcs[1].x = parseFloat(nx1.toFixed(2));
+  npcs[1].z = parseFloat(nz1.toFixed(2));
+  npcs[1].ry = parseFloat(nry1.toFixed(2));
+  npcs[1].s = 'walk';
+  broadcast({ t: 'state', id: npcs[1].id, x: npcs[1].x, y: 0, z: npcs[1].z, ry: npcs[1].ry, s: 'walk' });
+
+  // 2. Anh Tài sửa xe walking through the courtyard / incense plaza
+  const nx2 = 4 + Math.cos(npcAngle * 0.6) * 6;
+  const nz2 = 24 + Math.sin(npcAngle * 0.5) * 6;
+  const nry2 = Math.atan2(Math.cos(npcAngle * 0.5) * 6 * 0.5, -Math.sin(npcAngle * 0.6) * 6 * 0.6);
+  npcs[2].x = parseFloat(nx2.toFixed(2));
+  npcs[2].z = parseFloat(nz2.toFixed(2));
+  npcs[2].ry = parseFloat(nry2.toFixed(2));
+  npcs[2].s = 'walk';
+  broadcast({ t: 'state', id: npcs[2].id, x: npcs[2].x, y: 0, z: npcs[2].z, ry: npcs[2].ry, s: 'walk' });
+
+  // 3. Cô Hà bán bún walking along the lotus pond and avenue
+  const nx3 = -13 + Math.sin(npcAngle * 0.55) * 4;
+  const nz3 = 36 + Math.cos(npcAngle * 0.45) * 7;
+  const nry3 = Math.atan2(-Math.sin(npcAngle * 0.45) * 7 * 0.45, Math.cos(npcAngle * 0.55) * 4 * 0.55);
+  npcs[3].x = parseFloat(nx3.toFixed(2));
+  npcs[3].z = parseFloat(nz3.toFixed(2));
+  npcs[3].ry = parseFloat(nry3.toFixed(2));
+  npcs[3].s = 'walk';
+  broadcast({ t: 'state', id: npcs[3].id, x: npcs[3].x, y: 0, z: npcs[3].z, ry: npcs[3].ry, s: 'walk' });
+
+  // 4. Anh Kiên đầu bạc walking around the bell tower and garden avenue
+  const nx4 = 8 + Math.cos(npcAngle * 0.45) * 5;
+  const nz4 = 48 + Math.sin(npcAngle * 0.4) * 8;
+  const nry4 = Math.atan2(Math.cos(npcAngle * 0.4) * 8 * 0.4, -Math.sin(npcAngle * 0.45) * 5 * 0.45);
+  npcs[4].x = parseFloat(nx4.toFixed(2));
+  npcs[4].z = parseFloat(nz4.toFixed(2));
+  npcs[4].ry = parseFloat(nry4.toFixed(2));
+  npcs[4].s = 'walk';
+  broadcast({ t: 'state', id: npcs[4].id, x: npcs[4].x, y: 0, z: npcs[4].z, ry: npcs[4].ry, s: 'walk' });
+
+  // 5. Thầy Thiện Tâm stays near Tam Bảo / main entrance, occasionally bows
+  if (npcChatTick % 12 === 0) {
+    const s = (npcChatTick % 24 === 0) ? 'cui' : 'idle';
+    npcs[0].s = s;
+    broadcast({ t: 'state', id: npcs[0].id, x: npcs[0].x, y: 0, z: npcs[0].z, ry: npcs[0].ry, s: s });
+  }
+
+  // Periodic lively greetings in the public chat box every 25 seconds (12-13 ticks)
+  if (npcChatTick % 13 === 0) {
+    const dialogues = [
+      { sender: 'Anh Tài sửa xe', text: 'A Di Đà Phật, sửa xong chiếc xe là chạy vào chùa bái Phật liền cho tâm thanh thản 🙏' },
+      { sender: 'Cô Hà bán bún', text: 'Hôm nay mùng một bán hết sớm, ghé chùa lễ Phật cầu bình an cho cả nhà 🍜🙏' },
+      { sender: 'Anh Kiên đầu bạc', text: 'Thời tiết hôm nay đẹp quá, đi dạo một vòng quanh chùa thấy lòng nhẹ nhõm hẳn ✨' },
+      { sender: 'Anh Tài sửa xe', text: 'Cầu mong quý phật tử đi đường bình an, vạn sự hanh thông!' },
+      { sender: 'Cô Hà bán bún', text: 'Hồ sen nở ngát hương thơm thanh tịnh quá quý vị ơi 🪷' },
+      { sender: 'Anh Kiên đầu bạc', text: 'Mỗi ngày vào chùa tĩnh tâm một chút thấy cuộc sống an vui nhiều 🙏' }
+    ];
+    const d = dialogues[Math.floor(npcChatTick / 13) % dialogues.length];
+    broadcast({ t: 'chat', id: 900000, name: d.sender, text: d.text });
+  }
 }, 2000);
 
 server.listen(PORT, '0.0.0.0', () => {
