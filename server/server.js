@@ -68,6 +68,14 @@ const server = http.createServer((req, res) => {
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
     const totalSize = stats.size;
 
+    // Cache-Control header strategy to prevent stale assets
+    let cacheControl = 'public, max-age=0, must-revalidate';
+    if (pathname === '/index.html' || pathname === '/sw.js') {
+      cacheControl = 'no-cache, no-store, must-revalidate';
+    } else if (['.glb', '.wasm', '.mp3', '.wav', '.woff2'].includes(ext)) {
+      cacheControl = 'public, max-age=86400, stale-while-revalidate=604800';
+    }
+
     // Handle HTTP Range header (important for audio seek and smooth playback)
     const rangeHeader = req.headers.range;
     if (rangeHeader) {
@@ -78,7 +86,8 @@ const server = http.createServer((req, res) => {
       if (start >= totalSize || end >= totalSize || start > end) {
         res.writeHead(416, {
           'Content-Range': `bytes */${totalSize}`,
-          'Content-Type': contentType
+          'Content-Type': contentType,
+          'Cache-Control': cacheControl
         });
         return res.end();
       }
@@ -88,6 +97,7 @@ const server = http.createServer((req, res) => {
         'Accept-Ranges': 'bytes',
         'Content-Length': (end - start) + 1,
         'Content-Type': contentType,
+        'Cache-Control': cacheControl,
         'Access-Control-Allow-Origin': '*'
       });
 
@@ -96,6 +106,7 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, {
         'Content-Length': totalSize,
         'Content-Type': contentType,
+        'Cache-Control': cacheControl,
         'Accept-Ranges': 'bytes',
         'Access-Control-Allow-Origin': '*'
       });

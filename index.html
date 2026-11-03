@@ -26,13 +26,13 @@
         var l = document.getElementById('loading');
         if (l && !l.classList.contains('done')) {
           l.classList.add('done');
-          setTimeout(function() { if (l) l.style.display = 'none'; }, 1000);
+          setTimeout(function() { if (l) l.style.display = 'none'; }, 800);
         }
-      }, 2500);
+      }, 7000);
     </script>
-    <script type="module" crossorigin src="/assets/main-CQ_rl8lU.js?v=20"></script>
+    <script type="module" crossorigin src="/assets/main-CQ_rl8lU.js?v=21"></script>
     <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="stylesheet" crossorigin href="/assets/main-qo3Sxe6b.css?v=20">
+    <link rel="stylesheet" crossorigin href="/assets/main-qo3Sxe6b.css?v=21">
             <style id="action-bar-glow-style">
 
 /* =========================================================
@@ -63,28 +63,34 @@
 /* Action bar collapse toggle tab - Nổi cách hẳn phía trên, KHÔNG chạm hay đè nút Quét lá */
 .action-bar-toggle {
   position: absolute !important;
-  bottom: calc(100% + 5px) !important;
+  bottom: calc(100% + 14px) !important;
   top: auto !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  background: rgba(26, 17, 11, 0.95) !important;
-  border: 1.2px solid rgba(220, 168, 66, 0.6) !important;
-  border-radius: 12px !important;
+  background: rgba(26, 17, 11, 0.96) !important;
+  border: 1.5px solid rgba(220, 168, 66, 0.7) !important;
+  border-radius: 14px !important;
   color: #ffd77a !important;
   font-size: 11.5px !important;
-  font-weight: 600 !important;
-  padding: 4px 14px !important;
+  font-weight: 700 !important;
+  padding: 5px 16px !important;
   cursor: pointer !important;
   white-space: nowrap !important;
   display: flex !important;
   align-items: center !important;
-  gap: 4px !important;
+  gap: 5px !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55), 0 0 10px rgba(255, 215, 120, 0.25) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.65), 0 0 14px rgba(255, 215, 120, 0.35) !important;
   transition: all 0.2s ease !important;
   user-select: none !important;
-  z-index: 62 !important;
+  z-index: 65 !important;
+}
+
+@media (max-width: 1080px) {
+  .action-bar {
+    bottom: calc(max(14px, env(safe-area-inset-bottom)) + 52px) !important;
+  }
 }
 
 .action-bar-toggle:hover {
@@ -217,9 +223,22 @@ html:not(.touch) .menu-btn {
   right: 14px !important;
 }
 
-/* Friends pill: Ẩn nút [0] trùng lặp gây rối ở góc trên bên trái */
-.friends-pill {
+/* Friends pill & Merit pill: Ẩn triệt để nút [0] trùng lặp gây rối ở góc trên bên trái */
+.friends-pill,
+.merit-pill,
+button.friends-pill,
+button.merit-pill,
+.pill.friends-pill,
+.pill.merit-pill {
   display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
 }
 
 /* Zone pill: Con trỏ chỉ tay & hiệu ứng hover mở danh sách online */
@@ -306,24 +325,52 @@ html:not(.touch) .menu-btn {
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) scale(0.95) !important;
-  width: min(95vw, 540px) !important;
-  height: min(88vh, 680px) !important;
-  max-height: 92vh !important;
-  background: radial-gradient(circle at 50% 0%, rgba(42, 28, 18, 0.98) 0%, rgba(18, 12, 8, 0.99) 100%) !important;
-  border: 2px solid #ffd54f !important;
+  width: min(96vw, 620px) !important;
+  max-width: 620px !important;
+  height: auto !important;
+  max-height: min(92vh, 840px) !important;
+  background: radial-gradient(circle at 50% 0%, rgba(42, 28, 18, 0.99) 0%, rgba(18, 12, 8, 0.99) 100%) !important;
+  border: 2.5px solid #ffd54f !important;
   border-radius: 28px !important;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.92), 0 0 50px rgba(246, 185, 75, 0.35) !important;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), 0 0 55px rgba(246, 185, 75, 0.4) !important;
   z-index: 100 !important;
   overflow-y: auto !important;
-  padding: 20px 20px 16px !important;
+  padding: 24px 22px 20px !important;
   display: flex !important;
   flex-direction: column !important;
-  justify-content: space-between !important;
+  justify-content: flex-start !important;
   align-items: center !important;
   text-align: center !important;
   opacity: 0 !important;
   pointer-events: none !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(220, 168, 66, 0.4) transparent !important;
   transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#daily-lot-modal .sheet-close {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  background: rgba(45, 30, 20, 0.85) !important;
+  border: 1.5px solid rgba(220, 168, 66, 0.6) !important;
+  color: #ffd77a !important;
+  font-size: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  z-index: 35 !important;
+  transition: all 0.2s ease !important;
+}
+
+#daily-lot-modal .sheet-close:hover {
+  background: rgba(255, 215, 120, 0.35) !important;
+  color: #ffffff !important;
+  transform: scale(1.1) !important;
 }
 
 #daily-lot-modal.daily-lot-modal.open,
@@ -364,21 +411,21 @@ html:not(.touch) .menu-btn {
 
 /* Bamboo Cylinder Stage */
 .lot-stage {
-  position: relative;
-  width: 220px;
-  height: 195px !important;
-  margin: 4px auto 8px !important;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  position: relative !important;
+  width: 250px !important;
+  height: 220px !important;
+  margin: 10px auto 14px !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
 }
 
 .bamboo-cylinder-wrap {
-  position: relative;
-  width: 110px;
-  height: 175px;
-  display: flex;
-  justify-content: center;
+  position: relative !important;
+  width: 125px !important;
+  height: 195px !important;
+  display: flex !important;
+  justify-content: center !important;
 }
 
 #lot-cylinder-wrap {
@@ -408,36 +455,36 @@ html:not(.touch) .menu-btn {
 }
 
 .bamboo-cylinder {
-  position: absolute;
-  bottom: 0;
-  width: 100px;
-  height: 155px;
-  background: linear-gradient(135deg, #7a4820 0%, #a2652e 35%, #5e3415 70%, #874e22 100%);
-  border-radius: 12px 12px 18px 18px;
-  border: 2px solid #caa05b;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.6), inset 0 0 15px rgba(0,0,0,0.5);
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 0;
+  position: absolute !important;
+  bottom: 0 !important;
+  width: 115px !important;
+  height: 170px !important;
+  background: linear-gradient(135deg, #7a4820 0%, #a2652e 35%, #5e3415 70%, #874e22 100%) !important;
+  border-radius: 14px 14px 22px 22px !important;
+  border: 2.5px solid #caa05b !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.65), inset 0 0 18px rgba(0,0,0,0.5) !important;
+  z-index: 5 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 10px 0 !important;
 }
 
 .bamboo-rim {
-  width: 104px;
-  height: 14px;
-  background: linear-gradient(90deg, #d4af37, #fff1b0, #b8860b);
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  width: 120px !important;
+  height: 16px !important;
+  background: linear-gradient(90deg, #d4af37, #fff1b0, #b8860b) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
 }
 
 .bamboo-gold-band {
-  width: 98px;
-  height: 8px;
-  background: linear-gradient(90deg, #b8860b, #ffe082, #996515);
-  margin-top: auto;
-  margin-bottom: 14px;
+  width: 112px !important;
+  height: 10px !important;
+  background: linear-gradient(90deg, #b8860b, #ffe082, #996515) !important;
+  margin-top: auto !important;
+  margin-bottom: 16px !important;
 }
 
 .bamboo-lotus-engrave {
@@ -536,12 +583,12 @@ html:not(.touch) .menu-btn {
 }
 
 .lot-card-scroll {
-  background: linear-gradient(180deg, rgba(255, 248, 230, 0.98) 0%, rgba(254, 242, 210, 0.98) 100%) !important;
-  border: 2px solid #d4af37 !important;
-  border-radius: 20px !important;
-  box-shadow: 0 10px 35px rgba(0,0,0,0.5), inset 0 0 20px rgba(212, 175, 55, 0.25) !important;
+  background: linear-gradient(180deg, rgba(255, 248, 230, 0.99) 0%, rgba(254, 242, 210, 0.99) 100%) !important;
+  border: 2.5px solid #d4af37 !important;
+  border-radius: 22px !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.55), inset 0 0 25px rgba(212, 175, 55, 0.28) !important;
   color: #3e2723 !important;
-  padding: 14px 16px 12px !important;
+  padding: 18px 20px 16px !important;
   text-align: center !important;
 }
 
@@ -558,7 +605,7 @@ html:not(.touch) .menu-btn {
 }
 
 .lot-card-title {
-  font-size: 17.5px !important;
+  font-size: 20px !important;
   font-weight: 800 !important;
   color: #6d4c41 !important;
   margin: 3px 0 8px !important;
@@ -569,8 +616,8 @@ html:not(.touch) .menu-btn {
   background: rgba(255, 255, 255, 0.72) !important;
   border: 1px solid rgba(212, 175, 55, 0.35) !important;
   border-radius: 12px !important;
-  padding: 7px 12px !important;
-  margin-bottom: 6px !important;
+  padding: 9px 14px !important;
+  margin-bottom: 8px !important;
   text-align: left !important;
 }
 
@@ -1371,6 +1418,44 @@ html:not(.touch) .chat-log {
         'Mỗi tiếng chuông là một lần trở về.',
       ];
       document.querySelector('.loading-quote').textContent = '“' + q[Math.floor(Math.random() * q.length)] + '”';
+
+      // 1. Click on zone-pill to view online peers
+      document.addEventListener('click', function(e) {
+        var zp = e.target.closest('.zone-pill');
+        if (zp) {
+          if (window.onlinePeersModal) {
+            window.onlinePeersModal.open();
+          }
+        }
+      });
+
+      // 2. Click on 'Bạn đồng tu' in Menu to view online peers
+      document.addEventListener('click', function(e) {
+        var mb = e.target.closest('[data-menu="congdong"]');
+        if (mb) {
+          if (window.onlinePeersModal) {
+            window.onlinePeersModal.open();
+          }
+        }
+      });
+
+      // 3. Clean up any orphaned friends-pill or merit-pill
+      setInterval(function() {
+        var pills = document.querySelectorAll('.friends-pill, .merit-pill');
+        for (var i = 0; i < pills.length; i++) {
+          pills[i].remove();
+        }
+      }, 500);
+
+      // 4. Clicking the wooden cylinder immediately draws lot
+      document.addEventListener('click', function(e) {
+        var cyl = e.target.closest('#lot-cylinder-wrap, .bamboo-cylinder, #lot-click-hint');
+        if (cyl) {
+          if (window.dailyLotModal && typeof window.dailyLotModal.shake === 'function') {
+            window.dailyLotModal.shake();
+          }
+        }
+      });
     </script>
   </body>
 </html>
