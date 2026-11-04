@@ -1,5 +1,5 @@
-// An Bình Tự service worker v23
-const CACHE = 'anbinhtu-v26';
+// An Bình Tự service worker v27
+const CACHE = 'anbinhtu-v27';
 const KEEP = /^\/(models|draco|icons|assets)\//;
 
 self.addEventListener('install', () => self.skipWaiting());

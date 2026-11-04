@@ -109,9 +109,9 @@
         }
       });
     </script>
-    <script type="module" crossorigin src="/assets/app-v26-live.js?v=26"></script>
+    <script type="module" crossorigin src="/assets/app-v27-live.js?v=27"></script>
     <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="stylesheet" crossorigin href="/assets/app-v26-live.css?v=26">
+    <link rel="stylesheet" crossorigin href="/assets/app-v27-live.css?v=27">
             <style id="action-bar-glow-style">
 
 /* =========================================================
@@ -424,10 +424,11 @@ button.merit-pill,
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) scale(0.95) !important;
-  width: min(96vw, 620px) !important;
-  max-width: 620px !important;
+  width: min(94vw, 560px) !important;
+  max-width: 560px !important;
   height: auto !important;
-  max-height: min(92vh, 840px) !important;
+  min-height: 500px !important;
+  max-height: min(92vh, 800px) !important;
   background: radial-gradient(circle at 50% 0%, rgba(42, 28, 18, 0.99) 0%, rgba(18, 12, 8, 0.99) 100%) !important;
   border: 2.5px solid #ffd54f !important;
   border-radius: 28px !important;
@@ -512,7 +513,7 @@ button.merit-pill,
 .lot-stage {
   position: relative !important;
   width: 250px !important;
-  height: 220px !important;
+  height: 230px !important;
   margin: 10px auto 14px !important;
   display: flex !important;
   align-items: flex-end !important;
@@ -521,8 +522,8 @@ button.merit-pill,
 
 .bamboo-cylinder-wrap {
   position: relative !important;
-  width: 125px !important;
-  height: 195px !important;
+  width: 135px !important;
+  height: 205px !important;
   display: flex !important;
   justify-content: center !important;
 }
@@ -556,8 +557,8 @@ button.merit-pill,
 .bamboo-cylinder {
   position: absolute !important;
   bottom: 0 !important;
-  width: 115px !important;
-  height: 170px !important;
+  width: 125px !important;
+  height: 180px !important;
   background: linear-gradient(135deg, #7a4820 0%, #a2652e 35%, #5e3415 70%, #874e22 100%) !important;
   border-radius: 14px 14px 22px 22px !important;
   border: 2.5px solid #caa05b !important;
@@ -1246,9 +1247,57 @@ html:not(.touch) .chat-log {
   color: #fff !important;
 }
 
+/* ==================== V27 STRICT CLICK & MODAL ISOLATION ==================== */
+.sheet:not(.open),
+.admin-console-modal:not(.open),
+.admin-auth-modal:not(.open),
+#admin-console-modal:not(.open),
+#admin-auth-modal:not(.open),
+#daily-lot-modal:not(.open),
+.daily-lot-modal:not(.open),
+#online-peers-modal:not(.open),
+.online-peers-modal:not(.open),
+#modal-backdrop:not(.show) {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Admin Auth Modal */
+.admin-auth-modal {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  bottom: auto !important;
+  right: auto !important;
+  transform: translate(-50%, -50%) scale(0.95) !important;
+  width: min(90vw, 380px) !important;
+  background: radial-gradient(circle at 50% 0%, rgba(42, 28, 18, 0.98) 0%, rgba(18, 12, 8, 0.98) 100%) !important;
+  border: 1.5px solid rgba(230, 175, 75, 0.55) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85) !important;
+  z-index: 110 !important;
+  padding: 24px 20px !important;
+  text-align: center !important;
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  transition: all 0.25s ease !important;
+}
+
+.admin-auth-modal.open {
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  transform: translate(-50%, -50%) scale(1) !important;
+}
+
 /* Admin Console Modal (Full Power) - LARGE LUXURIOUS DASHBOARD */
 .admin-console-modal {
-  display: block !important;
+  display: none !important;
   box-sizing: border-box !important;
   position: fixed !important;
   top: 50% !important;
@@ -1256,19 +1305,20 @@ html:not(.touch) .chat-log {
   bottom: auto !important;
   right: auto !important;
   transform: translate(-50%, -50%) scale(0.95) !important;
-  width: min(94vw, 860px) !important;
-  max-width: 860px !important;
-  height: min(88vh, 760px) !important;
-  max-height: min(88vh, 760px) !important;
+  width: min(95vw, 880px) !important;
+  max-width: 880px !important;
+  height: min(90vh, 760px) !important;
+  max-height: min(90vh, 760px) !important;
   background: radial-gradient(circle at 50% 0%, rgba(42, 28, 18, 0.99) 0%, rgba(16, 11, 7, 0.99) 100%) !important;
   border: 2px solid #ffd54f !important;
-  border-radius: 28px !important;
+  border-radius: 26px !important;
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95), 0 0 50px rgba(246, 185, 75, 0.4) !important;
   z-index: 125 !important;
   overflow-y: auto !important;
-  padding: 24px 26px 22px !important;
+  padding: 22px 24px 20px !important;
   opacity: 0 !important;
   pointer-events: none !important;
+  visibility: hidden !important;
   transition: all 0.28s ease !important;
 }
 
@@ -1276,6 +1326,7 @@ html:not(.touch) .chat-log {
   display: block !important;
   opacity: 1 !important;
   pointer-events: auto !important;
+  visibility: visible !important;
   transform: translate(-50%, -50%) scale(1) !important;
 }
 
