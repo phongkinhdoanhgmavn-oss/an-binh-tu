@@ -20,6 +20,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Lora:wght@500;600&display=swap" rel="stylesheet" />
+    
+    <script>
+      // 0. Triệt để hủy đăng ký Service Worker cũ và xóa sạch bộ nhớ đệm lỗi thời
+      (function() {
+        try {
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(regs) {
+              for (var i = 0; i < regs.length; i++) {
+                regs[i].unregister();
+              }
+            });
+          }
+          if ('caches' in window) {
+            caches.keys().then(function(keys) {
+              keys.forEach(function(k) {
+                if (k !== 'anbinhtu-v26') caches.delete(k);
+              });
+            });
+          }
+        } catch(e) {}
+      })();
+    </script>
+
     <script>
       window.AN_BINH_TU_WS = window.AN_BINH_TU_WS || (location.hostname.includes('vercel.app') ? 'wss://an-binh-tu.onrender.com/ws' : '');
 
@@ -41,7 +64,7 @@
           var txt = document.querySelector('.loading-text');
           var l = document.getElementById('loading');
           if (txt && l && !l.classList.contains('done')) {
-            txt.textContent = 'Đang nạp cảnh quan và tượng Phật 3D…';
+            txt.textContent = 'Đang nạp cảnh quan và tượng Phật 3D…'; var help = document.getElementById('loading-help'); if (help) help.style.display = 'flex';
           }
         }, 3500);
 
@@ -86,9 +109,9 @@
         }
       });
     </script>
-    <script type="module" crossorigin src="/assets/main-CQ_rl8lU.js?v=25"></script>
+    <script type="module" crossorigin src="/assets/app-v26-live.js?v=26"></script>
     <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="stylesheet" crossorigin href="/assets/main-qo3Sxe6b.css?v=25">
+    <link rel="stylesheet" crossorigin href="/assets/app-v26-live.css?v=26">
             <style id="action-bar-glow-style">
 
 /* =========================================================
@@ -1642,8 +1665,9 @@ html:not(.touch) .chat-log {
       <div class="loading-bar"><span></span></div>
       <div class="loading-quote"></div>
       <div id="loading-help" class="loading-help" style="display:none;">
-        <button type="button" onclick="location.reload(true)" class="loading-action-btn">🔄 Thử tải lại cổng chùa</button>
-        <button type="button" onclick="window.location.href='https://an-binh-tu.vercel.app'" class="loading-action-btn alt">🚀 Mở qua cổng Vercel</button>
+        <button type="button" id="btn-force-enter-chua" class="loading-action-btn" style="background:#f59e0b !important; color:#fff !important; font-weight:700 !important;">🚪 Vào Thẳng Chùa Ngay</button>
+        <button type="button" onclick="location.reload(true)" class="loading-action-btn alt">🔄 Tải lại trang</button>
+        <button type="button" onclick="window.location.href='https://an-binh-tu.vercel.app'" class="loading-action-btn alt">🚀 Mở qua Vercel</button>
       </div>
     </div>
     <script>

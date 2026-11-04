@@ -36,6 +36,13 @@ const server = http.createServer((req, res) => {
   const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   let pathname = decodeURIComponent(urlObj.pathname);
 
+  
+  if (pathname === '/ping' || pathname === '/healthz') {
+    res.writeHead(200, { 'Content-Type': 'text/plain', 'Cache-Control': 'no-cache' });
+    res.end('OK');
+    return;
+  }
+
   if (pathname === '/') {
     pathname = '/index.html';
   }
