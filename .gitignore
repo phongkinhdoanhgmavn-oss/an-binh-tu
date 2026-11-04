@@ -13,3 +13,5 @@ test_*.cjs
 take_screenshot.cjs
 *.png
 
+.vercel
+.env*
